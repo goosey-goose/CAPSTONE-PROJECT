@@ -12,7 +12,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     # COLUMNS I ADDED
-    group_id = db.Column(db.Integer, nullable=True, unique=True)
+    group_id = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=True, unique=True)
 
     @property
     def password(self):

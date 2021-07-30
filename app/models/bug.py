@@ -7,8 +7,8 @@ class Bug(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     # MY OWN COLUMNS
-    user_id = db.Column(db.Integer, nullable=True)
-    group_id = db.Column(db.Integer, nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
+    group_id = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=True)
     date_created = db.Column(db.Date, nullable=False)
     title = db.Column(db.String(50), nullable=False)
     content = db.Column(db.String(500), nullable=False)
