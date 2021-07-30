@@ -11,6 +11,9 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
+    # COLUMNS I ADDED
+    group_id = db.Column(db.Integer, nullable=True, unique=True)
+
     @property
     def password(self):
         return self.hashed_password
@@ -26,5 +29,6 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'group_id': self.group_id
         }
