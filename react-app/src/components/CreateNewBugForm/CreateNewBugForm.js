@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { createNewBug } from '../../store/bug';
 
 
 const CreateNewBugForm = () => {
   const [errors, setErrors] = useState([]);
   const [userId, setUserId] = useState(0);
   const [groupId, setGroupId] = useState(0);
-  const [dateCreated, setDateCreated] = useState('');
+  // const [dateCreated, setDateCreated] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [assignee, setAssignee] = useState('');
@@ -19,11 +20,12 @@ const CreateNewBugForm = () => {
   // CREATE NEW BUG BUTTON
   const onClickSubmit = async (e) => {
     e.preventDefault();
-    // const data = await dispatch(login(email, password));
-    // const data = await ;
-    // if (data) {
-    //   setErrors(data);
-    // }
+    let date = new Date();
+    let formattedDate = (date.toJSON()).split('T')[0];
+    const data = await dispatch(createNewBug(userId, groupId, formattedDate, title, content, assignee));
+    if (data) {
+      setErrors(data);
+    }
   };
 
 
@@ -43,6 +45,8 @@ const CreateNewBugForm = () => {
     setGroupId(e.target.value)
   }
 
+  console.log(typeof(user.id));
+  console.log("User ID: ", userId);
   console.log(groupId);
   console.log(title);
   console.log(content);
@@ -75,7 +79,13 @@ const CreateNewBugForm = () => {
 
 
 
-
+  useEffect(() => {
+    // let myUserId = user.id;
+    // let n = myUserId.toString()
+    // console.log(n);
+    // console.log("type of n: ", typeof(n));
+    setUserId(user.id)
+  }, [userId, user.id])
 
 
   return (
@@ -128,7 +138,7 @@ const CreateNewBugForm = () => {
           <option value='Tom Cruise'>Tom Cruise</option>
         </select>
       </div>
-
+      <button type='submit'>Create New Bug</button>
     </form>
   );
 };
