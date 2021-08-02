@@ -11,7 +11,7 @@ user_routes = Blueprint('users', __name__)
 
 @user_routes.route('/testing')
 def ebenTest():
-    print("#######################################################################################################################")
+    # print("#######################################################################################################################")
 
 
     ################################ TO CREATE A NEW USER
@@ -60,7 +60,7 @@ def ebenTest():
     # db.session.add(new_group)
     # db.session.commit()
 
-    return {"eben": "miranda"}
+    return {"eben": "user_routes"}
 
 
 

@@ -1,9 +1,24 @@
 
-import React from 'react';
+import React from 'react';     // {useEffect}
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 
 const NavBar = () => {
+
+  // EBEN: THIS FUNCTION WAS CREATED FOR TESTING PURPOSES; uncomment to use again.
+  // const testingEbenFunction = async () => {
+  //   const myResponse = await fetch("http://localhost:3000/api/bugs/create")
+  //   const myJSON = await myResponse.json()
+  // }
+
+  // EBEN: THIS USE EFFECT WAS CREATED FOR TESTING PURPOSES; uncomment to use again.
+  // useEffect(() => {
+  //   testingEbenFunction();
+  // }, [])
+
+
+
+
   return (
     <nav>
       <ul>
