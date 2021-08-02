@@ -1,7 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from app.models import User
-# EBEN DELETE MODEL IMPORTS BELOW; THEY WERE JUST FOR INITIAL TESTING PURPOSES
 # from flask import session
 from app.models import Group, Bug, db
 from app.forms import BugForm
@@ -13,32 +12,30 @@ bug_routes = Blueprint('bugs', __name__)
 
 
 # GET ALL BUGGS
+@bug_routes.route('/all')
+# @login_required
+def get_all_bugs():
+    bugs = Bug.query.all()
+    return {'bugs': [bug.to_dict() for bug in bugs]}
+
 
 
 
 # GET A SPECIFIC BUGG
 
 
+
+
+
+
 # CREATE A NEW BUGG
 @bug_routes.route('/create', methods=["POST"])
 # @login_required
-def ebenTesting():
-    print("####################################    BUGS POST ROUTE    ####################################################")
-
-    # new_bug = Bug(user_id=current_user.id, group_id=1, date_created='2000-08-12', title='Computer Broken', content='They say to turn it off and turn it on again', assignee='Ian', date_assigned='2000-08-13', date_resolved='2000-08-17')
-    # db.session.add(new_bug)
-    # db.session.commit()
+def create_new_bug():
 
     form = BugForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
-        print("hello from inside form validated ################################")
-        # print(form.data["user_id"])
-        # print(form.data["group_id"])
-        # print(form.data["title"])
-        # print(form.data["content"])
-        # print(form.data["assignee"])
-        # print(form.data)
         bug = Bug(
             user_id=form.data['user_id'],
             group_id=form.data['group_id'],
@@ -50,7 +47,6 @@ def ebenTesting():
         db.session.add(bug)
         db.session.commit()
         return bug.to_dict()
-        # return {'hello': 'there'}
     return {'errors': 'something went wrong when creating this new bug'}
 
 
@@ -59,17 +55,14 @@ def ebenTesting():
 
 
 
-
-
-
-    return {"eben": "bug_route"}
-    # return {"current_user": current_user.id}
-    # return queried_bug.to_dict()
-
-
-
-
 ################################ TO UPDATE A BUGG
+@bug_routes.route('/update/<int:id>', methods=["PUT"])
+# @login_required
+def update_bug(id):
+    queried_bug = Bug.query.get(id)
+    # print(id)
+    # return {"bug_id": id}
+    return {"hello": "there"}
     # queried_bug = Bug.query.get(2)
     # queried_bug.content = 'I hate saying that.'
     # db.session.commit()

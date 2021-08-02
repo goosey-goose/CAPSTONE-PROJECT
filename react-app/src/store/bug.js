@@ -1,22 +1,23 @@
 const SET_BUG = 'bug/SET_BUG';
 
+
 //  ACTIONS
 const setBug = (bug) => ({
   type: SET_BUG,
   payload: bug
 });
 
+
+
 //  THUNKS
 export const createNewBug = (user_id, group_id, date_created, title, content, assignee) => async (dispatch) => {
-  // console.log("HELLO FROM INSIDE BUG THUNK:");
-  // console.log("user_id: ", user_id);
   const response = await fetch('http://localhost:3000/api/bugs/create', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      user_id,   //  userId   or   "user_id": 1
+      user_id,   //  user_id   or   "user_id": 1
       group_id,
       date_created,
       title,
@@ -39,6 +40,11 @@ export const createNewBug = (user_id, group_id, date_created, title, content, as
   }
 }
 
+
+
+
+
+//  REDUCER
 const initialState = { bug: null }
 
 export default function reducer(state = initialState, action) {

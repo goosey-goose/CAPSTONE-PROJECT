@@ -47,6 +47,9 @@ function App() {
         <ProtectedRoute path='/bugs/new' exact={true}>
           <CreateNewBugForm />
         </ProtectedRoute>
+        <ProtectedRoute path='/bugs/edit' exact={true}>
+          <h1>UPDATE BUG COMPONENT</h1>
+        </ProtectedRoute>
       </Switch>
     </BrowserRouter>
   );
