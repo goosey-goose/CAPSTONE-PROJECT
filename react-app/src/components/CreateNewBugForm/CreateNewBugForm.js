@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 
 const CreateNewBugForm = () => {
   const [errors, setErrors] = useState([]);
-  const [userId, setUserId] = useState(null);
-  const [groupId, setGroupId] = useState(null);
-  const [dateCreated, setDateCreated] = useState(null);
-  const [title, setTitle] = useState(null);
-  const [content, setContent] = useState(null);
-  const [assignee, setAssignee] = useState(null);
+  const [userId, setUserId] = useState(0);
+  const [groupId, setGroupId] = useState(0);
+  const [dateCreated, setDateCreated] = useState('');
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [assignee, setAssignee] = useState('');
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
@@ -41,14 +41,15 @@ const CreateNewBugForm = () => {
 
   const updateGroupId = (e) => {
     setGroupId(e.target.value)
-    console.log(groupId);
   }
 
-
+  console.log(groupId);
+  console.log(title);
+  console.log(content);
+  console.log(assignee);
 
   const updateTitle = (e) => {
     setTitle(e.target.value);
-    console.log(title);
   };
 
 
@@ -56,7 +57,6 @@ const CreateNewBugForm = () => {
 
   const updateContent = (e) => {
     setContent(e.target.value);
-    console.log(content);
   };
 
 
@@ -64,7 +64,6 @@ const CreateNewBugForm = () => {
 
   const updateAssignee = (e) => {
     setAssignee(e.target.value);
-    console.log(assignee);
   };
 
 
@@ -73,6 +72,8 @@ const CreateNewBugForm = () => {
   if (user) {
     // return <Redirect to='/' />;
   }
+
+
 
 
 
@@ -89,16 +90,9 @@ const CreateNewBugForm = () => {
       <div>
         <label htmlFor='group'>Assign to a Group</label>
         <select value={groupId} name='group' onChange={updateGroupId}>
-          <option value=''>Please Select a Group to Assign To</option>
-          <option value='1'>Group 1</option>
+          <option>Please Select a Group to Assign To</option>
+          <option value={1}>Group 1</option>
         </select>
-        {/* <input
-          name='group'
-          type='text'
-          placeholder='Email'
-          value={email}
-          onChange={updateEmail}
-        /> */}
       </div>
 
 
@@ -130,8 +124,8 @@ const CreateNewBugForm = () => {
       <div>
         <label htmlFor='assignee'>Assignee</label>
         <select value={assignee} name='assignee' onChange={updateAssignee}>
-          <option value=''>Please Select a Group to Assign To</option>
-          <option value='1'>Group 1</option>
+          <option>Please Select Assignee</option>
+          <option value='Tom Cruise'>Tom Cruise</option>
         </select>
       </div>
 
