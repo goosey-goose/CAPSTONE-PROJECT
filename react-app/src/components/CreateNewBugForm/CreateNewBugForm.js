@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { createNewBug } from '../../store/bug';
 
 
-const CreateNewBugForm = () => {
+const CreateNewBugForm = ({ showFunc }) => {
   const [errors, setErrors] = useState([]);
   const [userId, setUserId] = useState(0);
   const [groupId, setGroupId] = useState(0);
@@ -25,6 +25,8 @@ const CreateNewBugForm = () => {
     const data = await dispatch(createNewBug(userId, groupId, formattedDate, title, content, assignee));
     if (data) {
       setErrors(data);
+    } else {
+      showFunc(false)
     }
   };
 

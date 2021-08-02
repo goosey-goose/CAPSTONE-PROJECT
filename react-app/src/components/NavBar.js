@@ -1,20 +1,10 @@
 
-import React from 'react';     // {useEffect}
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
+import CreateNewBugModal from './CreateNewBugModal'
 
 const NavBar = () => {
-
-  // EBEN: THIS FUNCTION WAS CREATED FOR TESTING PURPOSES; uncomment to use again.
-  // const testingEbenFunction = async () => {
-  //   const myResponse = await fetch("http://localhost:3000/api/bugs/create")
-  //   const myJSON = await myResponse.json()
-  // }
-
-  // EBEN: THIS USE EFFECT WAS CREATED FOR TESTING PURPOSES; uncomment to use again.
-  // useEffect(() => {
-  //   testingEbenFunction();
-  // }, [])
 
 
 
@@ -44,6 +34,9 @@ const NavBar = () => {
         </li>
         <li>
           <LogoutButton />
+        </li>
+        <li>
+          <CreateNewBugModal />
         </li>
       </ul>
     </nav>
