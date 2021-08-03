@@ -1,22 +1,22 @@
-#login_form_wrapper {
+#signup_form_wrapper {
   height: 51em;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-form#login_form_actual {
+form#signup_form_actual {
   position: relative;
   border: 1px solid #9e9e9e;
   height: 70%;
   width: 25%;
 }
 
-#login_form_errors {
+#signup_form_errors {
   position: absolute;
 }
 
-#login_form_logo {
+#signup_form_logo {
   display: flex;
   justify-content: center;
   color: #2196f3;
@@ -26,30 +26,37 @@ form#login_form_actual {
   margin-bottom: 1em;
 }
 
-#login_form_email_wrapper_div {
+#signup_form_username_wrapper_div {
   display: flex;
   align-items: flex-end;
   margin-top: 5em;
 }
 
-#login_form_password_wrapper_div {
-  display: flex;
-  align-items: flex-end;
-}
-
-#login_form_email_input {
-  margin-left: 85px;
+#signup_form_username_input {
+  margin-left: 21px;
   height: 23px;
   border: solid 1px #e0e0e0;
 }
 
-#login_form_password_input {
+#signup_form_email_input {
+  margin-left: 84px;
+  height: 23px;
+  border: solid 1px #e0e0e0;
+}
+
+#signup_form_password_input {
   margin-left: 37px;
   height: 23px;
   border: solid 1px #e0e0e0;
 }
 
-.login_form_label {
+#signup_form_repeat_password_input {
+  margin-left: 66px;
+  height: 23px;
+  border: solid 1px #e0e0e0;
+}
+
+.signup_form_label {
   padding-left: 3em;
   color: #9e9e9e;
   font-size: 25px;
@@ -59,13 +66,18 @@ hr {
   width: 68%;
 }
 
-.login_form_button_div {
+#signup_form_email_wrapper_div {
   display: flex;
-  justify-content: center;
-  padding-top: 8em;
+  align-items: flex-end;
 }
 
-.login_form_button_div button {
+.signup_form_button_div {
+  display: flex;
+  justify-content: center;
+  padding-top: 28px;
+}
+
+.signup_form_button_div button {
   height: 80px;
   width: 160px;
   border: none;
@@ -73,13 +85,13 @@ hr {
   cursor: pointer;
 }
 
-#login_form_question {
+#signup_form_question {
   font-size: 13px;
   padding-left: 2em;
   margin-top: 2em;
 }
 
-#login_form_link_to_signup {
+#signup_form_link_to_login {
   text-decoration: none;
   color: #9e9e9e;
 }
