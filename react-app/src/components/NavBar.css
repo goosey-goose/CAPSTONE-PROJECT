@@ -1,14 +1,20 @@
 #navbar_div {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  background-color: #1CC5DC;
+  /* background-color: #1CC5DC; */
+  background-color: #2196f3;
   font-size: 2rem;
   width: 100%;
   height: 8rem;
 }
 
-.main_nav_buttons {
+.main_nav_buttons_left, .main_nav_buttons_right {
   color: white;
+  text-decoration: none;
+}
+
+.main_nav_buttons_right {
+  padding-left: 1rem;
 }
 
 #navbar_div_right {
@@ -19,5 +25,13 @@
 }
 
 #navbar_div_left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: white;
+  margin-left: 2rem;
+}
 
+#navbar_right_buttons_wrapper {
+  margin-right: 2rem;
 }

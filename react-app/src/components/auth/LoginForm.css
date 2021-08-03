@@ -1,0 +1,83 @@
+#login_form_wrapper {
+  height: 51em;
+  /* border: 1px solid black; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+form {
+  border: 1px solid #9e9e9e;
+  height: 70%;
+  width: 25%;
+}
+
+#login_form_logo {
+  display: flex;
+  justify-content: center;
+  /* color: #1CC5DC; */
+  color: #2196f3;
+  font-weight: bold;
+  font-size: 5em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+#login_form_email_wrapper_div {
+  display: flex;
+  align-items: flex-end;
+  margin-top: 5em;
+}
+
+#login_form_password_wrapper_div {
+  display: flex;
+  align-items: flex-end;
+}
+
+#login_form_email_input {
+  margin-left: 85px;
+  height: 23px;
+  border: solid 1px #e0e0e0;
+}
+
+#login_form_password_input {
+  margin-left: 37px;
+  height: 23px;
+  border: solid 1px #e0e0e0;
+}
+
+.login_form_label {
+  padding-left: 3em;
+  color: #9e9e9e;
+  font-size: 25px;
+}
+
+hr {
+  width: 68%;
+  /* visibility: hidden; */
+}
+
+.login_form_button_div {
+  display: flex;
+  justify-content: center;
+  padding-top: 5em;
+}
+
+.login_form_button_div button {
+  height: 80px;
+  width: 160px;
+  border: none;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+#login_form_question {
+  font-size: 13px;
+  padding-left: 6em;
+  margin-top: 2em;
+}
+
+#login_form_link_to_signup {
+  text-decoration: none;
+  color: #9e9e9e;
+}
