@@ -2,8 +2,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
+import CreateNewBugModal from './CreateNewBugModal'
 
 const NavBar = () => {
+
+
+
+
   return (
     <nav>
       <ul>
@@ -29,6 +34,9 @@ const NavBar = () => {
         </li>
         <li>
           <LogoutButton />
+        </li>
+        <li>
+          <CreateNewBugModal />
         </li>
       </ul>
     </nav>

@@ -8,6 +8,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
+import CreateNewBugForm from './components/CreateNewBugForm/CreateNewBugForm';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -42,6 +43,12 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/' exact={true} >
           <h1>My Home Page</h1>
+        </ProtectedRoute>
+        <ProtectedRoute path='/bugs/new' exact={true}>
+          <CreateNewBugForm />
+        </ProtectedRoute>
+        <ProtectedRoute path='/bugs/edit' exact={true}>
+          <h1>UPDATE BUG COMPONENT</h1>
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
