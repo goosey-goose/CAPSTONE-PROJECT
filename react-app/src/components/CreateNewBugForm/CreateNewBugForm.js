@@ -12,6 +12,7 @@ const CreateNewBugForm = ({ showFunc }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [assignee, setAssignee] = useState('');
+  const [isButtonReady, setIsButtonReady] = useState(true)
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
@@ -82,12 +83,10 @@ const CreateNewBugForm = ({ showFunc }) => {
 
 
   useEffect(() => {
-    // let myUserId = user.id;
-    // let n = myUserId.toString()
-    // console.log(n);
-    // console.log("type of n: ", typeof(n));
     setUserId(user.id)
   }, [userId, user.id])
+
+
 
 
   return (
@@ -140,7 +139,7 @@ const CreateNewBugForm = ({ showFunc }) => {
           <option value='Tom Cruise'>Tom Cruise</option>
         </select>
       </div>
-      <button type='submit'>Create New Bug</button>
+      <button type='submit' disabled={!(title && content)}>Create New Bug</button>
     </form>
   );
 };
