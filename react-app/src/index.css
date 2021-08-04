@@ -1,7 +1,14 @@
 /* TODO Add site wide styles */
+html {
+  /* min-height: 100vh; */
+}
+
+#root {
+  height: 85vh;
+}
+
 body {
   font-family: sans-serif;
-  /* background-color: crimson; */
-  height: 100%;
-  overflow-y: hidden;
+  min-height: 100%;
+  /* overflow-y: hidden; */
 }
