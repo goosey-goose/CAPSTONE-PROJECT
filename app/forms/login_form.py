@@ -7,6 +7,8 @@ from app.models import User
 def user_exists(form, field):
     # Checking if user exists
     email = field.data
+    if '@' not in email:
+        raise ValidationError('Please provide a valid email address.')
     user = User.query.filter(User.email == email).first()
     if not user:
         raise ValidationError('Email provided not found.')

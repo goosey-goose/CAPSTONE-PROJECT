@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
+import SideNavBar from './components/SideNavBar/SideNavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
@@ -42,7 +43,8 @@ function App() {
           <User />
         </ProtectedRoute>
         <ProtectedRoute path='/' exact={true} >
-          <h1>My Home Page</h1>
+          <SideNavBar />
+          {/* <h1>My Home Page</h1> */}
         </ProtectedRoute>
         <ProtectedRoute path='/bugs/new' exact={true}>
           <CreateNewBugForm />
