@@ -36,11 +36,11 @@ const LoginForm = () => {
   return (
     <div id="login_form_wrapper">
       <form id="login_form_actual" onSubmit={onLogin}>
-      <div id="login_form_errors">
+      {/* <div id="login_form_errors">
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
         ))}
-      </div>
+      </div> */}
       <div id="login_form_logo">
         Log In
       </div>
@@ -52,6 +52,7 @@ const LoginForm = () => {
           type='text'
           placeholder=''
           value={email}
+          required={true}
           onChange={updateEmail}
         />
       </div>
@@ -64,6 +65,7 @@ const LoginForm = () => {
           type='password'
           placeholder=''
           value={password}
+          required={true}
           onChange={updatePassword}
         />
       </div>
@@ -72,11 +74,16 @@ const LoginForm = () => {
           <button type='submit'>Login</button>
         </div>
         <div id="login_form_question" className="login_form_label">
-          <Link id="login_form_link_to_signup" to='/sign-up' exact={true}>
+          <Link id="login_form_link_to_signup" to='/sign-up' exact="true">
             Don't have an account?
           </Link>
         </div>
       </form>
+      <div id="login_form_errors">
+        {errors.map((error, ind) => (
+          <div key={ind}>{error}</div>
+        ))}
+      </div>
     </div>
   );
 };
