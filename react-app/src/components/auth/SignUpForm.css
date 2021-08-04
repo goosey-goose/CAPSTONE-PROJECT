@@ -74,6 +74,12 @@ hr {
   color: red;
 }
 
+#signup_form_email_error {
+  position: absolute;
+  padding-left: 305px;
+  color: red;
+}
+
 #signup_form_email_wrapper_div {
   display: flex;
   align-items: flex-end;

@@ -11,6 +11,7 @@ const SignUpForm = () => {
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const [isVisible, setIsVisible] = useState(false);
+  const [isEmailVisible, setIsEmailVisible] = useState(false);
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
@@ -28,8 +29,19 @@ const SignUpForm = () => {
     setUsername(e.target.value);
   };
 
+  const checkIfValidEmail = () => {
+    const re = /[A-Za-z0-9_]+@[A-Za-z0-9_]+.com$/;
+
+    if (!email) {
+      setIsEmailVisible(false)
+    } else if (re.test(email)) {
+      setIsEmailVisible(false);
+    }
+  }
+
   const updateEmail = (e) => {
     setEmail(e.target.value);
+    setIsEmailVisible(true)
   };
 
   const updatePassword = (e) => {
@@ -47,6 +59,7 @@ const SignUpForm = () => {
   };
 
   useEffect(() => {
+    checkIfValidEmail();
     if (!password && !repeatPassword) {
       setIsVisible(false)
     }
@@ -123,6 +136,9 @@ const SignUpForm = () => {
         <hr></hr>
         {isVisible && <div id="signup_form_match_passwords">
           *Passwords must match
+        </div>}
+        {isEmailVisible && <div id="signup_form_email_error">
+          *Invalid email
         </div>}
         <div className="signup_form_button_div">
           <button type='submit'>Sign Up</button>
