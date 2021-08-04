@@ -27,7 +27,13 @@ const NavBar = () => {
             </NavLink>
           </div>
         </div>}
-          {user && <LogoutButton />}
+          {user && <div id="navbar_div_right">
+              <div id="navbar_right_buttons_wrapper">
+                <NavLink className="main_nav_buttons_right" to=''>
+                  <LogoutButton />
+                </NavLink>
+              </div>
+            </div>}
       </div>
     </nav>
   );
