@@ -36,7 +36,7 @@ const DisplayBugInfo = () => {
             {allBugs.map((bug, index) => (
 
               <div className="dbi_single_bug" key={index}>
-                {bug.title + ":"}
+                  {bug.title + ":"}
                 <br></br>
                 <div className="dbi_single_bug_content">{bug.content}</div>
                 <div className="dbi_status_indicator_parent">

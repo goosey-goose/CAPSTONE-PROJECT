@@ -60,17 +60,20 @@
   background-color: cornsilk;
   margin-bottom: 5px;
   margin-left: 5px;
+  padding-left: 5px;
+  padding-top: 5px;
 }
 
 .dbi_single_bug_content {
   font-weight: normal;
   padding-top: 3px;
+  /* padding-left: 4px; */
 }
 
 .dbi_status_indicator {
   width: 25px;
   height: 25px;
-  margin-left: 5px;
+  /* margin-left: 5px; */
   margin-bottom: 5px;
   border-radius: 50%;
   background-color: red;
