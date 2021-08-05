@@ -16,12 +16,22 @@ bug_routes = Blueprint('bugs', __name__)
 # @login_required
 def get_all_bugs():
     bugs = Bug.query.all()
-    return {'bugs': [bug.to_dict() for bug in bugs]}
+    # return {'bugs': [bug.to_dict() for bug in bugs]}
+    return { bug.id: bug.to_dict() for bug in bugs }
 
 
 
 
-# GET A SPECIFIC BUGG
+# GET A SINGLE BUGG
+@bug_routes.route('/bug/<int:id>')
+# @login_required
+def get_single_bug(id):
+    queried_bug = Bug.query.get(id)
+    # print(dir(queried_bug))
+    # print("################")
+    # print(queried_bug.id)
+
+    return queried_bug.to_dict()
 
 
 
@@ -46,7 +56,11 @@ def create_new_bug():
         )
         db.session.add(bug)
         db.session.commit()
-        return bug.to_dict()
+        # print("###################")
+        # print(bug)
+        # print(type((bug.id, bug.to_dict())))
+        # return bug.to_dict()
+        return {"dbpk_id": bug.id, "new_bug": bug.to_dict()}
     return {'errors': 'something went wrong when creating this new bug'}
 
 

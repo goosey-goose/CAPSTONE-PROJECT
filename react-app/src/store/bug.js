@@ -1,4 +1,5 @@
 const SET_BUG = 'bug/SET_BUG';
+const SET_ALL_BUGS = 'bugs/SET_ALL_BUGS'
 
 
 //  ACTIONS
@@ -6,6 +7,11 @@ const setBug = (bug) => ({
   type: SET_BUG,
   payload: bug
 });
+
+const setAllBugs = (allBugs) => ({
+  type: SET_ALL_BUGS,
+  payload: allBugs
+})
 
 
 
@@ -28,7 +34,28 @@ export const createNewBug = (user_id, group_id, date_created, title, content, as
 
   if (response.ok) {
     const data = await response.json();
+    console.log("##############");
+    console.log(data);
     dispatch(setBug(data))
+    return null
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors
+    }
+  } else {
+    return ['An error occurred. Please try again.']
+  }
+}
+
+
+
+export const retrieveAllBugs = () => async (dispatch) => {
+  const response = await fetch('http://localhost:3000/api/bugs/all');
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(setAllBugs(data))
     return null
   } else if (response.status < 500) {
     const data = await response.json();
@@ -45,12 +72,15 @@ export const createNewBug = (user_id, group_id, date_created, title, content, as
 
 
 //  REDUCER
-const initialState = { bug: null }
+const initialState = { newlyAddedBug: null, allBugs: null }
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_BUG:
-      return { bug: action.payload }
+      state.allBugs[action.payload["dbpk_id"]] = action.payload["new_bug"];
+      return { newlyAddedBug: action.payload, allBugs: { ...state.allBugs } }
+    case SET_ALL_BUGS:
+      return { ...state, allBugs: action.payload }
     default:
       return state;
   }
