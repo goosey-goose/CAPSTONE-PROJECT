@@ -27,6 +27,7 @@
 
 #dbi_new_bugs {
   grid-area: new;
+  /* overflow-y: auto; */
 }
 
 #dbi_in_progress {
@@ -42,12 +43,41 @@
   width: 100%;
   /* height: 300px; */
   height: auto;
+  padding-top: 10px;
+  /* padding-left: 5px; */
   background-color: coral;
+  overflow-y: auto;
+}
+
+.main_divs_titles {
+  padding-left: 10px;
 }
 
 .dbi_single_bug {
   width: 98%;
-  height: 25px;
+  height: 5rem;
+  font-weight: bold;
   background-color: cornsilk;
   margin-bottom: 5px;
+  margin-left: 5px;
+}
+
+.dbi_single_bug_content {
+  font-weight: normal;
+  padding-top: 3px;
+}
+
+.dbi_status_indicator {
+  width: 25px;
+  height: 25px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  border-radius: 50%;
+  background-color: red;
+}
+
+.dbi_status_indicator_parent {
+  height: 50%;
+  display: flex;
+  align-items: flex-end;
 }
