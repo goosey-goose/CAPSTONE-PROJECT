@@ -66,6 +66,7 @@ const SignUpForm = () => {
     let matchPasswordDiv;
     if (password || repeatPassword) {
       matchPasswordDiv = document.getElementById('signup_form_match_passwords');
+      if (!matchPasswordDiv) return null;
       if (password === repeatPassword) {
         matchPasswordDiv.style.color = 'green';
         matchPasswordDiv.innerText = 'Passwords match!'

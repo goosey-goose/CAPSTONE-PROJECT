@@ -1,25 +1,74 @@
-/* nav {
-  display: inline;
+#sidebar_nav {
   height: 100%;
-  width: 20px;
-  background-color: red;
-} */
-
-nav#sidebar_nav {
-  /* position: absolute; */
-  height: 99.2%;
-  width: 50%;
-  border-top: solid 8px white;
+  /* width: 70%; */
+  width: 8%;
+  /* border-top: solid 8px white; */
+  display: inline-block;
+  /* border: solid black 1px; */
 }
 
-#div_inside_navbar {
-  /* display: grid; */
-  /* grid-template-columns: 1fr 1fr; */
-  /* background-color: red; */
+#side_navbar_grid_container {
+  /* border-top: solid 8px white; */
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
   background-color: #2196f3;
-  /* border-top: solid 1px white; */
-  /* font-size: 2rem; */
-  width: 7%;
+  width: 100%;
   height: 100%;
-  /* height: 85vh; */
+}
+
+/* #side_navbar_new_bug_modal {
+  color: white;
+  grid-row: 2 / 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+#sidebar_nav_hover_button_div_bug {
+  grid-row: 5 / 6;
+  /* grid-column: 1 / 2; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+/* #side_navbar_new_group_modal {
+  color: white;
+  grid-row: 4 / 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+#sidebar_nav_hover_button_div_group {
+  grid-row: 6 / 7;
+  /* grid-column: 1 / 2; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  color: white;
+}
+
+.new_bug_button {
+  border: none;
+  background: none;
+  color: white;
+  font-size: 3rem;
+  cursor: pointer;
+}
+
+.new_group_button {
+  border: none;
+  background: none;
+  color: white;
+  font-size: 3rem;
+  cursor: pointer;
+}
+
+.side_navbar_letter_text {
+  font-size: 20px;
 }

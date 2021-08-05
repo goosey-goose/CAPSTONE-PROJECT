@@ -8,7 +8,7 @@ function CreateNewBugFormModal() {
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>Add Bug</button>
+      <button className="new_bug_button" onClick={() => setShowModal(true)}><i className="fas fa-bug"></i></button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <CreateNewBugForm showFunc={setShowModal} />

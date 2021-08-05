@@ -1,17 +1,41 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import CreateNewBugFormModal from '../CreateNewBugModal'
+import CreateNewGroupFormModal from '../CreateNewGroupModal';
 import './SideNavBar.css'
 
 const SideNavBar = () => {
   return (
 
-      <nav id="sidebar_nav">
-        <div id="div_inside_navbar">
-          {/* test */}
-        </div>
-      </nav>
+    <>
 
+
+      <div id="sidebar_nav">
+
+        <div id="side_navbar_grid_container">
+          <div id="sidebar_nav_hover_button_div_bug">
+              <div className="side_navbar_letter_text">
+                New Bug
+              </div>
+              <CreateNewBugFormModal />
+          </div>
+
+
+          <div id="sidebar_nav_hover_button_div_group">
+              <div className="side_navbar_letter_text">
+                New Group
+              </div>
+              <CreateNewGroupFormModal />
+          </div>
+        </div>
+
+
+      </div>
+
+
+
+    </>
   );
 }
 
