@@ -3,7 +3,7 @@
   display: inline-block;
   width: 92%;
   height: 100%;
-  background-color: brown;
+  /* background-color: brown; */
 }
 
 #dbi_grid_container {
@@ -11,10 +11,43 @@
   display: grid;
   width: 100%;
   height: 100%;
+  margin-left: 9px;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 5fr;
+  grid-gap: 10px;
+  grid-template-areas:
+    "welcome one two"
+    "new in_progress complete";
 }
 
-.dinosaur {
-  width: 10px;
+#dbi_welcome_label {
+  grid-area: welcome;
+  /* border-bottom: solid white 10px; */
+}
+
+#dbi_new_bugs {
+  grid-area: new;
+}
+
+#dbi_in_progress {
+  grid-area: in_progress;
+}
+
+#dbi_completed_bugs {
+  grid-area: complete;
+  width: 98%;
+}
+
+.main_divs {
+  width: 100%;
+  /* height: 300px; */
+  height: auto;
+  background-color: coral;
+}
+
+.dbi_single_bug {
+  width: 98%;
+  height: 25px;
+  background-color: cornsilk;
+  margin-bottom: 5px;
 }
