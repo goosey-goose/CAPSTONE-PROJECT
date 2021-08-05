@@ -8,17 +8,34 @@ import './SideNavBar.css'
 const SideNavBar = () => {
   return (
 
-      <nav id="sidebar_nav">
+    <>
+
+
+      <div id="sidebar_nav">
+
         <div id="side_navbar_grid_container">
-          <div id="side_navbar_new_bug_modal">
-            <CreateNewBugFormModal />
+          <div id="sidebar_nav_hover_button_div_bug">
+              <div className="side_navbar_letter_text">
+                New Bug
+              </div>
+              <CreateNewBugFormModal />
           </div>
-          <div id="side_navbar_new_group_modal">
-            <CreateNewGroupFormModal />
+
+
+          <div id="sidebar_nav_hover_button_div_group">
+              <div className="side_navbar_letter_text">
+                New Group
+              </div>
+              <CreateNewGroupFormModal />
           </div>
         </div>
-      </nav>
 
+
+      </div>
+
+
+
+    </>
   );
 }
 
