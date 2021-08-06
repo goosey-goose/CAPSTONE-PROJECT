@@ -84,6 +84,10 @@ def update_bug(id):
 
 
 ################################ TO DELETE A BUGG
-    # queried_bug = Bug.query.get(2)
-    # db.session.delete(queried_bug)
-    # db.session.commit()
+@bug_routes.route('/delete/<int:id>', methods=["DELETE"])
+# @login_required
+def delete_bug(id):
+    queried_bug = Bug.query.get(id)
+    db.session.delete(queried_bug)
+    db.session.commit()
+    return { "id": id }

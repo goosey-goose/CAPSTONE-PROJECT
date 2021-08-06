@@ -1,5 +1,6 @@
 const SET_BUG = 'bug/SET_BUG';
-const SET_ALL_BUGS = 'bugs/SET_ALL_BUGS'
+const SET_ALL_BUGS = 'bugs/SET_ALL_BUGS';
+const DELETE_BUG = 'bugs/DELETE_BUG';
 
 
 //  ACTIONS
@@ -11,6 +12,11 @@ const setBug = (bug) => ({
 const setAllBugs = (allBugs) => ({
   type: SET_ALL_BUGS,
   payload: allBugs
+})
+
+const removeBug = (bugId) => ({
+  type: DELETE_BUG,
+  payload: bugId
 })
 
 
@@ -70,6 +76,27 @@ export const retrieveAllBugs = () => async (dispatch) => {
 
 
 
+export const deleteBug = (dbpk_id) => async (dispatch) => {
+  const response = await fetch(`http://localhost:3000/api/bugs/delete/${dbpk_id}`);
+
+  if (response.ok) {
+    const data = await response.json();
+    // console.log(data.id);
+    dispatch(removeBug(data))
+    return null
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors
+    }
+  } else {
+    return ['An error occurred. Please try again.']
+  }
+}
+
+
+
+
 
 //  REDUCER
 const initialState = { newlyAddedBug: null, allBugs: null }
@@ -81,6 +108,10 @@ export default function reducer(state = initialState, action) {
       return { newlyAddedBug: action.payload, allBugs: { ...state.allBugs } }
     case SET_ALL_BUGS:
       return { ...state, allBugs: action.payload }
+    case DELETE_BUG:
+      let newState = {...state}
+      delete newState[action.payload]
+      return newState
     default:
       return state;
   }
