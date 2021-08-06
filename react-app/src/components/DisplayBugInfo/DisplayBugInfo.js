@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { retrieveAllBugs } from '../../store/allBugs'
 import { Modal } from '../../context/Modal';
-import CreateNewBugForm from '../CreateNewBugForm/CreateNewBugForm';
-import { retrieveAllBugs } from '../../store/bug'
+// import CreateNewBugForm from '../CreateNewBugForm/CreateNewBugForm';
+import UpdateBugForm from '../UpdateBugForm/UpdateBugForm';
+import { retrieveAllBugs, setTheSelectedBugId } from '../../store/bug'
 import './DisplayBugInfo.css'
 
 const DisplayBugInfo = () => {
@@ -27,6 +28,7 @@ const DisplayBugInfo = () => {
         pos = pos + 1;
         item.addEventListener('click', (event) => {
           let divId = (event.currentTarget).getAttribute('id');
+          dispatch(setTheSelectedBugId(divId));
           setShowModal(true);
         })
       })
@@ -88,7 +90,7 @@ const DisplayBugInfo = () => {
       </div>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <CreateNewBugForm showFunc={setShowModal} />
+          <UpdateBugForm showFunc={setShowModal} />
         </Modal>
       )}
     </div>

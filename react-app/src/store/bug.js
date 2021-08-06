@@ -1,6 +1,7 @@
 const SET_BUG = 'bug/SET_BUG';
 const SET_ALL_BUGS = 'bugs/SET_ALL_BUGS';
 const DELETE_BUG = 'bugs/DELETE_BUG';
+const SELECTED_BUG = 'bugs/SELECTED_BUG';
 
 
 //  ACTIONS
@@ -12,12 +13,17 @@ const setBug = (bug) => ({
 const setAllBugs = (allBugs) => ({
   type: SET_ALL_BUGS,
   payload: allBugs
-})
+});
 
 const removeBug = (bugId) => ({
   type: DELETE_BUG,
   payload: bugId
-})
+});
+
+const setSelectedBugId = (bugDivId) => ({
+  type: SELECTED_BUG,
+  payload: bugDivId
+});
 
 
 
@@ -97,9 +103,16 @@ export const deleteBug = (dbpk_id) => async (dispatch) => {
 
 
 
+export const setTheSelectedBugId = (bugDivId) => async (dispatch) => {
+  dispatch(setSelectedBugId(bugDivId));
+}
+
+
+
+
 
 //  REDUCER
-const initialState = { newlyAddedBug: null, allBugs: null }
+const initialState = { selectedBugId: null, newlyAddedBug: null, allBugs: null }
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -112,6 +125,8 @@ export default function reducer(state = initialState, action) {
       let newState = {...state}
       delete newState[action.payload]
       return newState
+    case SELECTED_BUG:
+      return { ...state, selectedBugId: action.payload }
     default:
       return state;
   }

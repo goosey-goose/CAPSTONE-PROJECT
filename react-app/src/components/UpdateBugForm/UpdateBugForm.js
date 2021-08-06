@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import { createNewBug } from '../../store/bug';///////////////////////////////////////  EBEN: IMPORT THUNK FROM STORE IN ORDER TO UPDATE BUG
+import { deleteBug } from '../../store/bug';
 
 
-const UpdateBugForm = () => {
+const UpdateBugForm = ({ showFunc }) => {
   const [errors, setErrors] = useState([]);
-  const [userId, setUserId] = useState(0);
+  // const [userId, setUserId] = useState(0);
   const [groupId, setGroupId] = useState(0);
-  // const [dateResolved, setDateResolved] = useState('');
+  const [dateResolved, setDateResolved] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [assignee, setAssignee] = useState('');
@@ -20,11 +21,21 @@ const UpdateBugForm = () => {
   // UPDATE BUG IN BACKEND BUTTON
   const onClickSubmit = async (e) => {
     e.preventDefault();
-    const data = await dispatch(createNewBug(userId, groupId, formattedDate, title, content, assignee)); /////////  updateBug thunk goes here....
+    const data = await dispatch(createNewBug(groupId, dateResolved, title, content, assignee)); /////////  updateBug thunk goes here....
     if (data) {
       setErrors(data);
     }
   };
+
+
+
+  const deleteTheBug = async (e) => {
+    e.preventDefault();
+    const data = await dispatch(deleteBug());
+    if (data) {
+      setErrors(data);
+    }
+  }
 
 
 
@@ -33,8 +44,6 @@ const UpdateBugForm = () => {
     setGroupId(e.target.value)
   }
 
-  console.log(typeof(user.id));
-  console.log("User ID: ", userId);
   console.log(groupId);
   console.log(title);
   console.log(content);
@@ -68,12 +77,8 @@ const UpdateBugForm = () => {
 
 
   useEffect(() => {
-    // let myUserId = user.id;
-    // let n = myUserId.toString()
-    // console.log(n);
-    // console.log("type of n: ", typeof(n));
-    setUserId(user.id)
-  }, [userId, user.id])
+
+  }, [])
 
 
   return (
@@ -127,6 +132,7 @@ const UpdateBugForm = () => {
         </select>
       </div>
       <button type='submit'>Create New Bug</button>
+      <button onClick={deleteTheBug}>DELETE BUG</button>
     </form>
   );
 };

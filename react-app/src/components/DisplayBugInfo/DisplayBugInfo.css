@@ -62,6 +62,7 @@
   margin-left: 5px;
   padding-left: 5px;
   padding-top: 5px;
+  /* overflow-y: hidden; */
 }
 
 .dbi_single_bug:hover {
@@ -70,9 +71,11 @@
 }
 
 .dbi_single_bug_content {
+  max-height: 18px;
   font-weight: normal;
   padding-top: 3px;
-  /* padding-left: 4px; */
+  overflow-wrap: break-word;
+  overflow-y: hidden;
 }
 
 .dbi_status_indicator {
