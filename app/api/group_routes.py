@@ -40,5 +40,6 @@ def create_new_group():
         # print(group)
         # print(type((group.id, group.to_dict())))
         # return group.to_dict()
+        # print({"dbpk_id": group.id, "new_group": group.to_dict()})
         return {"dbpk_id": group.id, "new_group": group.to_dict()}
     return {'errors': 'something went wrong when creating this new group'}

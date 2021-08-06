@@ -5,7 +5,7 @@ import { Modal } from '../../context/Modal';
 // import CreateNewBugForm from '../CreateNewBugForm/CreateNewBugForm';
 import UpdateBugForm from '../UpdateBugForm/UpdateBugForm';
 import { retrieveAllBugs, setTheSelectedBugId } from '../../store/bug'
-import { retrieveAllGroups } from '../../store/group';
+import { retrieveAllGroups, resetAllGroupItems } from '../../store/group';
 import './DisplayBugInfo.css'
 
 const DisplayBugInfo = () => {
@@ -38,7 +38,11 @@ const DisplayBugInfo = () => {
         })
       })
     }
-  }, [dispatch, allBugs])
+
+    return () => {
+      dispatch(resetAllGroupItems());
+    }
+  }, [dispatch])
 
 
 
