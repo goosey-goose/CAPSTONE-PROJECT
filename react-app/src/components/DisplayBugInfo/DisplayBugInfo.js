@@ -5,12 +5,14 @@ import { Modal } from '../../context/Modal';
 // import CreateNewBugForm from '../CreateNewBugForm/CreateNewBugForm';
 import UpdateBugForm from '../UpdateBugForm/UpdateBugForm';
 import { retrieveAllBugs, setTheSelectedBugId } from '../../store/bug'
+import { retrieveAllGroups } from '../../store/group';
 import './DisplayBugInfo.css'
 
 const DisplayBugInfo = () => {
   const [showModal, setShowModal] = useState(false);
   const user = useSelector(state => state.session.user);
   let allBugs = useSelector(state => state.bug.allBugs);
+  let allGroups = useSelector(state => state.group.allGroups);
   const dispatch = useDispatch();
 
 
@@ -18,6 +20,9 @@ const DisplayBugInfo = () => {
   useEffect(() => {
     if (!allBugs) {
       dispatch(retrieveAllBugs());
+    }
+    if (!allGroups) {
+      dispatch(retrieveAllGroups());
     }
     if (allBugs) {
       let newBugs = document.querySelectorAll('.dbi_single_bug');

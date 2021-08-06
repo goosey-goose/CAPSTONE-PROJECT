@@ -29,6 +29,10 @@ const setSelectedBugId = (bugDivId) => ({
 
 //  THUNKS
 export const createNewBug = (user_id, group_id, date_created, title, content, assignee) => async (dispatch) => {
+  if (group_id === 0) {
+    console.log("INSIDE THUNK IF STATEMENT ####################");
+    group_id = 1;
+  }
   const response = await fetch('/api/bugs/create', {
     method: 'POST',
     headers: {
