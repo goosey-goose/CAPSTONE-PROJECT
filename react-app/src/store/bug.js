@@ -1,5 +1,6 @@
 const SET_BUG = 'bug/SET_BUG';
 const SET_ALL_BUGS = 'bugs/SET_ALL_BUGS';
+const UPDATE_BUG = 'bugs/UPDATE_BUG';
 const DELETE_BUG = 'bugs/DELETE_BUG';
 const SELECTED_BUG = 'bugs/SELECTED_BUG';
 
@@ -13,6 +14,11 @@ const setBug = (bug) => ({
 const setAllBugs = (allBugs) => ({
   type: SET_ALL_BUGS,
   payload: allBugs
+});
+
+const setBugUpdate = (bug) => ({
+  type: UPDATE_BUG,
+  payload: bug
 });
 
 const removeBug = (bugId) => ({
@@ -115,6 +121,45 @@ export const setTheSelectedBugId = (bugDivId) => async (dispatch) => {
 
 
 
+
+export const setTheBugUpdate = (group_id, title, content, assignee, bug_id) => async (dispatch) => {
+  console.log("##############  OUTER UPDATE BUG THUNK  #########################");
+  const response = await fetch(`/api/bugs/update/${bug_id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      group_id,
+      title,
+      content,
+      assignee
+    }),
+  });
+
+  if (response.ok) {
+    console.log("#############  INNER UPDATE BUG THUNK  #################");
+    const data = await response.json();
+    console.log(data);
+    // dispatch(setBugUpdate(data))
+    return null
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors
+    }
+  } else {
+    return ['An error occurred. Please try again.']
+  }
+}
+
+
+
+
+
+
+
+
 //  REDUCER
 const initialState = { selectedBugId: null, newlyAddedBug: null, allBugs: null }
 
@@ -125,6 +170,8 @@ export default function reducer(state = initialState, action) {
       return { newlyAddedBug: action.payload, allBugs: { ...state.allBugs } }
     case SET_ALL_BUGS:
       return { ...state, allBugs: action.payload }
+    // case UPDATE_BUG:
+    //   return
     case DELETE_BUG:
       let newState = {...state}
       delete newState[action.payload]

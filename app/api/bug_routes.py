@@ -70,16 +70,37 @@ def create_new_bug():
 
 
 ################################ TO UPDATE A BUGG
-@bug_routes.route('/update/<int:id>', methods=["PUT"])
+@bug_routes.route('/update/<int:id>', methods=["PATCH"])
 # @login_required
 def update_bug(id):
+    print("############ API FOR UPDATE BUG ################")
     queried_bug = Bug.query.get(id)
-    # print(id)
-    # return {"bug_id": id}
-    return {"hello": "there"}
+
+    form = BugForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    if form.validate_on_submit():
+        if form.data["group_id"] != queried_bug.group_id:
+            queried_bug.id = form.data["group_id"]
+        if form.data["title"] != queried_bug.title:
+            queried_bug.title = form.data["title"]
+        if form.data["content"] != queried_bug.content:
+            queried_bug.content = form.data["content"]
+        if form.data["assignee"] != queried_bug.assignee:
+            queried_bug.assignee = form.data["assignee"]
+
+        db.session.commit()
+
+        return {"update": "complete"}
+    return {'errors': 'something went wrong when updating this bug bug'}
     # queried_bug = Bug.query.get(2)
     # queried_bug.content = 'I hate saying that.'
     # db.session.commit()
+
+
+
+
+
+
 
 
 

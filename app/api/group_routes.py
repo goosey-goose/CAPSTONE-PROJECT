@@ -26,7 +26,7 @@ def get_all_groups():
 @group_routes.route('/create', methods=["POST"])
 # @login_required
 def create_new_group():
-    print("###########  JUST OUTSIDE GROUP ROUTES FORM VALIDATION  ########")
+    # print("###########  JUST OUTSIDE GROUP ROUTES FORM VALIDATION  ########")
     form = GroupForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
@@ -35,7 +35,7 @@ def create_new_group():
         )
         db.session.add(group)
         db.session.commit()
-        print("########  INSIDE GROUP ROUTES FORM VALIDATION #############")
+        # print("########  INSIDE GROUP ROUTES FORM VALIDATION #############")
         # print("###################")
         # print(group)
         # print(type((group.id, group.to_dict())))
@@ -43,3 +43,38 @@ def create_new_group():
         # print({"dbpk_id": group.id, "new_group": group.to_dict()})
         return {"dbpk_id": group.id, "new_group": group.to_dict()}
     return {'errors': 'something went wrong when creating this new group'}
+
+
+
+
+
+
+
+# UPDATE A GROUP
+@group_routes.route('/update/<int:id>', methods=["PATCH"])
+# @login_required
+def update_group(id):
+    queried_group = Group.query.get(id)
+    form = GroupForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    if form.validate_on_submit():
+        print("##########  INSIDE VALID UPDATE  #########")
+        print(form.data)
+
+
+
+
+
+
+
+
+
+
+# DELETE A GROUP
+@group_routes.route('/delete/<int:id>', methods=["DELETE"])
+# @login_required
+def delete_group(id):
+    queried_group = Group.query.get(id)
+    db.session.delete(queried_group)
+    db.session.commit()
+    return { "id_of_group_deleted": id }
