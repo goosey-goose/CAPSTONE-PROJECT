@@ -29,7 +29,7 @@ const setSelectedBugId = (bugDivId) => ({
 
 //  THUNKS
 export const createNewBug = (user_id, group_id, date_created, title, content, assignee) => async (dispatch) => {
-  const response = await fetch('http://localhost:3000/api/bugs/create', {
+  const response = await fetch('/api/bugs/create', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ export const createNewBug = (user_id, group_id, date_created, title, content, as
 
 
 export const retrieveAllBugs = () => async (dispatch) => {
-  const response = await fetch('http://localhost:3000/api/bugs/all');
+  const response = await fetch('/api/bugs/all');
 
   if (response.ok) {
     const data = await response.json();
@@ -83,7 +83,7 @@ export const retrieveAllBugs = () => async (dispatch) => {
 
 
 export const deleteBug = (dbpk_id) => async (dispatch) => {
-  const response = await fetch(`http://localhost:3000/api/bugs/delete/${dbpk_id}`);
+  const response = await fetch(`/api/bugs/delete/${dbpk_id}`);
 
   if (response.ok) {
     const data = await response.json();
