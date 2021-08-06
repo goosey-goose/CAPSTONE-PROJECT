@@ -1,21 +1,39 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { retrieveAllBugs } from '../../store/allBugs'
+import { Modal } from '../../context/Modal';
+import CreateNewBugForm from '../CreateNewBugForm/CreateNewBugForm';
 import { retrieveAllBugs } from '../../store/bug'
 import './DisplayBugInfo.css'
 
 const DisplayBugInfo = () => {
+  const [showModal, setShowModal] = useState(false);
   const user = useSelector(state => state.session.user);
   let allBugs = useSelector(state => state.bug.allBugs);
   const dispatch = useDispatch();
 
-  // console.log(allBugs['2']);
+
 
   useEffect(() => {
     if (!allBugs) {
       dispatch(retrieveAllBugs());
     }
-  }, [dispatch])
+    if (allBugs) {
+      let newBugs = document.querySelectorAll('.dbi_single_bug');
+      let bugObjectKeys = Object.keys(allBugs);
+      let pos = 0;
+      newBugs.forEach((item) => {
+        item.setAttribute("id", `${bugObjectKeys[pos]}`)
+        pos = pos + 1;
+        item.addEventListener('click', (event) => {
+          let divId = (event.currentTarget).getAttribute('id');
+          setShowModal(true);
+        })
+      })
+    }
+  }, [dispatch, allBugs])
+
+
 
   return (
     <div id="dbi_top_div">
@@ -68,6 +86,11 @@ const DisplayBugInfo = () => {
 
 
       </div>
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)}>
+          <CreateNewBugForm showFunc={setShowModal} />
+        </Modal>
+      )}
     </div>
   );
 }

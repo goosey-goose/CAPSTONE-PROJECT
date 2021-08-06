@@ -64,6 +64,11 @@
   padding-top: 5px;
 }
 
+.dbi_single_bug:hover {
+  background-color: darkgray;
+  cursor: pointer;
+}
+
 .dbi_single_bug_content {
   font-weight: normal;
   padding-top: 3px;
