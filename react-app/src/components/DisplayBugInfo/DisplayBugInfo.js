@@ -32,6 +32,7 @@ const DisplayBugInfo = () => {
     if (allBugs) {
       let newBugs = document.querySelectorAll('.dbi_single_bug');
       let bugObjectKeys = Object.keys(allBugs);
+      bugObjectKeys = bugObjectKeys.reverse();
       let pos = 0;
       newBugs.forEach((item) => {
         item.setAttribute("id", `${bugObjectKeys[pos]}`)

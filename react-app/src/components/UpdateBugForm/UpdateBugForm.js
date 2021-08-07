@@ -19,14 +19,15 @@ const UpdateBugForm = ({ showFunc }) => {
   const dispatch = useDispatch();
 
 
-  console.log("#######################################");
+  console.log("############# SELECTED BUG ID ################");
+  console.log(selectedBugId);
   console.log(allBugs[selectedBugId]);
 
 
   // UPDATE BUG IN BACKEND BUTTON
   const onClickSubmit = async (e) => {
     e.preventDefault();
-    console.log("################  UPDATE BUG BUTTON  ##############");
+    // console.log("################  UPDATE BUG BUTTON  ##############");
     const data = await dispatch(setTheBugUpdate(groupId, title, content, assignee, selectedBugId));
     if (data) {
       setErrors(data);
@@ -39,9 +40,13 @@ const UpdateBugForm = ({ showFunc }) => {
 
   const deleteTheBug = async (e) => {
     e.preventDefault();
-    const data = await dispatch(deleteBug());
+    console.log("########  DELETE BUG BUTTON  ############");
+    console.log(selectedBugId);
+    const data = await dispatch(deleteBug(selectedBugId));
     if (data) {
       setErrors(data);
+    } else {
+      showFunc(false)
     }
   }
 

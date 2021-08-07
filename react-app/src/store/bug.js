@@ -36,7 +36,7 @@ const setSelectedBugId = (bugDivId) => ({
 //  THUNKS
 export const createNewBug = (user_id, group_id, date_created, title, content, assignee) => async (dispatch) => {
   if (group_id === 0) {
-    console.log("INSIDE THUNK IF STATEMENT ####################");
+    // console.log("INSIDE THUNK IF STATEMENT ####################");
     group_id = 1;
   }
   const response = await fetch('/api/bugs/create', {
@@ -56,8 +56,8 @@ export const createNewBug = (user_id, group_id, date_created, title, content, as
 
   if (response.ok) {
     const data = await response.json();
-    console.log("##############");
-    console.log(data);
+    // console.log("##############");
+    // console.log(data);
     dispatch(setBug(data))
     return null
   } else if (response.status < 500) {
@@ -93,9 +93,14 @@ export const retrieveAllBugs = () => async (dispatch) => {
 
 
 export const deleteBug = (dbpk_id) => async (dispatch) => {
-  const response = await fetch(`/api/bugs/delete/${dbpk_id}`);
+  // console.log("##########  DELETE BUG THUNK  ##############");
+  const response = await fetch(`/api/bugs/delete/${dbpk_id}`, {
+    method: 'DELETE'
+  });
+  // console.log("#############  AFTER THUNK FETCH  ###############");
 
   if (response.ok) {
+    // console.log("###########  AFTER RESPONSE.OK  ##################");
     const data = await response.json();
     // console.log(data.id);
     dispatch(removeBug(data))
@@ -123,7 +128,7 @@ export const setTheSelectedBugId = (bugDivId) => async (dispatch) => {
 
 
 export const setTheBugUpdate = (group_id, title, content, assignee, bug_id) => async (dispatch) => {
-  console.log("##############  OUTER UPDATE BUG THUNK  #########################");
+  // console.log("##############  OUTER UPDATE BUG THUNK  #########################");
   const response = await fetch(`/api/bugs/update/${bug_id}`, {
     method: 'PATCH',
     headers: {
@@ -138,7 +143,7 @@ export const setTheBugUpdate = (group_id, title, content, assignee, bug_id) => a
   });
 
   if (response.ok) {
-    console.log("#############  INNER UPDATE BUG THUNK  #################");
+    // console.log("#############  INNER UPDATE BUG THUNK  #################");
     const data = await response.json();
     console.log(data);
     dispatch(setBugUpdate(data))
