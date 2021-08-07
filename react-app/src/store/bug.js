@@ -184,10 +184,21 @@ export default function reducer(state = initialState, action) {
           [action.payload["dbpk_id"]]: action.payload["updated_bug"]
         }
       }
+
+
+
     case DELETE_BUG:
+      console.log("###############  INSIDE DELETE BUG:  REDUCER  ################");
+      console.log(action.payload)
       newState = {...state}
-      delete newState[action.payload]
+      // console.log(newState);
+      delete newState.allBugs[action.payload["id"]]
+      console.log(newState);
       return newState
+
+
+
+
     case SELECTED_BUG:
       return { ...state, selectedBugId: action.payload }
     default:
