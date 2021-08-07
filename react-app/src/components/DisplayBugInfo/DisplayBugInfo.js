@@ -15,6 +15,11 @@ const DisplayBugInfo = () => {
   let allGroups = useSelector(state => state.group.allGroups);
   const dispatch = useDispatch();
 
+  let allBugsReversed;
+  if (allBugs) {
+    let temp = Object.values(allBugs)
+    allBugsReversed = temp.reverse()
+  }
 
 
   useEffect(() => {
@@ -63,7 +68,7 @@ const DisplayBugInfo = () => {
           <br></br>
 
           {allBugs && <div id="dbi_new_bugs_list">
-            {Object.values(allBugs).map((bug, index) => (
+            {allBugsReversed.map((bug, index) => (
 
               <div className="dbi_single_bug" key={index}>
                   {bug.title + ":"}

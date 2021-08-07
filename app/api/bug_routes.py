@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
+from sqlalchemy import desc, asc
 from app.models import User
 # from flask import session
 from app.models import Group, Bug, db
@@ -16,6 +17,10 @@ bug_routes = Blueprint('bugs', __name__)
 # @login_required
 def get_all_bugs():
     bugs = Bug.query.all()
+    # bugs = Bug.query.order_by(desc(Bug.id)).all()
+    # bugs = Bug.query.order_by(desc(Bug.id)).all()
+    # bugs = db.session.query(Bug).order_by(Bug.pk.desc())
+    # print(dir(Bug.query))
     # return {'bugs': [bug.to_dict() for bug in bugs]}
     return { bug.id: bug.to_dict() for bug in bugs }
 
