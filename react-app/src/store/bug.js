@@ -190,7 +190,7 @@ export default function reducer(state = initialState, action) {
     case DELETE_BUG:
       console.log("###############  INSIDE DELETE BUG:  REDUCER  ################");
       console.log(action.payload)
-      newState = {...state}
+      newState = {...state, selectedBugId: null}
       // console.log(newState);
       delete newState.allBugs[action.payload["id"]]
       console.log(newState);

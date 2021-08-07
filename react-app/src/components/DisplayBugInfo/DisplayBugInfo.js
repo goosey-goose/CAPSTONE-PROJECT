@@ -10,6 +10,7 @@ import './DisplayBugInfo.css'
 
 const DisplayBugInfo = () => {
   const [showModal, setShowModal] = useState(false);
+  const [wasUpdated, setWasUpdated] = useState(null);
   const user = useSelector(state => state.session.user);
   let allBugs = useSelector(state => state.bug.allBugs);
   let allGroups = useSelector(state => state.group.allGroups);
@@ -48,7 +49,7 @@ const DisplayBugInfo = () => {
     return () => {
       dispatch(resetAllGroupItems());
     }
-  }, [dispatch])
+  }, [dispatch, wasUpdated])
 
 
 
@@ -105,7 +106,7 @@ const DisplayBugInfo = () => {
       </div>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <UpdateBugForm showFunc={setShowModal} />
+          <UpdateBugForm showFunc={setShowModal} triggerUpdate={setWasUpdated} />
         </Modal>
       )}
     </div>

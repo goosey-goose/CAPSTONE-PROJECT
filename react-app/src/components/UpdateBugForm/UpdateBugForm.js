@@ -5,16 +5,16 @@ import { createNewBug } from '../../store/bug';/////////////////////////////////
 import { deleteBug, setTheBugUpdate } from '../../store/bug';
 
 
-const UpdateBugForm = ({ showFunc }) => {
+const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
   const [errors, setErrors] = useState([]);
   // const [userId, setUserId] = useState(0);
   const allBugs = useSelector(state => state.bug.allBugs);
   const selectedBugId = useSelector(state => state.bug.selectedBugId);
-  const [groupId, setGroupId] = useState(allBugs[selectedBugId]["group_id"]);
+  const [groupId, setGroupId] = useState(allBugs[selectedBugId] ? allBugs[selectedBugId]["group_id"] : '');
   const [dateResolved, setDateResolved] = useState('');
-  const [title, setTitle] = useState(allBugs[selectedBugId]["title"]);
-  const [content, setContent] = useState(allBugs[selectedBugId]["content"]);
-  const [assignee, setAssignee] = useState(allBugs[selectedBugId]["assignee"]);
+  const [title, setTitle] = useState(allBugs[selectedBugId] ? allBugs[selectedBugId]["title"] : '');
+  const [content, setContent] = useState(allBugs[selectedBugId] ? allBugs[selectedBugId]["content"] : '');
+  const [assignee, setAssignee] = useState(allBugs[selectedBugId] ? allBugs[selectedBugId]["assignee"] : '');
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
@@ -42,10 +42,14 @@ const UpdateBugForm = ({ showFunc }) => {
     e.preventDefault();
     console.log("########  DELETE BUG BUTTON  ############");
     console.log(selectedBugId);
+    // console.log(allBugs.length);
     const data = await dispatch(deleteBug(selectedBugId));
     if (data) {
       setErrors(data);
     } else {
+      // console.log("###############  IN DELETE BUTTON: AFTER BUG WAS DELETED  #####");
+      // console.log(allBugs.length);
+      triggerUpdate(selectedBugId)
       showFunc(false)
     }
   }
