@@ -141,7 +141,7 @@ export const setTheBugUpdate = (group_id, title, content, assignee, bug_id) => a
     console.log("#############  INNER UPDATE BUG THUNK  #################");
     const data = await response.json();
     console.log(data);
-    // dispatch(setBugUpdate(data))
+    dispatch(setBugUpdate(data))
     return null
   } else if (response.status < 500) {
     const data = await response.json();
@@ -164,16 +164,23 @@ export const setTheBugUpdate = (group_id, title, content, assignee, bug_id) => a
 const initialState = { selectedBugId: null, newlyAddedBug: null, allBugs: null }
 
 export default function reducer(state = initialState, action) {
+  let newState;
   switch (action.type) {
     case SET_BUG:
       state.allBugs[action.payload["dbpk_id"]] = action.payload["new_bug"];
       return { newlyAddedBug: action.payload, allBugs: { ...state.allBugs } }
     case SET_ALL_BUGS:
       return { ...state, allBugs: action.payload }
-    // case UPDATE_BUG:
-    //   return
+    case UPDATE_BUG:
+      return {
+        ...state,
+        allBugs: {
+          ...state.allBugs,
+          [action.payload["dbpk_id"]]: action.payload["updated_bug"]
+        }
+      }
     case DELETE_BUG:
-      let newState = {...state}
+      newState = {...state}
       delete newState[action.payload]
       return newState
     case SELECTED_BUG:

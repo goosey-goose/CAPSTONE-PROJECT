@@ -90,7 +90,7 @@ def update_bug(id):
 
         db.session.commit()
 
-        return {"update": "complete"}
+        return {"dbpk_id": queried_bug.id, "updated_bug": queried_bug.to_dict()}
     return {'errors': 'something went wrong when updating this bug bug'}
     # queried_bug = Bug.query.get(2)
     # queried_bug.content = 'I hate saying that.'
