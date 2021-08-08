@@ -29,6 +29,27 @@ const DisplayBugInfo = () => {
 
 
 
+
+  if (allBugs && newlyAddedBug === null) {
+    let newBugs = document.querySelectorAll('.dbi_single_bug');
+    let bugObjectKeys = Object.keys(allBugs);
+    bugObjectKeys = bugObjectKeys.reverse();
+    let pos = 0;
+    newBugs.forEach((item) => {
+      item.setAttribute("id", `${bugObjectKeys[pos]}`)
+      pos = pos + 1;
+      item.addEventListener('click', (event) => {
+        let divId = (event.currentTarget).getAttribute('id');
+        dispatch(setTheSelectedBugId(divId));
+        setShowModal(true);
+      })
+    })
+  }
+
+
+
+
+
   let bKeysLength;
   if (allBugs) {
     bKeysLength = (Object.keys(allBugs)).length
@@ -79,11 +100,6 @@ const DisplayBugInfo = () => {
         })
       })
     }
-
-    // if (allBugs) {
-    //   console.log("########  DBI: USEEFFECT: LINE 51  ###########");
-    //   console.log("allBugs.length = ", allBugs.length);
-    // }
 
 
     return () => {
