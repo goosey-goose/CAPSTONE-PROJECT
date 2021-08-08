@@ -11,62 +11,138 @@ import './DisplayBugInfo.css'
 const DisplayBugInfo = () => {
   const [showModal, setShowModal] = useState(false);
   const [wasUpdated, setWasUpdated] = useState(null);
-  const [bKeys, setBKeys] = useState(null);
-  const refContainer = useRef();
+  const [newSingleBugs, setNewSingleBugs] = useState(null)
+  const [inProgressBugs, setInProgressBugs] = useState(null)
+  // const [bKeys, setBKeys] = useState(null);
+  // const refContainer = useRef();
   const user = useSelector(state => state.session.user);
   let allBugs = useSelector(state => state.bug.allBugs);
   let allGroups = useSelector(state => state.group.allGroups);
   let newlyAddedBug = useSelector(state => state.bug.newlyAddedBug);
   const dispatch = useDispatch();
 
-  let allBugsReversed;
-  if (allBugs) {
-    let temp = Object.values(allBugs)
-    allBugsReversed = temp.reverse()
-
-    refContainer.current = (Object.keys(allBugs)).length
-  }
 
 
 
 
-  if (allBugs && newlyAddedBug === null) {
-    let newBugs = document.querySelectorAll('.dbi_single_bug');
-    let bugObjectKeys = Object.keys(allBugs);
-    bugObjectKeys = bugObjectKeys.reverse();
-    let pos = 0;
-    newBugs.forEach((item) => {
-      item.setAttribute("id", `${bugObjectKeys[pos]}`)
-      pos = pos + 1;
-      item.addEventListener('click', (event) => {
-        let divId = (event.currentTarget).getAttribute('id');
-        dispatch(setTheSelectedBugId(divId));
-        setShowModal(true);
-      })
-    })
-  }
-
-
-
-
-
-  let bKeysLength;
-  if (allBugs) {
-    bKeysLength = (Object.keys(allBugs)).length
-    if (bKeysLength !== refContainer.current) {
-      setBKeys(bKeysLength)
+  const checkForNewSingleBugs = (allBugsObjectKeys, allBugsObjectValues) => {  //  bug
+    // return !bug.assignee
+    let newBugs = {}
+    for (let i = 0; i < allBugsObjectValues.length; ++i) {
+      if (!allBugsObjectValues[i].assignee) {
+        newBugs[allBugsObjectKeys[i]] = allBugsObjectValues[i]
+      }
     }
+    return newBugs;
+  }
+
+
+  const checkForProgressBugs = (allBugsObjectKeys, allBugsObjectValues) => {  //  bug
+    let inProgressBugs = {}
+    for (let i = 0; i < allBugsObjectValues.length; ++i) {
+      if (allBugsObjectValues[i].assignee) {
+        inProgressBugs[allBugsObjectKeys[i]] = allBugsObjectValues[i]
+      }
+    }
+    return inProgressBugs;
   }
 
 
 
-  if (newlyAddedBug) {
-    let newBugs = document.querySelectorAll('.dbi_single_bug');
-    let bugObjectKeys = Object.keys(allBugs);
-    bugObjectKeys = bugObjectKeys.reverse();
+
+
+
+  // if (allBugs && newlyAddedBug === null) {  //////////////////////////
+  //   let newBugDivs = document.querySelectorAll('.dbi_single_bug');
+  //   let bugObjectKeys = Object.keys(allBugs);
+  //   bugObjectKeys = bugObjectKeys.reverse();
+  //   let pos = 0;
+  //   newBugDivs.forEach((item) => {
+  //     item.setAttribute("id", `${bugObjectKeys[pos]}`)
+  //     pos = pos + 1;
+  //     item.addEventListener('click', (event) => {
+  //       let divId = (event.currentTarget).getAttribute('id');
+  //       dispatch(setTheSelectedBugId(divId));
+  //       setShowModal(true);
+  //     })
+  //   })
+  // }
+
+
+
+  // if (allBugs && newlyAddedBug) {
+    // let allBugsObjectValues = Object.values(allBugs);
+    // let inProgressBugs = allBugsObjectValues.filter(checkForProgressBugs)
+    // console.log(inProgressBugs);
+  // }
+
+
+
+
+
+  // let bKeysLength;
+  // if (allBugs) {
+  //   bKeysLength = (Object.keys(allBugs)).length
+  //   if (bKeysLength !== refContainer.current) {
+  //     setBKeys(bKeysLength)
+  //   }
+  // }
+
+
+
+  // if (newlyAddedBug) {  ////////////////////////////
+  //   let newBugDivs = document.querySelectorAll('.dbi_single_bug');
+  //   let bugObjectKeys = Object.keys(allBugs);
+  //   bugObjectKeys = bugObjectKeys.reverse();
+  //   let pos = 0;
+  //   newBugDivs.forEach((item) => {
+  //     item.setAttribute("id", `${bugObjectKeys[pos]}`)
+  //     pos = pos + 1;
+  //     item.addEventListener('click', (event) => {
+  //       let divId = (event.currentTarget).getAttribute('id');
+  //       dispatch(setTheSelectedBugId(divId));
+  //       setShowModal(true);
+  //     })
+  //   })
+  // }
+
+
+
+
+  if (allBugs && !newSingleBugs) {
+    let allBugsObjectKeys = Object.keys(allBugs);
+    let allBugsObjectValues = Object.values(allBugs);
+    setNewSingleBugs(checkForNewSingleBugs(allBugsObjectKeys, allBugsObjectValues));
+  }
+
+  let newBugsReversed;
+  if (newSingleBugs) {
+    let temp = Object.values(newSingleBugs)
+    newBugsReversed = temp.reverse()
+  }
+
+
+
+  if (false) {  //  allBugs
+    let allBugsObjectKeys = Object.keys(allBugs);
+    let allBugsObjectValues = Object.values(allBugs);
+    setNewSingleBugs(checkForNewSingleBugs(allBugsObjectKeys, allBugsObjectValues));
+    setInProgressBugs(checkForProgressBugs(allBugsObjectKeys, allBugsObjectValues));
+
+
+    let newBugDivs = document.querySelectorAll('.dbi_single_bug');
+
+    let newBugObjectKeys;
+    if (newSingleBugs) {
+      newBugObjectKeys = Object.keys(newSingleBugs);
+      newBugObjectKeys = newBugObjectKeys.reverse();
+    }
+
+
+
     let pos = 0;
-    newBugs.forEach((item) => {
-      item.setAttribute("id", `${bugObjectKeys[pos]}`)
+    newBugDivs.forEach((item) => {
+      item.setAttribute("id", `${newBugObjectKeys[pos]}`)
       pos = pos + 1;
       item.addEventListener('click', (event) => {
         let divId = (event.currentTarget).getAttribute('id');
@@ -78,34 +154,23 @@ const DisplayBugInfo = () => {
 
 
 
-  useEffect(() => {
+  useEffect(() => {  ////////////////////////////
     if (!allBugs) {
       dispatch(retrieveAllBugs());
     }
     if (!allGroups) {
       dispatch(retrieveAllGroups());
     }
-    if (allBugs) {
-      let newBugs = document.querySelectorAll('.dbi_single_bug');
-      let bugObjectKeys = Object.keys(allBugs);
-      bugObjectKeys = bugObjectKeys.reverse();
-      let pos = 0;
-      newBugs.forEach((item) => {
-        item.setAttribute("id", `${bugObjectKeys[pos]}`)
-        pos = pos + 1;
-        item.addEventListener('click', (event) => {
-          let divId = (event.currentTarget).getAttribute('id');
-          dispatch(setTheSelectedBugId(divId));
-          setShowModal(true);
-        })
-      })
-    }
+
 
 
     return () => {
       // dispatch(resetAllGroupItems());
     }
   }, [dispatch, wasUpdated])
+
+
+
 
 
 
@@ -125,8 +190,8 @@ const DisplayBugInfo = () => {
         <div className="main_divs_titles">New Bugs</div>
           <br></br>
 
-          {allBugs && <div id="dbi_new_bugs_list">
-            {allBugsReversed.map((bug, index) => (
+          {newSingleBugs && <div id="dbi_new_bugs_list">
+            {newBugsReversed.map((bug, index) => (
 
               <div className="dbi_single_bug" key={index}>
                   {bug.title + ":"}

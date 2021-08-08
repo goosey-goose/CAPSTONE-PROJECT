@@ -122,7 +122,7 @@ const CreateNewBugForm = ({ showFunc, makeBug }) => {
       <div>
         <label htmlFor='group'>Assign to a Group</label>
         <select value={groupId} name='group' onChange={updateGroupId}>
-          <option>Please Select a Group to Assign To</option>
+          {/* <option>Please Select a Group to Assign To</option> */}
           {allGroups && allGroupsValues.map((group, index) => (
             <option key={index} value={allGroupsKeys[index]}>{group.name}</option>
           ))}
