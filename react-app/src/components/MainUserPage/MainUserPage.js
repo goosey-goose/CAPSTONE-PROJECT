@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SideNavBar from '../SideNavBar/SideNavBar';
 import DisplayBugInfo from '../DisplayBugInfo/DisplayBugInfo';
 import './MainUserPage.css'
 
 const MainUserPage = () => {
+
+  const [wasBugAdded, setWasBugAdded] = useState(null)
+
+
   return (
     <>
-    <SideNavBar />
+    <SideNavBar bugAdded={setWasBugAdded} />
 
     <DisplayBugInfo />
 

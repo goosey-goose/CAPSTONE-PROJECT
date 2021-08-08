@@ -10,6 +10,7 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
   // const [userId, setUserId] = useState(0);
   const allBugs = useSelector(state => state.bug.allBugs);
   const selectedBugId = useSelector(state => state.bug.selectedBugId);
+  const allGroups = useSelector(state => state.group.allGroups);
   const [groupId, setGroupId] = useState(allBugs[selectedBugId] ? allBugs[selectedBugId]["group_id"] : '');
   const [dateResolved, setDateResolved] = useState('');
   const [title, setTitle] = useState(allBugs[selectedBugId] ? allBugs[selectedBugId]["title"] : '');
@@ -23,15 +24,19 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
   console.log(selectedBugId);
   console.log(allBugs[selectedBugId]);
 
+  console.log("######### UPDATE BUG FORM:  GROUP ID: #############");
+  console.log(groupId);
+
 
   // UPDATE BUG IN BACKEND BUTTON
-  const onClickSubmit = async (e) => {
+  const onClickUpdate = async (e) => {
     e.preventDefault();
     // console.log("################  UPDATE BUG BUTTON  ##############");
     const data = await dispatch(setTheBugUpdate(groupId, title, content, assignee, selectedBugId));
     if (data) {
       setErrors(data);
     } else {
+      // triggerUpdate(selectedBugId)
       showFunc(false);
     }
   };
@@ -91,7 +96,12 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
     // return <Redirect to='/' />;
   }
 
-
+  let allGroupsKeys;
+  let allGroupsValues;
+  if (allGroups) {
+    allGroupsKeys = Object.keys(allGroups)
+    allGroupsValues = Object.values(allGroups)
+  }
 
   useEffect(() => {
 
@@ -99,7 +109,7 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
 
 
   return (
-    <form onSubmit={onClickSubmit}>
+    <form onSubmit={onClickUpdate}>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
@@ -111,7 +121,9 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
         <label htmlFor='group'>Assign to a Group</label>
         <select value={groupId} name='group' onChange={updateGroupId}>
           <option>Please Select a Group to Assign To</option>
-          <option value={1}>Group 1</option>
+          {allGroups && allGroupsValues.map((group, index) => (
+            <option key={index} value={allGroupsKeys[index]}>{group.name}</option>
+          ))}
         </select>
       </div>
 

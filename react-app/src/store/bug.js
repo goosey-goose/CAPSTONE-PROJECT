@@ -128,7 +128,12 @@ export const setTheSelectedBugId = (bugDivId) => async (dispatch) => {
 
 
 export const setTheBugUpdate = (group_id, title, content, assignee, bug_id) => async (dispatch) => {
-  // console.log("##############  OUTER UPDATE BUG THUNK  #########################");
+  console.log("##############  OUTER UPDATE BUG THUNK  #########################");
+  console.log("GROUP ID: ", group_id);
+  console.log("TITLE: ", title);
+  console.log("CONTENT: ", content);
+  console.log("ASSIGNEE: ", assignee);
+  console.log("BUG ID: ", bug_id);
   const response = await fetch(`/api/bugs/update/${bug_id}`, {
     method: 'PATCH',
     headers: {
@@ -176,14 +181,25 @@ export default function reducer(state = initialState, action) {
       return { newlyAddedBug: action.payload, allBugs: { ...state.allBugs } }
     case SET_ALL_BUGS:
       return { ...state, allBugs: action.payload }
+
+
+
+
     case UPDATE_BUG:
-      return {
+      newState = {
         ...state,
         allBugs: {
           ...state.allBugs,
-          [action.payload["dbpk_id"]]: action.payload["updated_bug"]
+          // [action.payload["dbpk_id"]]: action.payload["updated_bug"]
         }
       }
+      newState.allBugs[action.payload["dbpk_id"]] = action.payload["updated_bug"]
+      return newState
+
+
+
+
+
 
 
 

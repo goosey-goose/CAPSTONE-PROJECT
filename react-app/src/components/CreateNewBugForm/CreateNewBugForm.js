@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { Redirect } from 'react-router-dom';
-import { createNewBug } from '../../store/bug';
+import { createNewBug, setTheSelectedBugId, retrieveAllBugs } from '../../store/bug';
 
 
-const CreateNewBugForm = ({ showFunc }) => {
+const CreateNewBugForm = ({ showFunc, makeBug }) => {
   const [errors, setErrors] = useState([]);
   const [userId, setUserId] = useState(0);
   const [groupId, setGroupId] = useState(0);
@@ -14,6 +14,8 @@ const CreateNewBugForm = ({ showFunc }) => {
   const [assignee, setAssignee] = useState('');
   // const [isButtonReady, setIsButtonReady] = useState(true)
   const user = useSelector(state => state.session.user);
+  const allGroups = useSelector(state => state.group.allGroups);
+  const allBugs = useSelector(state => state.bug.allBugs);
   const dispatch = useDispatch();
 
 
@@ -27,6 +29,20 @@ const CreateNewBugForm = ({ showFunc }) => {
     if (data) {
       setErrors(data);
     } else {
+      // makeBug(title)
+      dispatch(retrieveAllBugs());
+      let newBugs = document.querySelectorAll('.dbi_single_bug');
+      let bugObjectKeys = Object.keys(allBugs);
+      bugObjectKeys = bugObjectKeys.reverse();
+      let pos = 0;
+      newBugs.forEach((item) => {
+        item.setAttribute("id", `${bugObjectKeys[pos]}`)
+        pos = pos + 1;
+        item.addEventListener('click', (event) => {
+          let divId = (event.currentTarget).getAttribute('id');
+          dispatch(setTheSelectedBugId(divId));
+        })
+      })
       showFunc(false)
     }
   };
@@ -80,14 +96,19 @@ const CreateNewBugForm = ({ showFunc }) => {
     // return <Redirect to='/' />;
   }
 
-
+  let allGroupsKeys;
+  let allGroupsValues;
+  if (allGroups) {
+    allGroupsKeys = Object.keys(allGroups)
+    allGroupsValues = Object.values(allGroups)
+  }
 
   useEffect(() => {
     setUserId(user.id)
   }, [userId, user.id])
 
-
-
+  console.log("##########  ALL GROUPS: LINE 90 ############");
+  console.log(allGroups);
 
   return (
     <form onSubmit={onClickSubmit}>
@@ -102,7 +123,9 @@ const CreateNewBugForm = ({ showFunc }) => {
         <label htmlFor='group'>Assign to a Group</label>
         <select value={groupId} name='group' onChange={updateGroupId}>
           <option>Please Select a Group to Assign To</option>
-          <option value={1}>Group 1</option>
+          {allGroups && allGroupsValues.map((group, index) => (
+            <option key={index} value={allGroupsKeys[index]}>{group.name}</option>
+          ))}
         </select>
       </div>
 

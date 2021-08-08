@@ -5,7 +5,7 @@ import CreateNewBugFormModal from '../CreateNewBugModal'
 import CreateNewGroupFormModal from '../CreateNewGroupModal';
 import './SideNavBar.css'
 
-const SideNavBar = () => {
+const SideNavBar = ({ bugAdded }) => {
   return (
 
     <>
@@ -18,7 +18,7 @@ const SideNavBar = () => {
               <div className="side_navbar_letter_text">
                 New Bug
               </div>
-              <CreateNewBugFormModal />
+              <CreateNewBugFormModal addBug={bugAdded} />
           </div>
 
 

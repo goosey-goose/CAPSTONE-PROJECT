@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { retrieveAllBugs } from '../../store/allBugs'
 import { Modal } from '../../context/Modal';
@@ -11,16 +11,50 @@ import './DisplayBugInfo.css'
 const DisplayBugInfo = () => {
   const [showModal, setShowModal] = useState(false);
   const [wasUpdated, setWasUpdated] = useState(null);
+  const [bKeys, setBKeys] = useState(null);
+  const refContainer = useRef();
   const user = useSelector(state => state.session.user);
   let allBugs = useSelector(state => state.bug.allBugs);
   let allGroups = useSelector(state => state.group.allGroups);
+  let newlyAddedBug = useSelector(state => state.bug.newlyAddedBug);
   const dispatch = useDispatch();
 
   let allBugsReversed;
   if (allBugs) {
     let temp = Object.values(allBugs)
     allBugsReversed = temp.reverse()
+
+    refContainer.current = (Object.keys(allBugs)).length
   }
+
+
+
+  let bKeysLength;
+  if (allBugs) {
+    bKeysLength = (Object.keys(allBugs)).length
+    if (bKeysLength !== refContainer.current) {
+      setBKeys(bKeysLength)
+    }
+  }
+
+
+
+  if (newlyAddedBug) {
+    let newBugs = document.querySelectorAll('.dbi_single_bug');
+    let bugObjectKeys = Object.keys(allBugs);
+    bugObjectKeys = bugObjectKeys.reverse();
+    let pos = 0;
+    newBugs.forEach((item) => {
+      item.setAttribute("id", `${bugObjectKeys[pos]}`)
+      pos = pos + 1;
+      item.addEventListener('click', (event) => {
+        let divId = (event.currentTarget).getAttribute('id');
+        dispatch(setTheSelectedBugId(divId));
+        setShowModal(true);
+      })
+    })
+  }
+
 
 
   useEffect(() => {
@@ -46,8 +80,14 @@ const DisplayBugInfo = () => {
       })
     }
 
+    // if (allBugs) {
+    //   console.log("########  DBI: USEEFFECT: LINE 51  ###########");
+    //   console.log("allBugs.length = ", allBugs.length);
+    // }
+
+
     return () => {
-      dispatch(resetAllGroupItems());
+      // dispatch(resetAllGroupItems());
     }
   }, [dispatch, wasUpdated])
 

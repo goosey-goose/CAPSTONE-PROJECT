@@ -85,7 +85,7 @@ def update_bug(id):
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
         if form.data["group_id"] != queried_bug.group_id:
-            queried_bug.id = form.data["group_id"]
+            queried_bug.group_id = form.data["group_id"]
         if form.data["title"] != queried_bug.title:
             queried_bug.title = form.data["title"]
         if form.data["content"] != queried_bug.content:
@@ -94,6 +94,7 @@ def update_bug(id):
             queried_bug.assignee = form.data["assignee"]
 
         db.session.commit()
+        print(queried_bug.id)
 
         return {"dbpk_id": queried_bug.id, "updated_bug": queried_bug.to_dict()}
     return {'errors': 'something went wrong when updating this bug bug'}
