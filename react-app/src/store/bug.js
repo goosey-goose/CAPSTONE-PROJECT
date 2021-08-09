@@ -76,7 +76,34 @@ export const retrieveAllBugs = () => async (dispatch) => {
   const response = await fetch('/api/bugs/all');
 
   if (response.ok) {
-    const data = await response.json();
+    let data = await response.json();
+    // console.log(data);
+    const allRetrievedBugs = { ...data }
+    let unassignedBugs = {};
+    let inProgressBugs = {};
+    let completedBugs = {};
+    let returnedDataKeys = Object.keys(data);
+    let returnedDataValues = Object.values(data);
+    for (let i = 0; i < returnedDataValues.length; ++i) {
+      if (!returnedDataValues[i].assignee) {
+        unassignedBugs[returnedDataKeys[i]] = returnedDataValues[i]
+      }
+      if (returnedDataValues[i].assignee) {
+        inProgressBugs[returnedDataKeys[i]] = returnedDataValues[i]
+      }
+      if (returnedDataValues[i].date_resolved) {
+        completedBugs[returnedDataKeys[i]] = returnedDataValues[i]
+      }
+    }
+    // console.log(unassignedBugs);
+    // console.log(inProgressBugs);
+    // console.log(completedBugs);
+    data = {
+      allRetrievedBugs,
+      unassignedBugs,
+      inProgressBugs,
+      completedBugs
+    }
     dispatch(setAllBugs(data))
     return null
   } else if (response.status < 500) {
@@ -171,7 +198,7 @@ export const setTheBugUpdate = (group_id, title, content, assignee, bug_id) => a
 
 
 //  REDUCER
-const initialState = { selectedBugId: null, newlyAddedBug: null, allBugs: null }
+const initialState = { selectedBugId: null, newlyAddedBug: null, allBugs: null, newUnassignedBugs: null, inProgressAssignedBugs: null, completedResolvedBugs: null }
 
 export default function reducer(state = initialState, action) {
   let newState;
@@ -179,8 +206,15 @@ export default function reducer(state = initialState, action) {
     case SET_BUG:
       state.allBugs[action.payload["dbpk_id"]] = action.payload["new_bug"];
       return { newlyAddedBug: action.payload, allBugs: { ...state.allBugs } }
+
+
+
+
+
+    // DONE /////////////////////////////////////////////////////////
     case SET_ALL_BUGS:
-      return { ...state, allBugs: action.payload }
+      return { ...state, allBugs: action.payload.allRetrievedBugs, newUnassignedBugs: action.payload.unassignedBugs, inProgressAssignedBugs: action.payload.inProgressBugs, completedResolvedBugs: action.payload.completedBugs }
+
 
 
 
@@ -190,7 +224,6 @@ export default function reducer(state = initialState, action) {
         ...state,
         allBugs: {
           ...state.allBugs,
-          // [action.payload["dbpk_id"]]: action.payload["updated_bug"]
         }
       }
       newState.allBugs[action.payload["dbpk_id"]] = action.payload["updated_bug"]
