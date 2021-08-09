@@ -86,10 +86,12 @@ const DisplayBugInfo = () => {
 
 
   if (newUnassignedBugs) {
+    console.log("########### SET NEW BUGS WITH DIVS AND BUTTONS ###########");
     setNewBugDivsWithButtons();
   }
 
   if (inProgressAssignedBugs) {
+    console.log("########### SET IN PROGRESS BUGS WITH DIVS AND BUTTONS ###########");
     setInProgressBugDivsWithButtons();
   }
 
