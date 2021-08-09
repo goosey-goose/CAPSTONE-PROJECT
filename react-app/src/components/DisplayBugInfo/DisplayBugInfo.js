@@ -108,27 +108,27 @@ const DisplayBugInfo = () => {
 
 
   useEffect(() => {  ////////////////////////////
-    console.log("^^^^^^^^^^ DBI USE_EFFECT() ^^^^^^^^^^^^^^^");
-    if (!allBugs) {
-      console.log("New York");
-      // dispatch(retrieveAllBugs());
-    }
-    if (!allGroups) {
-      console.log("Miami");
-      // dispatch(retrieveAllGroups());
-    }
+    // console.log("^^^^^^^^^^ DBI USE_EFFECT() ^^^^^^^^^^^^^^^");
+    // if (!allBugs) {
+    //   console.log("New York");
+    //   // dispatch(retrieveAllBugs());
+    // }
+    // if (!allGroups) {
+    //   console.log("Miami");
+    //   // dispatch(retrieveAllGroups());
+    // }
 
-    if (!newUnassignedBugs) {
-      console.log("Mountain View");
-      console.log(newUnassignedBugs);
-      // setNewBugDivsWithButtons();
-    }
+    // if (!newUnassignedBugs) {
+    //   console.log("Mountain View");
+    //   console.log(newUnassignedBugs);
+    //   // setNewBugDivsWithButtons();
+    // }
 
-    if (!inProgressAssignedBugs) {
-      console.log("Google");
-      console.log(inProgressAssignedBugs);
-      // setInProgressBugDivsWithButtons();
-    }
+    // if (!inProgressAssignedBugs) {
+    //   console.log("Google");
+    //   console.log(inProgressAssignedBugs);
+    //   // setInProgressBugDivsWithButtons();
+    // }
 
     // if (!allBugs && !allGroups) {
     //   dispatch(retrieveAllBugs());
