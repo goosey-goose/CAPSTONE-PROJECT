@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Modal } from '../../context/Modal';
 // import CreateNewBugForm from '../CreateNewBugForm/CreateNewBugForm';
 import UpdateBugForm from '../UpdateBugForm/UpdateBugForm';
-import { retrieveAllBugs, setTheSelectedBugId } from '../../store/bug'
+import { retrieveAllBugs, setTheSelectedBugId, resetAllBugItems } from '../../store/bug'
 import { retrieveAllGroups, resetAllGroupItems } from '../../store/group';
 import './DisplayBugInfo.css'
 
@@ -84,6 +84,17 @@ const DisplayBugInfo = () => {
 
 
 
+  if (!allBugs) {
+    console.log("%%%%%%%%%%%%%%%%%%%%  MONDAY  %%%%%%%%%%%%%%%%%%%%%");
+    dispatch(retrieveAllBugs());
+  }
+
+  if (!allGroups) {
+    console.log("%%%%%%%%%%%%%%%%%%%%  TUESDAY  %%%%%%%%%%%%%%%%%%%%");
+    dispatch(retrieveAllGroups());
+  }
+
+
 
   if (newUnassignedBugs) {
     console.log("########### SET NEW BUGS WITH DIVS AND BUTTONS ###########");
@@ -97,17 +108,46 @@ const DisplayBugInfo = () => {
 
 
   useEffect(() => {  ////////////////////////////
+    console.log("^^^^^^^^^^ DBI USE_EFFECT() ^^^^^^^^^^^^^^^");
     if (!allBugs) {
-      dispatch(retrieveAllBugs());
+      console.log("New York");
+      // dispatch(retrieveAllBugs());
     }
     if (!allGroups) {
-      dispatch(retrieveAllGroups());
+      console.log("Miami");
+      // dispatch(retrieveAllGroups());
     }
 
+    if (!newUnassignedBugs) {
+      console.log("Mountain View");
+      console.log(newUnassignedBugs);
+      // setNewBugDivsWithButtons();
+    }
 
+    if (!inProgressAssignedBugs) {
+      console.log("Google");
+      console.log(inProgressAssignedBugs);
+      // setInProgressBugDivsWithButtons();
+    }
+
+    // if (!allBugs && !allGroups) {
+    //   dispatch(retrieveAllBugs());
+    //   dispatch(retrieveAllGroups());
+    // }
+
+    if (newUnassignedBugs) {
+      console.log("########### SET NEW BUGS WITH DIVS AND BUTTONS ###########");
+      setNewBugDivsWithButtons();
+    }
+
+    if (inProgressAssignedBugs) {
+      console.log("########### SET IN PROGRESS BUGS WITH DIVS AND BUTTONS ###########");
+      setInProgressBugDivsWithButtons();
+    }
 
     return () => {
-      // dispatch(resetAllGroupItems());
+      dispatch(resetAllBugItems());
+      dispatch(resetAllGroupItems());
     }
   }, [dispatch, wasUpdated])
 

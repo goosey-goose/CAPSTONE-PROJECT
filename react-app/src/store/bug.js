@@ -3,6 +3,7 @@ const SET_ALL_BUGS = 'bugs/SET_ALL_BUGS';
 const UPDATE_BUG = 'bugs/UPDATE_BUG';
 const DELETE_BUG = 'bugs/DELETE_BUG';
 const SELECTED_BUG = 'bugs/SELECTED_BUG';
+const RESET_ALL = 'bugs/RESET_ALL';
 
 
 //  ACTIONS
@@ -30,6 +31,11 @@ const setSelectedBugId = (bugDivId) => ({
   type: SELECTED_BUG,
   payload: bugDivId
 });
+
+const resetAll = () => ({
+  type: RESET_ALL,
+  payload: null
+})
 
 
 
@@ -194,6 +200,14 @@ export const setTheBugUpdate = (group_id, title, content, assignee, bug_id) => a
 
 
 
+export const resetAllBugItems = () => async (dispatch) => {
+  dispatch(resetAll());
+}
+
+
+
+
+
 
 
 
@@ -260,6 +274,8 @@ export default function reducer(state = initialState, action) {
 
     case SELECTED_BUG:
       return { ...state, selectedBugId: action.payload }
+    case RESET_ALL:
+      return { ...state, selectedBugId: null, newlyAddedBug: null, allBugs: null, newUnassignedBugs: null, inProgressAssignedBugs: null, completedResolvedBugs: null }
     default:
       return state;
   }

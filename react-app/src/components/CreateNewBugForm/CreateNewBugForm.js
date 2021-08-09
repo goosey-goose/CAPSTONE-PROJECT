@@ -30,19 +30,20 @@ const CreateNewBugForm = ({ showFunc, makeBug }) => {
       setErrors(data);
     } else {
       // makeBug(title)
+      console.log("@@@@@@@@@@@@@@@@@@@@@@  WALTER WHITE  @@@@@@@@@@@@@@@@@@@@@");
       dispatch(retrieveAllBugs());
-      let newBugs = document.querySelectorAll('.dbi_single_bug');
-      let bugObjectKeys = Object.keys(allBugs);
-      bugObjectKeys = bugObjectKeys.reverse();
-      let pos = 0;
-      newBugs.forEach((item) => {
-        item.setAttribute("id", `${bugObjectKeys[pos]}`)
-        pos = pos + 1;
-        item.addEventListener('click', (event) => {
-          let divId = (event.currentTarget).getAttribute('id');
-          dispatch(setTheSelectedBugId(divId));
-        })
-      })
+      // let newBugs = document.querySelectorAll('.dbi_single_bug');
+      // let bugObjectKeys = Object.keys(allBugs);
+      // bugObjectKeys = bugObjectKeys.reverse();
+      // let pos = 0;
+      // newBugs.forEach((item) => {
+      //   item.setAttribute("id", `${bugObjectKeys[pos]}`)
+      //   pos = pos + 1;
+      //   item.addEventListener('click', (event) => {
+      //     let divId = (event.currentTarget).getAttribute('id');
+      //     dispatch(setTheSelectedBugId(divId));
+      //   })
+      // })
       showFunc(false)
     }
   };
