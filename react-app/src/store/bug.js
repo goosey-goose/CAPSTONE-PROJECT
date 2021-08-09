@@ -74,7 +74,7 @@ export const createNewBug = (user_id, group_id, date_created, title, content, as
 
 export const retrieveAllBugs = () => async (dispatch) => {
   const response = await fetch('/api/bugs/all');
-
+  console.log("############# FRED FLINSTONE ##############");
   if (response.ok) {
     let data = await response.json();
     // console.log(data);
@@ -155,12 +155,12 @@ export const setTheSelectedBugId = (bugDivId) => async (dispatch) => {
 
 
 export const setTheBugUpdate = (group_id, title, content, assignee, bug_id) => async (dispatch) => {
-  console.log("##############  OUTER UPDATE BUG THUNK  #########################");
-  console.log("GROUP ID: ", group_id);
-  console.log("TITLE: ", title);
-  console.log("CONTENT: ", content);
-  console.log("ASSIGNEE: ", assignee);
-  console.log("BUG ID: ", bug_id);
+  // console.log("##############  OUTER UPDATE BUG THUNK  #########################");
+  // console.log("GROUP ID: ", group_id);
+  // console.log("TITLE: ", title);
+  // console.log("CONTENT: ", content);
+  // console.log("ASSIGNEE: ", assignee);
+  // console.log("BUG ID: ", bug_id);
   const response = await fetch(`/api/bugs/update/${bug_id}`, {
     method: 'PATCH',
     headers: {
@@ -177,7 +177,7 @@ export const setTheBugUpdate = (group_id, title, content, assignee, bug_id) => a
   if (response.ok) {
     // console.log("#############  INNER UPDATE BUG THUNK  #################");
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     dispatch(setBugUpdate(data))
     return null
   } else if (response.status < 500) {
@@ -203,9 +203,17 @@ const initialState = { selectedBugId: null, newlyAddedBug: null, allBugs: null, 
 export default function reducer(state = initialState, action) {
   let newState;
   switch (action.type) {
+
+
+
+
+    // DONE /////////////////////////////////////////////////////////
     case SET_BUG:
-      state.allBugs[action.payload["dbpk_id"]] = action.payload["new_bug"];
-      return { newlyAddedBug: action.payload, allBugs: { ...state.allBugs } }
+      newState = { ...state, newlyAddedBug: action.payload, allBugs: { ...state.allBugs } }
+      newState.allBugs[action.payload["dbpk_id"]] = action.payload["new_bug"]
+      return newState;
+      // state.allBugs[action.payload["dbpk_id"]] = action.payload["new_bug"];
+      // return { newlyAddedBug: action.payload, allBugs: { ...state.allBugs } }
 
 
 

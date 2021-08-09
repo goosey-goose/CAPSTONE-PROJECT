@@ -53,7 +53,7 @@
   padding-left: 10px;
 }
 
-.dbi_single_bug {
+.dbi_single_bug, .dbi_progress_bug {
   width: 98%;
   height: 5rem;
   font-weight: bold;
@@ -65,12 +65,12 @@
   /* overflow-y: hidden; */
 }
 
-.dbi_single_bug:hover {
+.dbi_single_bug:hover, .dbi_progress_bug:hover {
   background-color: darkgray;
   cursor: pointer;
 }
 
-.dbi_single_bug_content {
+.dbi_single_bug_content, .dbi_progress_bug_content {
   max-height: 18px;
   font-weight: normal;
   padding-top: 3px;
