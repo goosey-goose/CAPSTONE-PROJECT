@@ -19,6 +19,16 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
+  const employees = [
+    "Frank",
+    "Perl",
+    "Samantha",
+    "Jonathan",
+    "Tom",
+    "Melissa",
+    "Kathryn"
+  ]
+
 
   console.log("############# SELECTED BUG ID ################");
   console.log(selectedBugId);
@@ -120,7 +130,7 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
       <div>
         <label htmlFor='group'>Assign to a Group</label>
         <select value={groupId} name='group' onChange={updateGroupId}>
-          <option>Please Select a Group to Assign To</option>
+          <option value={''}>Please Select a Group to Assign To</option>
           {allGroups && allGroupsValues.map((group, index) => (
             <option key={index} value={allGroupsKeys[index]}>{group.name}</option>
           ))}
@@ -156,8 +166,10 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
       <div>
         <label htmlFor='assignee'>Assignee</label>
         <select value={assignee} name='assignee' onChange={updateAssignee}>
-          <option>Please Select Assignee</option>
-          <option value='Tom Cruise'>Tom Cruise</option>
+          <option value={''}>Please Select Assignee</option>
+          {employees && employees.map((employee, index) => (
+            <option key={index} value={employee}>{employee}</option>
+          ))}
         </select>
       </div>
       <button type='submit'>Update Bug</button>

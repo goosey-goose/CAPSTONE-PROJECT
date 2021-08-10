@@ -11,10 +11,6 @@ import './DisplayBugInfo.css'
 const DisplayBugInfo = () => {
   const [showModal, setShowModal] = useState(false);
   const [wasUpdated, setWasUpdated] = useState(null);
-  const [newSingleBugs, setNewSingleBugs] = useState(null)
-  const [inProgressBugs, setInProgressBugs] = useState(null)
-  // const [bKeys, setBKeys] = useState(null);
-  // const refContainer = useRef();
   const user = useSelector(state => state.session.user);
   let allBugs = useSelector(state => state.bug.allBugs);
   let newUnassignedBugs = useSelector(state => state.bug.newUnassignedBugs);
@@ -22,8 +18,9 @@ const DisplayBugInfo = () => {
   let completedResolvedBugs = useSelector(state => state.bug.completedResolvedBugs);
   let allGroups = useSelector(state => state.group.allGroups);
   let newlyAddedBug = useSelector(state => state.bug.newlyAddedBug);
+  let selectedBugId = useSelector(state => state.bug.selectedBugId);
+  const [test, setTest] = useState(false);
   const dispatch = useDispatch();
-
 
   let newBugsReversed;
 
@@ -85,6 +82,7 @@ const DisplayBugInfo = () => {
 
 
   if (!allBugs) {
+    // console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
     console.log("%%%%%%%%%%%%%%%%%%%%  MONDAY  %%%%%%%%%%%%%%%%%%%%%");
     dispatch(retrieveAllBugs());
   }
@@ -97,14 +95,65 @@ const DisplayBugInfo = () => {
 
 
   if (newUnassignedBugs) {
-    console.log("########### SET NEW BUGS WITH DIVS AND BUTTONS ###########");
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    if (Object.keys(newUnassignedBugs).length === 1) {
+      let mustang = document.querySelector(".dbi_single_bug");
+      if (mustang === null) {
+        if ((Object.keys(allBugs)).length === 1) {
+          if (newlyAddedBug) {
+            dispatch(retrieveAllBugs());
+          } else {
+
+          }
+        }
+      }
+    }
+    // console.log(Object.key(newUnassignedBugs));
+    console.log("########### 2: SET NEW BUGS WITH DIVS AND BUTTONS ###########");
     setNewBugDivsWithButtons();
   }
 
   if (inProgressAssignedBugs) {
-    console.log("########### SET IN PROGRESS BUGS WITH DIVS AND BUTTONS ###########");
+    console.log("########### 2: SET IN PROGRESS BUGS WITH DIVS AND BUTTONS ###########");
+    if (Object.keys(inProgressAssignedBugs).length === 1) {
+      let mustang = document.querySelector(".dbi_progress_bug");
+      if (mustang === null) {
+        if ((Object.keys(allBugs)).length === 1) {
+          if (newlyAddedBug) {
+            dispatch(retrieveAllBugs());
+          } else {
+
+          }
+        }
+      }
+    }
     setInProgressBugDivsWithButtons();
   }
+
+
+
+  // if (newlyAddedBug) {
+  //   let newBugDivs = document.querySelectorAll('.dbi_single_bug');
+  //   if (newBugDivs) {
+  //     setNewBugDivsWithButtons();
+  //   }
+  // }
+
+  // if (newlyAddedBug || newUnassignedBugs || inProgressAssignedBugs) {
+  //   console.log("Blake");
+  //   setNewBugDivsWithButtons();
+  //   setInProgressBugDivsWithButtons();
+  // }
+
+  // if (!allBugs) {
+  //   // setTempValueHolder(1)
+  //   tempValueHolder.current = 1;
+  //   console.log(tempValueHolder.current);
+  // } else {
+  //   // setTempValueHolder(null)
+  //   tempValueHolder.current = null;
+  //   console.log(tempValueHolder.current);
+  // }
 
 
   useEffect(() => {  ////////////////////////////
@@ -136,12 +185,12 @@ const DisplayBugInfo = () => {
     // }
 
     if (newUnassignedBugs) {
-      console.log("########### SET NEW BUGS WITH DIVS AND BUTTONS ###########");
+      console.log("########### 1: SET NEW BUGS WITH DIVS AND BUTTONS ###########");
       setNewBugDivsWithButtons();
     }
 
     if (inProgressAssignedBugs) {
-      console.log("########### SET IN PROGRESS BUGS WITH DIVS AND BUTTONS ###########");
+      console.log("########### 1: SET IN PROGRESS BUGS WITH DIVS AND BUTTONS ###########");
       setInProgressBugDivsWithButtons();
     }
 
@@ -149,9 +198,7 @@ const DisplayBugInfo = () => {
       dispatch(resetAllBugItems());
       dispatch(resetAllGroupItems());
     }
-  }, [dispatch, wasUpdated])
-
-
+  }, [dispatch, wasUpdated, test])
 
 
 

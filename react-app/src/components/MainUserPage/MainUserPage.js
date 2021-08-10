@@ -5,7 +5,10 @@ import './MainUserPage.css'
 
 const MainUserPage = () => {
 
-  const [wasBugAdded, setWasBugAdded] = useState(null)
+  const [wasBugAdded, setWasBugAdded] = useState(false)
+  // if (wasBugAdded === true) {
+  //   setWasBugAdded(false)
+  // }
 
 
   return (

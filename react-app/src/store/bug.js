@@ -241,13 +241,16 @@ export default function reducer(state = initialState, action) {
 
 
 
-    case UPDATE_BUG:
-      newState = {
-        ...state,
-        allBugs: {
-          ...state.allBugs,
-        }
-      }
+    case UPDATE_BUG:     //  check where the returned updated object currently exists, then delete it. THEN, check the specific bug type to then determine which bug type object to add it to
+      newState = {...state, allBugs: {...state.allBugs}, newUnassignedBugs: {...state.newUnassignedBugs}, inProgressAssignedBugs: {...state.inProgressAssignedBugs}, completedResolvedBugs: {...state.completedResolvedBugs} }
+      if (newState.newUnassignedBugs[action.payload["dbpk_id"]]) delete newState.newUnassignedBugs[action.payload["dbpk_id"]]
+      if (newState.inProgressAssignedBugs[action.payload["dbpk_id"]]) delete newState.inProgressAssignedBugs[action.payload["dbpk_id"]]
+      if (newState.completedResolvedBugs[action.payload["dbpk_id"]]) delete newState.completedResolvedBugs[action.payload["dbpk_id"]]
+
+      if (!action.payload["updated_bug"]["assignee"]) newState.newUnassignedBugs[action.payload["dbpk_id"]] = action.payload["updated_bug"]
+      if (action.payload["updated_bug"]["assignee"]) newState.inProgressAssignedBugs[action.payload["dbpk_id"]] = action.payload["updated_bug"]
+      if (action.payload["updated_bug"]["date_resolved"]) newState.completedResolvedBugs[action.payload["dbpk_id"]] = action.payload["updated_bug"]
+
       newState.allBugs[action.payload["dbpk_id"]] = action.payload["updated_bug"]
       return newState
 
@@ -257,7 +260,7 @@ export default function reducer(state = initialState, action) {
 
 
 
-
+    // DONE ////////////////////////////////////////////////////////
     case DELETE_BUG:
       console.log("###############  INSIDE DELETE BUG:  REDUCER  ################");
       console.log(action.payload)

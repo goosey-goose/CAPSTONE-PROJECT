@@ -20,6 +20,18 @@ const CreateNewBugForm = ({ showFunc, makeBug }) => {
 
 
 
+  const employees = [
+    "Frank",
+    "Perl",
+    "Samantha",
+    "Jonathan",
+    "Tom",
+    "Melissa",
+    "Kathryn"
+  ]
+
+
+
   // CREATE NEW BUG BUTTON
   const onClickSubmit = async (e) => {
     e.preventDefault();
@@ -44,6 +56,7 @@ const CreateNewBugForm = ({ showFunc, makeBug }) => {
       //     dispatch(setTheSelectedBugId(divId));
       //   })
       // })
+      // makeBug(true)
       showFunc(false)
     }
   };
@@ -123,7 +136,7 @@ const CreateNewBugForm = ({ showFunc, makeBug }) => {
       <div>
         <label htmlFor='group'>Assign to a Group</label>
         <select value={groupId} name='group' onChange={updateGroupId}>
-          {/* <option>Please Select a Group to Assign To</option> */}
+          <option value={''}>Please Select a Group to Assign To</option>
           {allGroups && allGroupsValues.map((group, index) => (
             <option key={index} value={allGroupsKeys[index]}>{group.name}</option>
           ))}
@@ -159,8 +172,10 @@ const CreateNewBugForm = ({ showFunc, makeBug }) => {
       <div>
         <label htmlFor='assignee'>Assignee</label>
         <select value={assignee} name='assignee' onChange={updateAssignee}>
-          <option>Please Select Assignee</option>
-          <option value='Tom Cruise'>Tom Cruise</option>
+          <option value={''}>Please Select Assignee</option>
+          {employees && employees.map((employee, index) => (
+            <option key={index} value={employee}>{employee}</option>
+          ))}
         </select>
       </div>
       <button type='submit' disabled={!(title && content)}>Create New Bug</button>
