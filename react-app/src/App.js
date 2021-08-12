@@ -11,6 +11,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import CreateNewBugForm from './components/CreateNewBugForm/CreateNewBugForm';
+import TestComponent from './components/TestComponent/TestComponent'
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -49,8 +50,8 @@ function App() {
         <ProtectedRoute path='/bugs/new' exact={true}>
           <CreateNewBugForm />
         </ProtectedRoute>
-        <ProtectedRoute path='/bugs/edit' exact={true}>
-          <h1>UPDATE BUG COMPONENT</h1>
+        <ProtectedRoute path='/test-component' exact={true}>
+          <TestComponent></TestComponent>
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

@@ -51,7 +51,7 @@ const DisplayBugInfo = () => {
 
 
 
-  ///////////////////////////////////////
+
   let inProgressBugsReversed;
 
   const setInProgressBugDivsWithButtons = () => {
@@ -77,7 +77,43 @@ const DisplayBugInfo = () => {
       })
     })
   }
+
+
+
+
+
+
   ///////////////////////////////////////
+  let completedBugsReversed;
+
+  const setCompletedBugDivsWithButtons = () => {
+    let completedBugDivs = document.querySelectorAll('.dbi_completed_bug');
+
+    let completedBugObjectKeys;
+
+    completedBugObjectKeys = Object.keys(completedResolvedBugs);
+    completedBugObjectKeys = completedBugObjectKeys.reverse();
+
+    let temp = Object.values(completedResolvedBugs);
+    completedBugsReversed = temp.reverse();
+
+
+    let pos = 0;
+    completedBugDivs.forEach((item) => {
+      item.setAttribute("id", `${completedBugObjectKeys[pos]}`)
+      pos = pos + 1;
+      item.addEventListener('click', (event) => {
+        let divId = (event.currentTarget).getAttribute('id');
+        dispatch(setTheSelectedBugId(divId));
+        setShowModal(true);
+      })
+    })
+  }
+  ///////////////////////////////////////
+
+
+
+
 
 
 
@@ -132,57 +168,8 @@ const DisplayBugInfo = () => {
 
 
 
-  // if (newlyAddedBug) {
-  //   let newBugDivs = document.querySelectorAll('.dbi_single_bug');
-  //   if (newBugDivs) {
-  //     setNewBugDivsWithButtons();
-  //   }
-  // }
-
-  // if (newlyAddedBug || newUnassignedBugs || inProgressAssignedBugs) {
-  //   console.log("Blake");
-  //   setNewBugDivsWithButtons();
-  //   setInProgressBugDivsWithButtons();
-  // }
-
-  // if (!allBugs) {
-  //   // setTempValueHolder(1)
-  //   tempValueHolder.current = 1;
-  //   console.log(tempValueHolder.current);
-  // } else {
-  //   // setTempValueHolder(null)
-  //   tempValueHolder.current = null;
-  //   console.log(tempValueHolder.current);
-  // }
-
 
   useEffect(() => {  ////////////////////////////
-    // console.log("^^^^^^^^^^ DBI USE_EFFECT() ^^^^^^^^^^^^^^^");
-    // if (!allBugs) {
-    //   console.log("New York");
-    //   // dispatch(retrieveAllBugs());
-    // }
-    // if (!allGroups) {
-    //   console.log("Miami");
-    //   // dispatch(retrieveAllGroups());
-    // }
-
-    // if (!newUnassignedBugs) {
-    //   console.log("Mountain View");
-    //   console.log(newUnassignedBugs);
-    //   // setNewBugDivsWithButtons();
-    // }
-
-    // if (!inProgressAssignedBugs) {
-    //   console.log("Google");
-    //   console.log(inProgressAssignedBugs);
-    //   // setInProgressBugDivsWithButtons();
-    // }
-
-    // if (!allBugs && !allGroups) {
-    //   dispatch(retrieveAllBugs());
-    //   dispatch(retrieveAllGroups());
-    // }
 
     if (newUnassignedBugs) {
       console.log("########### 1: SET NEW BUGS WITH DIVS AND BUTTONS ###########");
@@ -278,7 +265,31 @@ const DisplayBugInfo = () => {
           <div className="main_divs_titles">
             Completed
           </div>
+          <br></br>
+
+          {completedResolvedBugs && <div id="dbi_completed_bugs_list">
+            {completedBugsReversed?.map((bug, index) => (
+
+              <div className="dbi_completed_bug" key={index}>
+                  {bug.title + ":"}
+                <br></br>
+                <div className="dbi_completed_bug_content">{bug.content}</div>
+                <div className="dbi_status_indicator_parent">
+                  <div className="dbi_status_indicator">
+
+                  </div>
+                </div>
+              </div>
+
+
+            ))}
+          </div>}
+
         </div>
+
+
+
+
 
 
 
