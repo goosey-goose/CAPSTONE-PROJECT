@@ -16,7 +16,7 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
   const [groupId, setGroupId] = useState(allBugs[selectedBugId]["group_id"]);
   const [dateResolved, setDateResolved] = useState(allBugs[selectedBugId]["date_resolved"] ? allBugs[selectedBugId]["date_resolved"] : '1970-01-01');
   const [completed, setCompleted] = useState(allBugs[selectedBugId]["date_resolved"] ? 1 : 0);
-  const [dateAssigned, setDateAssigned] = useState(allBugs[selectedBugId]["date_assigned"] ? allBugs[selectedBugId]["date_assigned"] : '1970-01-01');
+  const [dateAssigned, setDateAssigned] = useState(allBugs[selectedBugId]["date_assigned"] ? (((new Date(allBugs[selectedBugId]["date_assigned"])).toISOString())).split('T')[0] : '1970-01-01');  //
   const [title, setTitle] = useState(allBugs[selectedBugId]["title"]);
   const [content, setContent] = useState(allBugs[selectedBugId]["content"]);
   const [assignee, setAssignee] = useState(allBugs[selectedBugId]["assignee"]);
@@ -26,8 +26,12 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
   console.log("COMPLETED: ", completed);
   console.log("ASSIGNEE: ", assignee);
   console.log("DATE ASSIGNED: ", dateAssigned);
+  console.log(                 (((new Date(dateAssigned)).toISOString())).split('T')[0]             );
+  console.log("date assigned type: ", typeof(dateAssigned));
   console.log("DATE RESOLVED: ", dateResolved);
+  console.log("date resolved type: ", typeof(dateResolved));
 
+  // (date.toJSON()).split('T')[0]
   // let date = new Date();
   // let hello = (date.toJSON()).split('T')[0];
   // console.log("TEST: ", hello);
