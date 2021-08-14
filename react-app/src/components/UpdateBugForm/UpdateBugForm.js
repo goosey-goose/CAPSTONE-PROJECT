@@ -11,12 +11,31 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
   const allBugs = useSelector(state => state.bug.allBugs);
   const selectedBugId = useSelector(state => state.bug.selectedBugId);
   const allGroups = useSelector(state => state.group.allGroups);
-  const [groupId, setGroupId] = useState(allBugs[selectedBugId] ? allBugs[selectedBugId]["group_id"] : '');
-  const [dateResolved, setDateResolved] = useState('');
-  const [title, setTitle] = useState(allBugs[selectedBugId] ? allBugs[selectedBugId]["title"] : '');
-  const [content, setContent] = useState(allBugs[selectedBugId] ? allBugs[selectedBugId]["content"] : '');
-  const [assignee, setAssignee] = useState(allBugs[selectedBugId] ? allBugs[selectedBugId]["assignee"] : '');
-  const user = useSelector(state => state.session.user);
+
+
+  const [groupId, setGroupId] = useState(allBugs[selectedBugId]["group_id"]);
+  const [dateResolved, setDateResolved] = useState(allBugs[selectedBugId]["date_resolved"] ? allBugs[selectedBugId]["date_resolved"] : '1970-01-01');
+  const [completed, setCompleted] = useState(allBugs[selectedBugId]["date_resolved"] ? 1 : 0);
+  const [dateAssigned, setDateAssigned] = useState(allBugs[selectedBugId]["date_assigned"] ? allBugs[selectedBugId]["date_assigned"] : '1970-01-01');
+  const [title, setTitle] = useState(allBugs[selectedBugId]["title"]);
+  const [content, setContent] = useState(allBugs[selectedBugId]["content"]);
+  const [assignee, setAssignee] = useState(allBugs[selectedBugId]["assignee"]);
+  const userId = useSelector(state => state.session.user.id);
+  const dateCreated = useSelector(state => state.bug.allBugs[selectedBugId]["date_created"]);
+
+  console.log("COMPLETED: ", completed);
+  console.log("ASSIGNEE: ", assignee);
+  console.log("DATE ASSIGNED: ", dateAssigned);
+  console.log("DATE RESOLVED: ", dateResolved);
+
+  // let date = new Date();
+  // let hello = (date.toJSON()).split('T')[0];
+  // console.log("TEST: ", hello);
+  // let eben = (Date.parse('01 Jan 1970 00:00:00 GMT'))
+  // let eben = new Date();
+  // console.log("TEST EBEN");
+  // console.log((eben.toJSON()).split('T')[0])
+
   const dispatch = useDispatch();
 
   const employees = [
@@ -30,19 +49,29 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
   ]
 
 
-  console.log("############# SELECTED BUG ID ################");
-  console.log(selectedBugId);
-  console.log(allBugs[selectedBugId]);
-
-  console.log("######### UPDATE BUG FORM:  GROUP ID: #############");
-  console.log(groupId);
-
-
   // UPDATE BUG IN BACKEND BUTTON
   const onClickUpdate = async (e) => {
     e.preventDefault();
+    console.log(completed);
+    // let dateResolvedString;
+    // if (dateResolved === 1 && allBugs[selectedBugId]["date_resolved"]) {
+    //   dateResolvedString = allBugs[selectedBugId]["date_resolved"];
+    // } else if (dateResolved === 1) {
+    //     let date = new Date();
+    //     dateResolvedString = (date.toJSON()).split('T')[0];
+    // } else if (dateResolved === 0) {
+    //   dateResolvedString = '';
+    // }
+
+    // let dateAssignedString;
+    // if (allBugs[selectedBugId]["assignee"] && allBugs[selectedBugId]["date_assigned"]) {
+    //   dateAssignedString = allBugs[selectedBugId]["date_assigned"];
+    // } else if (assignee) {
+    //     let date = new Date();
+    //     dateAssignedString = (date.toJSON()).split('T')[0];
+    // }
     // console.log("################  UPDATE BUG BUTTON  ##############");
-    const data = await dispatch(setTheBugUpdate(groupId, title, content, assignee, selectedBugId));
+    const data = await dispatch(setTheBugUpdate(userId, groupId, title, content, assignee, dateAssigned, dateResolved, selectedBugId));
     if (data) {
       setErrors(data);
     } else {
@@ -96,15 +125,42 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
 
 
   const updateAssignee = (e) => {
+    if (e.target.value === '') {
+      setDateAssigned('1970-01-01');
+      // setDateAssigned((Date.parse('01 Jan 1970 00:00:00 GMT')).toString())
+    } else {
+      let date = new Date();
+      setDateAssigned((date.toJSON()).split('T')[0]);
+    }
+
     setAssignee(e.target.value);
   };
 
 
 
+  const updateDateResolved = (number) => {
+    console.log("number: ", number);
+    console.log(typeof(number));
+    if (number === "1") {
+      console.log("INSIDE THE MOUNTAIN");
+      let date = new Date();
+      setDateResolved((date.toJSON()).split('T')[0]);
+    } else {
+      setDateResolved('1970-01-01');
+      // setDateResolved((Date.parse('01 Jan 1970 00:00:00 GMT')).toString());
+    }
 
-  if (user) {
-    // return <Redirect to='/' />;
-  }
+  };
+
+  const updateCompleted = (e) => {
+    setCompleted(e.target.value);
+
+    updateDateResolved(e.target.value);
+
+  };
+
+
+
 
   let allGroupsKeys;
   let allGroupsValues;
@@ -113,9 +169,9 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
     allGroupsValues = Object.values(allGroups)
   }
 
-  useEffect(() => {
+  // useEffect(() => {
 
-  }, [])
+  // }, [])
 
 
   return (
@@ -172,6 +228,18 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
           ))}
         </select>
       </div>
+
+
+      {/* INPUT FOR COMPLETED */}
+      <div>
+        <label htmlFor='completed'>COMPLETION STATUS</label>
+        <select value={completed} name='completed' onChange={updateCompleted}>
+          <option value={0}>Not Completed</option>
+          <option value={1}>{`Completed`}</option>
+        </select>
+      </div>
+
+
       <button type='submit'>Update Bug</button>
       <button onClick={deleteTheBug}>DELETE BUG</button>
     </form>

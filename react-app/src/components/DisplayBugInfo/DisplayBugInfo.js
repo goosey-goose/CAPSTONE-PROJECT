@@ -22,6 +22,14 @@ const DisplayBugInfo = () => {
   const [test, setTest] = useState(false);
   const dispatch = useDispatch();
 
+
+
+  ///////////////////////////
+  console.log(completedResolvedBugs);
+  //////////////////////////
+
+
+
   let newBugsReversed;
 
   const setNewBugDivsWithButtons = () => {
@@ -168,8 +176,28 @@ const DisplayBugInfo = () => {
 
 
 
+  //////////////////////////////////////////
+  if (completedResolvedBugs) {
+    if (Object.keys(completedResolvedBugs).length === 1) {
+      let mustang = document.querySelector(".dbi_completed_bug");
+      if (mustang === null) {
+        if ((Object.keys(allBugs)).length === 1) {
+          if (newlyAddedBug) {
+            dispatch(retrieveAllBugs());
+          } else {
 
-  useEffect(() => {  ////////////////////////////
+          }
+        }
+      }
+    }
+    setCompletedBugDivsWithButtons();
+  }
+  //////////////////////////////////////////
+
+
+
+
+  useEffect(() => {
 
     if (newUnassignedBugs) {
       console.log("########### 1: SET NEW BUGS WITH DIVS AND BUTTONS ###########");
@@ -179,6 +207,11 @@ const DisplayBugInfo = () => {
     if (inProgressAssignedBugs) {
       console.log("########### 1: SET IN PROGRESS BUGS WITH DIVS AND BUTTONS ###########");
       setInProgressBugDivsWithButtons();
+    }
+
+    if (completedResolvedBugs) {
+      console.log("########### 1: SET IN PROGRESS BUGS WITH DIVS AND BUTTONS ###########");
+      setCompletedBugDivsWithButtons();
     }
 
     return () => {

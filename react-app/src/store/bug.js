@@ -160,30 +160,39 @@ export const setTheSelectedBugId = (bugDivId) => async (dispatch) => {
 
 
 
-export const setTheBugUpdate = (group_id, title, content, assignee, bug_id) => async (dispatch) => {
-  // console.log("##############  OUTER UPDATE BUG THUNK  #########################");
-  // console.log("GROUP ID: ", group_id);
-  // console.log("TITLE: ", title);
-  // console.log("CONTENT: ", content);
-  // console.log("ASSIGNEE: ", assignee);
-  // console.log("BUG ID: ", bug_id);
+export const setTheBugUpdate = (user_id, group_id, title, content, assignee, date_assigned, date_resolved, bug_id) => async (dispatch) => {
+
+  console.log("##############  OUTER UPDATE BUG THUNK  #########################");
+  console.log("USER_ID: ", user_id);
+  console.log("GROUP ID: ", group_id);
+  // console.log("DATE CREATED: ", date_created);
+  console.log("TITLE: ", title);
+  console.log("CONTENT: ", content);
+  console.log("ASSIGNEE: ", assignee);
+  console.log("DATE ASSIGNED: ", date_assigned);
+  console.log("DATE RESOLVED: ", date_resolved);
+  console.log("BUG ID: ", bug_id);
+
   const response = await fetch(`/api/bugs/update/${bug_id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
+      user_id,
       group_id,
       title,
       content,
-      assignee
+      assignee,
+      date_assigned,
+      date_resolved
     }),
   });
 
   if (response.ok) {
     // console.log("#############  INNER UPDATE BUG THUNK  #################");
     const data = await response.json();
-    // console.log(data);
+    console.log(data);
     dispatch(setBugUpdate(data))
     return null
   } else if (response.status < 500) {
@@ -247,8 +256,11 @@ export default function reducer(state = initialState, action) {
       if (newState.inProgressAssignedBugs[action.payload["dbpk_id"]]) delete newState.inProgressAssignedBugs[action.payload["dbpk_id"]]
       if (newState.completedResolvedBugs[action.payload["dbpk_id"]]) delete newState.completedResolvedBugs[action.payload["dbpk_id"]]
 
+      console.log("@@@@@@@@@@@@@@@@@@@@  STOMACH ACHE  @@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+      console.log(action.payload);
+
       if (!action.payload["updated_bug"]["assignee"]) newState.newUnassignedBugs[action.payload["dbpk_id"]] = action.payload["updated_bug"]
-      if (action.payload["updated_bug"]["assignee"]) newState.inProgressAssignedBugs[action.payload["dbpk_id"]] = action.payload["updated_bug"]
+      if (action.payload["updated_bug"]["assignee"] && !action.payload["updated_bug"]["date_resolved"]) newState.inProgressAssignedBugs[action.payload["dbpk_id"]] = action.payload["updated_bug"]
       if (action.payload["updated_bug"]["date_resolved"]) newState.completedResolvedBugs[action.payload["dbpk_id"]] = action.payload["updated_bug"]
 
       newState.allBugs[action.payload["dbpk_id"]] = action.payload["updated_bug"]
