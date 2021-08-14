@@ -90,6 +90,7 @@ def update_bug(id):
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
         print("&&&&&&&&&&&&&&&&  FORM IS VALIDATED &&&&&&&&&&&&&&&&&&&&&&")
+        print(form.data["date_assigned"])
         if form.data["group_id"] != queried_bug.group_id:
             queried_bug.group_id = form.data["group_id"]
         if form.data["title"] != queried_bug.title:
@@ -99,12 +100,18 @@ def update_bug(id):
         if form.data["assignee"] != queried_bug.assignee:
             queried_bug.assignee = form.data["assignee"]
 
-        if form.data["date_assigned"] == "1970-01-01":
+        if (form.data["date_assigned"]).strftime("%Y-%m-%d") == "1970-01-01":
+            print("(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((")
+            print("I LIKE WENDY'S FOOD")
             queried_bug.date_assigned = None
         elif form.data["date_assigned"] != queried_bug.date_assigned:
+            print("))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))")
             queried_bug.date_assigned = form.data["date_assigned"]
 
-        if form.data["date_resolved"] == "1970-01-01":
+        print(type(form.data["date_assigned"]))
+        print((form.data["date_resolved"]).strftime("%Y-%m-%d"))
+
+        if (form.data["date_resolved"]).strftime("%Y-%m-%d") == "1970-01-01":
             queried_bug.date_resolved = None
         elif form.data["date_resolved"] != queried_bug.date_resolved:
             queried_bug.date_resolved = form.data["date_resolved"]

@@ -139,6 +139,7 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
 
 
   const updateDateResolved = (number) => {
+    console.log("MARTY MCFLY");
     console.log("number: ", number);
     console.log(typeof(number));
     if (number === "1") {
