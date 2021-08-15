@@ -237,9 +237,11 @@ const DisplayBugInfo = () => {
           </div>
         </div>
 
+        <div id="final_new_bugs_label">New Bugs</div>
+
         <div className="main_divs" id="dbi_new_bugs">
-        <div className="main_divs_titles">New Bugs</div>
-          <br></br>
+        {/* <div className="main_divs_titles">New Bugs</div> */}
+          {/* <br></br> */}
 
           {newUnassignedBugs && <div id="dbi_new_bugs_list">
             {newBugsReversed.map((bug, index) => (
@@ -264,11 +266,11 @@ const DisplayBugInfo = () => {
 
 
 
-
+        <div id="final_in_progress_bugs_label">In Progress</div>
 
         <div className="main_divs" id="dbi_in_progress">
-          <div className="main_divs_titles">In Progress</div>
-          <br></br>
+          {/* <div className="main_divs_titles">In Progress</div> */}
+          {/* <br></br> */}
 
           {inProgressAssignedBugs && <div id="dbi_progress_bugs_list">
             {inProgressBugsReversed.map((bug, index) => (
@@ -294,13 +296,11 @@ const DisplayBugInfo = () => {
 
 
 
-
+        <div id="final_completed_bugs_label">Completed</div>
 
         <div className="main_divs" id="dbi_completed_bugs">
-          <div className="main_divs_titles">
-            Completed
-          </div>
-          <br></br>
+          {/* <div className="main_divs_titles">Completed</div> */}
+          {/* <br></br> */}
 
           {completedResolvedBugs && <div id="dbi_completed_bugs_list">
             {completedBugsReversed?.map((bug, index) => (

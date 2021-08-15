@@ -17,12 +17,14 @@
   grid-gap: 10px;
   grid-template-areas:
     "welcome one two"
+    "a b c"
     "new in_progress complete";
 }
 
 #dbi_welcome_label {
   grid-area: welcome;
-  /* border-bottom: solid white 10px; */
+  /* EBEN: POSSIBLY DELETE BELOW */
+  height: 8rem;
 }
 
 #dbi_new_bugs {
@@ -46,10 +48,13 @@
   padding-top: 10px;
   /* padding-left: 5px; */
   background-color: #e0e0e0;
+  border-top: solid 5px #e0e0e0;
   overflow-y: auto;
 }
 
 .main_divs_titles {
+  /* position: fixed; */
+  background-color: #e0e0e0;
   padding-left: 10px;
 }
 
@@ -84,11 +89,39 @@
   /* margin-left: 5px; */
   margin-bottom: 5px;
   border-radius: 50%;
-  background-color: red;
+  /* background-color: red; */
 }
 
 .dbi_status_indicator_parent {
   height: 50%;
   display: flex;
   align-items: flex-end;
+}
+
+.dbi_single_bug .dbi_status_indicator {
+  background-color: red;
+}
+
+.dbi_progress_bug .dbi_status_indicator {
+  background-color: purple;
+}
+
+.dbi_completed_bug .dbi_status_indicator {
+  background-color: greenyellow;
+}
+
+/* maybe delete the items below? */
+#final_new_bugs_label {
+  grid-area: a;
+  display: inline-block;
+}
+
+#final_in_progress_bugs_label {
+  grid-area: b;
+  display: inline-block;
+}
+
+#final_completed_bugs_label {
+  grid-area: c;
+  display: inline-block;
 }
