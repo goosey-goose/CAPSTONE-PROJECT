@@ -14,7 +14,7 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
 
 
   const [groupId, setGroupId] = useState(allBugs[selectedBugId]["group_id"]);
-  const [dateResolved, setDateResolved] = useState(allBugs[selectedBugId]["date_resolved"] ? allBugs[selectedBugId]["date_resolved"] : '1970-01-01');
+  const [dateResolved, setDateResolved] = useState(allBugs[selectedBugId]["date_resolved"] ? (((new Date(allBugs[selectedBugId]["date_resolved"])).toISOString())).split('T')[0] : '1970-01-01');
   const [completed, setCompleted] = useState(allBugs[selectedBugId]["date_resolved"] ? 1 : 0);
   const [dateAssigned, setDateAssigned] = useState(allBugs[selectedBugId]["date_assigned"] ? (((new Date(allBugs[selectedBugId]["date_assigned"])).toISOString())).split('T')[0] : '1970-01-01');  //
   const [title, setTitle] = useState(allBugs[selectedBugId]["title"]);
@@ -57,29 +57,11 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
   const onClickUpdate = async (e) => {
     e.preventDefault();
     console.log(completed);
-    // let dateResolvedString;
-    // if (dateResolved === 1 && allBugs[selectedBugId]["date_resolved"]) {
-    //   dateResolvedString = allBugs[selectedBugId]["date_resolved"];
-    // } else if (dateResolved === 1) {
-    //     let date = new Date();
-    //     dateResolvedString = (date.toJSON()).split('T')[0];
-    // } else if (dateResolved === 0) {
-    //   dateResolvedString = '';
-    // }
-
-    // let dateAssignedString;
-    // if (allBugs[selectedBugId]["assignee"] && allBugs[selectedBugId]["date_assigned"]) {
-    //   dateAssignedString = allBugs[selectedBugId]["date_assigned"];
-    // } else if (assignee) {
-    //     let date = new Date();
-    //     dateAssignedString = (date.toJSON()).split('T')[0];
-    // }
     // console.log("################  UPDATE BUG BUTTON  ##############");
     const data = await dispatch(setTheBugUpdate(userId, groupId, title, content, assignee, dateAssigned, dateResolved, selectedBugId));
     if (data) {
       setErrors(data);
     } else {
-      // triggerUpdate(selectedBugId)
       showFunc(false);
     }
   };
@@ -130,9 +112,11 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
 
   const updateAssignee = (e) => {
     if (e.target.value === '') {
+      // setDateResolved('1970-01-01');  //////////////////////////////////////////////////////////////////////////////////
       setDateAssigned('1970-01-01');
       // setDateAssigned((Date.parse('01 Jan 1970 00:00:00 GMT')).toString())
     } else {
+      setDateResolved('1970-01-01');  ///////////////////////////////////////////////////////////////////////////////////
       let date = new Date();
       setDateAssigned((date.toJSON()).split('T')[0]);
     }
@@ -143,11 +127,12 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
 
 
   const updateDateResolved = (number) => {
-    console.log("MARTY MCFLY");
-    console.log("number: ", number);
-    console.log(typeof(number));
+    // console.log("MARTY MCFLY");
+    // console.log("number: ", number);
+    // console.log(typeof(number));
     if (number === "1") {
-      console.log("INSIDE THE MOUNTAIN");
+      // console.log("INSIDE THE MOUNTAIN");
+      // setDateAssigned('1970-01-01');  ///////////////////////////////////////////////////////////////////////////////////
       let date = new Date();
       setDateResolved((date.toJSON()).split('T')[0]);
     } else {

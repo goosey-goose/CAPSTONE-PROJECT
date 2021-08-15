@@ -108,8 +108,8 @@ def update_bug(id):
             print("))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))")
             queried_bug.date_assigned = form.data["date_assigned"]
 
-        print(type(form.data["date_assigned"]))
-        print((form.data["date_resolved"]).strftime("%Y-%m-%d"))
+        # print(type(form.data["date_assigned"]))
+        # print((form.data["date_resolved"]).strftime("%Y-%m-%d"))
 
         if (form.data["date_resolved"]).strftime("%Y-%m-%d") == "1970-01-01":
             queried_bug.date_resolved = None

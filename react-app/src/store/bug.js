@@ -80,7 +80,7 @@ export const createNewBug = (user_id, group_id, date_created, title, content, as
 
 export const retrieveAllBugs = () => async (dispatch) => {
   const response = await fetch('/api/bugs/all');
-  console.log("############# FRED FLINSTONE ##############");
+  // console.log("############# FRED FLINSTONE ##############");
   if (response.ok) {
     let data = await response.json();
     // console.log(data);
@@ -91,10 +91,10 @@ export const retrieveAllBugs = () => async (dispatch) => {
     let returnedDataKeys = Object.keys(data);
     let returnedDataValues = Object.values(data);
     for (let i = 0; i < returnedDataValues.length; ++i) {
-      if (!returnedDataValues[i].assignee) {
+      if (!returnedDataValues[i].assignee && !returnedDataValues[i].date_resolved) {
         unassignedBugs[returnedDataKeys[i]] = returnedDataValues[i]
       }
-      if (returnedDataValues[i].assignee) {
+      if (returnedDataValues[i].assignee && !returnedDataValues[i].date_resolved) {
         inProgressBugs[returnedDataKeys[i]] = returnedDataValues[i]
       }
       if (returnedDataValues[i].date_resolved) {
@@ -162,16 +162,16 @@ export const setTheSelectedBugId = (bugDivId) => async (dispatch) => {
 
 export const setTheBugUpdate = (user_id, group_id, title, content, assignee, date_assigned, date_resolved, bug_id) => async (dispatch) => {
 
-  console.log("##############  OUTER UPDATE BUG THUNK  #########################");
-  console.log("USER_ID: ", user_id);
-  console.log("GROUP ID: ", group_id);
-  // console.log("DATE CREATED: ", date_created);
-  console.log("TITLE: ", title);
-  console.log("CONTENT: ", content);
-  console.log("ASSIGNEE: ", assignee);
-  console.log("DATE ASSIGNED: ", date_assigned);
-  console.log("DATE RESOLVED: ", date_resolved);
-  console.log("BUG ID: ", bug_id);
+  // console.log("##############  OUTER UPDATE BUG THUNK  #########################");
+  // console.log("USER_ID: ", user_id);
+  // console.log("GROUP ID: ", group_id);
+  // // console.log("DATE CREATED: ", date_created);
+  // console.log("TITLE: ", title);
+  // console.log("CONTENT: ", content);
+  // console.log("ASSIGNEE: ", assignee);
+  // console.log("DATE ASSIGNED: ", date_assigned);
+  // console.log("DATE RESOLVED: ", date_resolved);
+  // console.log("BUG ID: ", bug_id);
 
   const response = await fetch(`/api/bugs/update/${bug_id}`, {
     method: 'PATCH',
@@ -190,7 +190,7 @@ export const setTheBugUpdate = (user_id, group_id, title, content, assignee, dat
   });
 
   if (response.ok) {
-    // console.log("#############  INNER UPDATE BUG THUNK  #################");
+    console.log("#############  INNER UPDATE BUG THUNK  #################");
     const data = await response.json();
     console.log(data);
     dispatch(setBugUpdate(data))
@@ -262,9 +262,15 @@ export default function reducer(state = initialState, action) {
 
       // console.log("@@@@@@@@@@@@@@@@@@@@  STOMACH ACHE  @@@@@@@@@@@@@@@@@@@@@@@@@@@@");
       console.log(action.payload);
+      console.log(!action.payload["updated_bug"]["date_resolved"] && action.payload["updated_bug"]["assignee"] && action.payload["updated_bug"]["date_assigned"]);
 
-      if (!action.payload["updated_bug"]["assignee"]) newState.newUnassignedBugs[action.payload["dbpk_id"]] = action.payload["updated_bug"]
-      if (action.payload["updated_bug"]["assignee"] && !action.payload["updated_bug"]["date_resolved"]) newState.inProgressAssignedBugs[action.payload["dbpk_id"]] = action.payload["updated_bug"]
+      // ASSIGNEE: FALSE         &&         DATE RESOLVED: FALSE
+      if (!action.payload["updated_bug"]["assignee"] && !action.payload["updated_bug"]["date_resolved"]) newState.newUnassignedBugs[action.payload["dbpk_id"]] = action.payload["updated_bug"]
+
+      // DATE RESOLVED: FALSE         &&         ASSIGNEE: TRUE         &&         DATE ASSIGNED: TRUE
+      if (!action.payload["updated_bug"]["date_resolved"] && action.payload["updated_bug"]["assignee"] && action.payload["updated_bug"]["date_assigned"]) newState.inProgressAssignedBugs[action.payload["dbpk_id"]] = action.payload["updated_bug"]
+
+      // DATE RESOLVED: TRUE
       if (action.payload["updated_bug"]["date_resolved"]) newState.completedResolvedBugs[action.payload["dbpk_id"]] = action.payload["updated_bug"]
 
       newState.allBugs[action.payload["dbpk_id"]] = action.payload["updated_bug"]

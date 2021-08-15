@@ -25,6 +25,8 @@ const DisplayBugInfo = () => {
 
 
   ///////////////////////////
+  console.log(newUnassignedBugs);
+  console.log(inProgressAssignedBugs);
   console.log(completedResolvedBugs);
   //////////////////////////
 
@@ -127,19 +129,19 @@ const DisplayBugInfo = () => {
 
   if (!allBugs) {
     // console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-    console.log("%%%%%%%%%%%%%%%%%%%%  MONDAY  %%%%%%%%%%%%%%%%%%%%%");
+    // console.log("%%%%%%%%%%%%%%%%%%%%  MONDAY  %%%%%%%%%%%%%%%%%%%%%");
     dispatch(retrieveAllBugs());
   }
 
   if (!allGroups) {
-    console.log("%%%%%%%%%%%%%%%%%%%%  TUESDAY  %%%%%%%%%%%%%%%%%%%%");
+    // console.log("%%%%%%%%%%%%%%%%%%%%  TUESDAY  %%%%%%%%%%%%%%%%%%%%");
     dispatch(retrieveAllGroups());
   }
 
 
 
   if (newUnassignedBugs) {
-    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    // console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
     if (Object.keys(newUnassignedBugs).length === 1) {
       let mustang = document.querySelector(".dbi_single_bug");
       if (mustang === null) {
@@ -153,12 +155,12 @@ const DisplayBugInfo = () => {
       }
     }
     // console.log(Object.key(newUnassignedBugs));
-    console.log("########### 2: SET NEW BUGS WITH DIVS AND BUTTONS ###########");
+    // console.log("########### 2: SET NEW BUGS WITH DIVS AND BUTTONS ###########");
     setNewBugDivsWithButtons();
   }
 
   if (inProgressAssignedBugs) {
-    console.log("########### 2: SET IN PROGRESS BUGS WITH DIVS AND BUTTONS ###########");
+    // console.log("########### 2: SET IN PROGRESS BUGS WITH DIVS AND BUTTONS ###########");
     if (Object.keys(inProgressAssignedBugs).length === 1) {
       let mustang = document.querySelector(".dbi_progress_bug");
       if (mustang === null) {
