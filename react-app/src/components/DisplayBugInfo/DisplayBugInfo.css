@@ -13,7 +13,7 @@
   height: 100%;
   margin-left: 9px;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 5fr;
+  grid-template-rows: 1fr 0fr 5fr;
   grid-gap: 10px;
   grid-template-areas:
     "welcome one two"
