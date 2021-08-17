@@ -20,11 +20,16 @@ const DisplayBugInfo = () => {
   let newlyAddedBug = useSelector(state => state.bug.newlyAddedBug);
   let selectedBugId = useSelector(state => state.bug.selectedBugId);
   const [test, setTest] = useState(false);
+  let testingYay = useRef();
   const dispatch = useDispatch();
 
-
+  // testingYay.current = allGroups;
+  // console.log(testingYay.current);
 
   ///////////////////////////
+  // dispatch(retrieveAllGroups());
+
+  // console.log(allGroups);
   console.log(newUnassignedBugs);
   console.log(inProgressAssignedBugs);
   console.log(completedResolvedBugs);
@@ -133,10 +138,12 @@ const DisplayBugInfo = () => {
     dispatch(retrieveAllBugs());
   }
 
-  if (!allGroups) {
-    // console.log("%%%%%%%%%%%%%%%%%%%%  TUESDAY  %%%%%%%%%%%%%%%%%%%%");
-    dispatch(retrieveAllGroups());
-  }
+  // if (!allGroups) {
+  //   // console.log("%%%%%%%%%%%%%%%%%%%%  TUESDAY  %%%%%%%%%%%%%%%%%%%%");
+  //   dispatch(retrieveAllGroups());
+  //   // let allGroupsKeysItems = Object.keys(allGroups);
+  //   // console.log("Fig Newtons");
+  // }
 
 
 
@@ -197,9 +204,30 @@ const DisplayBugInfo = () => {
   //////////////////////////////////////////
 
 
-
+  // console.log(allGroups);
+  let allGroupsValuesItems;
+  if (allGroups) {
+    console.log("its ready");
+    allGroupsValuesItems = Object.values(allGroups);
+  }
 
   useEffect(() => {
+
+    // console.log(!!allGroups);
+    if (!allGroups) {
+      dispatch(retrieveAllGroups());
+    }
+
+    // let allGroupsKeysItems = Object.keys(allGroups);
+    // setTimeout(() => {
+    //   // let allGroupsKeysItems = Object.keys(allGroups);
+    //   console.log(allGroups);
+    // }, 1500);
+    // let allGroupsValuesItems;
+    // if (allGroupsKeysItems.length >= 1) {
+    //   console.log("its ready");
+    //   allGroupsValuesItems = Object.values(allGroups);
+    // }
 
     if (newUnassignedBugs) {
       console.log("########### 1: SET NEW BUGS WITH DIVS AND BUTTONS ###########");
@@ -224,6 +252,12 @@ const DisplayBugInfo = () => {
 
 
 
+  ///////////////////////////////////////////////////////////////////////
+  // console.log((Object.keys(allGroups) >= 1));
+  // console.log(Object.keys(allGroups));
+  // let allGroupsValuesItems = Object.values(testingYay.current);
+  //////////////////////////////////////////////////////////////////////
+
 
   return (
     <div id="dbi_top_div">
@@ -235,6 +269,23 @@ const DisplayBugInfo = () => {
           <div className="main_divs_titles">
             Welcome, {user.username}
           </div>
+        </div>
+
+        <div id="groups_section">
+          <div>
+            Available Groups
+          </div>
+
+
+          {allGroupsValuesItems && <div id="groups_container">
+            {allGroupsValuesItems.map((group, index) => (
+              <div key={index}>
+                {group.name}
+              </div>
+            ))}
+          </div>}
+
+
         </div>
 
         <div id="final_new_bugs_label">New Bugs</div>

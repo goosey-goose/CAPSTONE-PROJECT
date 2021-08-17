@@ -27,6 +27,14 @@
   height: 8rem;
 }
 
+#groups_section {
+  grid-area: two;
+  width: 100%;
+  height: 100%;
+  background-color: burlywood;
+  overflow-y: auto;
+}
+
 #dbi_new_bugs {
   grid-area: new;
   /* overflow-y: auto; */
