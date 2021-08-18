@@ -24,15 +24,49 @@
 #dbi_welcome_label {
   grid-area: welcome;
   /* EBEN: POSSIBLY DELETE BELOW */
-  height: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 8rem;
+  font-weight: bold;
+  padding-top: 0;
+}
+
+#dbi_actual_welcome_div {
+  align-items: center;
 }
 
 #groups_section {
   grid-area: two;
   width: 100%;
   height: 100%;
-  background-color: burlywood;
+  background-color: #e0e0e0;
   overflow-y: auto;
+}
+
+#available_groups_label {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+#groups_container {
+  background-color: white;
+  margin-left: 5px;
+  margin-right: 5px;
+  max-height: 62%;
+  overflow-y: auto;
+}
+
+.group_name_divs {
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.group_name_divs:hover {
+  background-color: darkgray;
 }
 
 #dbi_new_bugs {
@@ -122,14 +156,17 @@
 #final_new_bugs_label {
   grid-area: a;
   display: inline-block;
+  font-weight: bold;
 }
 
 #final_in_progress_bugs_label {
   grid-area: b;
   display: inline-block;
+  font-weight: bold;
 }
 
 #final_completed_bugs_label {
   grid-area: c;
   display: inline-block;
+  font-weight: bold;
 }

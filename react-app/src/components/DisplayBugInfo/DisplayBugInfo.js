@@ -266,20 +266,20 @@ const DisplayBugInfo = () => {
 
 
         <div className="main_divs" id="dbi_welcome_label">
-          <div className="main_divs_titles">
+          <div id="dbi_actual_welcome_div" className="main_divs_titles">
             Welcome, {user.username}
           </div>
         </div>
 
         <div id="groups_section">
-          <div>
+          <div id="available_groups_label">
             Available Groups
           </div>
 
 
           {allGroupsValuesItems && <div id="groups_container">
             {allGroupsValuesItems.map((group, index) => (
-              <div key={index}>
+              <div className="group_name_divs" key={index}>
                 {group.name}
               </div>
             ))}
