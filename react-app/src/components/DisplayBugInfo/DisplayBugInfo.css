@@ -13,7 +13,7 @@
   height: 100%;
   margin-left: 9px;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 0fr 5fr;
+  grid-template-rows: 2fr 0fr 5fr;
   grid-gap: 10px;
   grid-template-areas:
     "welcome one two"
@@ -27,7 +27,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  max-height: 8rem;
+  max-height: 14rem;
   font-weight: bold;
   padding-top: 0;
 }
@@ -38,7 +38,7 @@
 
 #groups_section {
   grid-area: two;
-  width: 100%;
+  width: 98.5%;
   height: 100%;
   background-color: #e0e0e0;
   overflow-y: auto;
@@ -56,7 +56,7 @@
   background-color: white;
   margin-left: 5px;
   margin-right: 5px;
-  max-height: 62%;
+  max-height: 74%;
   overflow-y: auto;
 }
 
@@ -80,7 +80,7 @@
 
 #dbi_completed_bugs {
   grid-area: complete;
-  width: 98%;
+  width: 98.5%;
 }
 
 .main_divs {
@@ -155,18 +155,24 @@
 /* maybe delete the items below? */
 #final_new_bugs_label {
   grid-area: a;
-  display: inline-block;
+  /* display: inline-block; */
+  display: flex;
+  justify-content: center;
   font-weight: bold;
 }
 
 #final_in_progress_bugs_label {
   grid-area: b;
-  display: inline-block;
+  /* display: inline-block; */
+  display: flex;
+  justify-content: center;
   font-weight: bold;
 }
 
 #final_completed_bugs_label {
   grid-area: c;
-  display: inline-block;
+  /* display: inline-block; */
+  display: flex;
+  justify-content: center;
   font-weight: bold;
 }
