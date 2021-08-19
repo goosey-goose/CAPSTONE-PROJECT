@@ -98,7 +98,7 @@ const DisplayBugInfo = () => {
 
 
 
-  ///////////////////////////////////////
+
   let completedBugsReversed;
 
   const setCompletedBugDivsWithButtons = () => {
@@ -121,6 +121,31 @@ const DisplayBugInfo = () => {
         let divId = (event.currentTarget).getAttribute('id');
         dispatch(setTheSelectedBugId(divId));
         setShowModal(true);
+      })
+    })
+  }
+
+
+
+
+
+
+  ///////////////////////////////////////
+  const setGroupsWithButtons = () => {
+    let displayedGroups = document.querySelectorAll(".group_name_divs");
+
+    displayedGroups.forEach((item) => {
+      item.addEventListener('click', (event) => {
+        let dataId = (event.currentTarget).getAttribute('data-id');
+
+        let allTheBugDivs = document.querySelectorAll(".dbi_single_bug");
+
+        allTheBugDivs.forEach((bug) => {
+          let tempId = bug.getAttribute("data-group-id");
+          if (tempId === dataId) {
+            bug.style.display="none";
+          }
+        })
       })
     })
   }
@@ -185,7 +210,7 @@ const DisplayBugInfo = () => {
 
 
 
-  //////////////////////////////////////////
+
   if (completedResolvedBugs) {
     if (Object.keys(completedResolvedBugs).length === 1) {
       let mustang = document.querySelector(".dbi_completed_bug");
@@ -201,7 +226,10 @@ const DisplayBugInfo = () => {
     }
     setCompletedBugDivsWithButtons();
   }
-  //////////////////////////////////////////
+
+
+
+
 
 
   // console.log(allGroups);
@@ -213,9 +241,20 @@ const DisplayBugInfo = () => {
 
   useEffect(() => {
 
+    // let yolo = document.getElementById("dbi_welcome_label");
+    // yolo.addEventListener('mouseover', () => {
+    //   console.log("Dunder Mifflin");
+    // })
+
     // console.log(!!allGroups);
     if (!allGroups) {
       dispatch(retrieveAllGroups());
+    }
+
+    if (!allGroups) {
+      setTimeout(() => {
+        setGroupsWithButtons();
+      }, 500);
     }
 
     // let allGroupsKeysItems = Object.keys(allGroups);
@@ -279,7 +318,7 @@ const DisplayBugInfo = () => {
 
           {allGroupsValuesItems && <div id="groups_container">
             {allGroupsValuesItems.map((group, index) => (
-              <div className="group_name_divs" key={index}>
+              <div className="group_name_divs" data-id={group.id} key={index}>
                 {group.name}
               </div>
             ))}
@@ -297,7 +336,7 @@ const DisplayBugInfo = () => {
           {newUnassignedBugs && <div id="dbi_new_bugs_list">
             {newBugsReversed.map((bug, index) => (
 
-              <div className="dbi_single_bug" key={index}>
+              <div className="dbi_single_bug" data-group-id={bug.group_id} key={index}>
                   {bug.title + ":"}
                 <br></br>
                 <div className="dbi_single_bug_content">{bug.content}</div>

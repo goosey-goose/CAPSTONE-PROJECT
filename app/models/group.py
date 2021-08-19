@@ -18,5 +18,6 @@ class Group(db.Model):
     # to_dict()  METHODS
     def to_dict(self):
         return {
+            'id': self.id,
             'name': self.name
         }
