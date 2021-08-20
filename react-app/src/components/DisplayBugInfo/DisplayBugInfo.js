@@ -134,7 +134,6 @@ const DisplayBugInfo = () => {
   const setGroupsWithButtons = () => {
     let displayedGroups = document.querySelectorAll(".group_name_divs");
 
-    //////
     let hiddenDivs = [];
 
     displayedGroups.forEach((item) => {
@@ -181,6 +180,10 @@ const DisplayBugInfo = () => {
         })
 
 
+        if (hiddenDivs.length >= 1) {
+          let resetGroupView = document.getElementById("reset_group_view");
+          resetGroupView.style.display="block";
+        }
 
 
       })
@@ -350,6 +353,9 @@ const DisplayBugInfo = () => {
         <div id="groups_section">
           <div id="available_groups_label">
             Available Groups
+            <div id="reset_group_view">
+              <button>Show All Bugs</button>
+            </div>
           </div>
 
 
