@@ -134,18 +134,55 @@ const DisplayBugInfo = () => {
   const setGroupsWithButtons = () => {
     let displayedGroups = document.querySelectorAll(".group_name_divs");
 
+    //////
+    let hiddenDivs = [];
+
     displayedGroups.forEach((item) => {
       item.addEventListener('click', (event) => {
+        if (hiddenDivs.length >= 1) {
+          hiddenDivs.forEach((div) => {
+            div.style.display="block";
+          })
+          hiddenDivs = [];
+        }
+
         let dataId = (event.currentTarget).getAttribute('data-id');
 
-        let allTheBugDivs = document.querySelectorAll(".dbi_single_bug");
+        let allSingleBugDivs = document.querySelectorAll(".dbi_single_bug");
+        let allProgressBugDivs = document.querySelectorAll(".dbi_progress_bug");
+        let allCompletedBugDivs = document.querySelectorAll(".dbi_completed_bug");
 
-        allTheBugDivs.forEach((bug) => {
+        ///////
+        console.log(typeof(allSingleBugDivs));
+        console.log(allSingleBugDivs);
+
+        allSingleBugDivs.forEach((bug) => {
           let tempId = bug.getAttribute("data-group-id");
-          if (tempId === dataId) {
+          if (tempId !== dataId) {
             bug.style.display="none";
+            hiddenDivs.push(bug);
           }
         })
+
+        allProgressBugDivs.forEach((bug) => {
+          let tempId = bug.getAttribute("data-group-id");
+          if (tempId !== dataId) {
+            bug.style.display="none";
+            hiddenDivs.push(bug);
+          }
+        })
+
+        allCompletedBugDivs.forEach((bug) => {
+          let tempId = bug.getAttribute("data-group-id");
+          if (tempId !== dataId) {
+            bug.style.display="none";
+            hiddenDivs.push(bug);
+          }
+        })
+
+
+
+
       })
     })
   }
@@ -365,7 +402,7 @@ const DisplayBugInfo = () => {
           {inProgressAssignedBugs && <div id="dbi_progress_bugs_list">
             {inProgressBugsReversed.map((bug, index) => (
 
-              <div className="dbi_progress_bug" key={index}>
+              <div className="dbi_progress_bug" data-group-id={bug.group_id} key={index}>
                   {bug.title + ":"}
                 <br></br>
                 <div className="dbi_progress_bug_content">{bug.content}</div>
@@ -395,7 +432,7 @@ const DisplayBugInfo = () => {
           {completedResolvedBugs && <div id="dbi_completed_bugs_list">
             {completedBugsReversed?.map((bug, index) => (
 
-              <div className="dbi_completed_bug" key={index}>
+              <div className="dbi_completed_bug" data-group-id={bug.group_id} key={index}>
                   {bug.title + ":"}
                 <br></br>
                 <div className="dbi_completed_bug_content">{bug.content}</div>
