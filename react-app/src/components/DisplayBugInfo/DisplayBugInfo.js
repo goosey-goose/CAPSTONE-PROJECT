@@ -20,7 +20,7 @@ const DisplayBugInfo = () => {
   let newlyAddedBug = useSelector(state => state.bug.newlyAddedBug);
   let selectedBugId = useSelector(state => state.bug.selectedBugId);
   const [test, setTest] = useState(false);
-  let testingYay = useRef();
+  let testingYay = useRef([]);
   const dispatch = useDispatch();
 
   // testingYay.current = allGroups;
@@ -131,10 +131,24 @@ const DisplayBugInfo = () => {
 
 
   ///////////////////////////////////////
+  console.log("just before it's declaration");
+  let hiddenDivs = [];
+  let fridayNight;
+
+  const showAllGroupBugs = () => {
+    testingYay.current.forEach((bug) => {
+      bug.style.display="block";
+    })
+    // console.log(hiddenDivs);
+    // console.log(testingYay.current);
+    // console.log(hiddenDivs);
+  }
+
+
   const setGroupsWithButtons = () => {
     let displayedGroups = document.querySelectorAll(".group_name_divs");
 
-    let hiddenDivs = [];
+    // let hiddenDivs = [];
 
     displayedGroups.forEach((item) => {
       item.addEventListener('click', (event) => {
@@ -185,6 +199,11 @@ const DisplayBugInfo = () => {
           resetGroupView.style.display="block";
         }
 
+        console.log(hiddenDivs);
+        // fridayNight.push("YOLO!!!!!!!!!")
+        // console.log(fridayNight);
+
+        testingYay.current = hiddenDivs;
 
       })
     })
@@ -354,7 +373,7 @@ const DisplayBugInfo = () => {
           <div id="available_groups_label">
             Available Groups
             <div id="reset_group_view">
-              <button>Show All Bugs</button>
+              <button onClick={showAllGroupBugs}>Show All Bugs</button>
             </div>
           </div>
 

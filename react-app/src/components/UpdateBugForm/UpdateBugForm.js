@@ -10,6 +10,7 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
   // const [userId, setUserId] = useState(0);
   const allBugs = useSelector(state => state.bug.allBugs);
   const selectedBugId = useSelector(state => state.bug.selectedBugId);
+  console.log(selectedBugId);
   const allGroups = useSelector(state => state.group.allGroups);
 
 
@@ -30,6 +31,7 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
   console.log("date assigned type: ", typeof(dateAssigned));
   console.log("DATE RESOLVED: ", dateResolved);
   console.log("date resolved type: ", typeof(dateResolved));
+  console.log((allBugs[selectedBugId]["date_assigned"]));
 
   // (date.toJSON()).split('T')[0]
   // let date = new Date();

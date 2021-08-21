@@ -1,7 +1,7 @@
 const SET_GROUP = 'groups/SET_GROUP';
 const SET_ALL_GROUPS = 'groups/SET_ALL_GROUPS';
-const DELETE_GROUP = 'groups/DELETE_GROUP';
-const SELECTED_GROUP = 'groups/SELECTED_GROUP';
+// const DELETE_GROUP = 'groups/DELETE_GROUP';
+// const SELECTED_GROUP = 'groups/SELECTED_GROUP';
 const RESET_ALL = 'groups/RESET_ALL';
 
 
@@ -16,15 +16,15 @@ const setAllGroups = (allGroups) => ({
   payload: allGroups
 });
 
-const removeGroup = (groupId) => ({
-  type: DELETE_GROUP,
-  payload: groupId
-});
+// const removeGroup = (groupId) => ({
+//   type: DELETE_GROUP,
+//   payload: groupId
+// });
 
-const setSelectedGroupId = (groupDivId) => ({
-  type: SELECTED_GROUP,
-  payload: groupDivId
-});
+// const setSelectedGroupId = (groupDivId) => ({
+//   type: SELECTED_GROUP,
+//   payload: groupDivId
+// });
 
 const resetAll = () => ({
   type: RESET_ALL,
