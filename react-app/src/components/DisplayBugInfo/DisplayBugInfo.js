@@ -26,7 +26,7 @@ const DisplayBugInfo = () => {
   // testingYay.current = allGroups;
   // console.log(testingYay.current);
 
-  ///////////////////////////
+  /////////////////////////////
   // dispatch(retrieveAllGroups());
 
   // console.log(allGroups);
