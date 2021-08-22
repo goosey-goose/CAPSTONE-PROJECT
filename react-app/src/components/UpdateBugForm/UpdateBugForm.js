@@ -31,7 +31,7 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
   console.log("date assigned type: ", typeof(dateAssigned));
   console.log("DATE RESOLVED: ", dateResolved);
   console.log("date resolved type: ", typeof(dateResolved));
-  console.log((allBugs[selectedBugId]["date_assigned"]));
+  // console.log((allBugs[selectedBugId]["date_assigned"]));
 
   // (date.toJSON()).split('T')[0]
   // let date = new Date();

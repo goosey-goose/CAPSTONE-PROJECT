@@ -139,9 +139,8 @@ const DisplayBugInfo = () => {
     testingYay.current.forEach((bug) => {
       bug.style.display="block";
     })
-    // console.log(hiddenDivs);
-    // console.log(testingYay.current);
-    // console.log(hiddenDivs);
+    let resetGroupView = document.getElementById("reset_group_view");
+    resetGroupView.style.display="none";
   }
 
 
@@ -313,7 +312,7 @@ const DisplayBugInfo = () => {
     if (!allGroups) {
       setTimeout(() => {
         setGroupsWithButtons();
-      }, 500);
+      }, 400);
     }
 
     // let allGroupsKeysItems = Object.keys(allGroups);
@@ -350,6 +349,15 @@ const DisplayBugInfo = () => {
 
 
 
+  useEffect(() => {
+    showAllGroupBugs();
+    setTimeout(() => {
+      setGroupsWithButtons();
+    }, 400);
+  })
+
+
+
   ///////////////////////////////////////////////////////////////////////
   // console.log((Object.keys(allGroups) >= 1));
   // console.log(Object.keys(allGroups));
@@ -371,7 +379,7 @@ const DisplayBugInfo = () => {
 
         <div id="groups_section">
           <div id="available_groups_label">
-            Available Groups
+            Filter Bugs By Group
             <div id="reset_group_view">
               <button onClick={showAllGroupBugs}>Show All Bugs</button>
             </div>
