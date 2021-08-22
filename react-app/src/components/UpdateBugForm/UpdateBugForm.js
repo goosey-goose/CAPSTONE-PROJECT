@@ -118,7 +118,7 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
       setDateAssigned('1970-01-01');
       // setDateAssigned((Date.parse('01 Jan 1970 00:00:00 GMT')).toString())
     } else {
-      setDateResolved('1970-01-01');  ///////////////////////////////////////////////////////////////////////////////////
+      // setDateResolved('1970-01-01');  ///////////////////////////////////////////////////////////////////////////////////
       let date = new Date();
       setDateAssigned((date.toJSON()).split('T')[0]);
     }

@@ -57,7 +57,8 @@ def create_new_bug():
             date_created=form.data['date_created'],
             title=form.data['title'],
             content=form.data['content'],
-            assignee=form.data['assignee']
+            assignee=form.data['assignee'],
+            date_assigned=form.data["date_assigned"]
         )
         db.session.add(bug)
         db.session.commit()

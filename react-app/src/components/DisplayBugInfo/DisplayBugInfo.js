@@ -250,6 +250,7 @@ const DisplayBugInfo = () => {
   }
 
   if (inProgressAssignedBugs) {
+    console.log("FOX MEAT");
     // console.log("########### 2: SET IN PROGRESS BUGS WITH DIVS AND BUTTONS ###########");
     if (Object.keys(inProgressAssignedBugs).length === 1) {
       let mustang = document.querySelector(".dbi_progress_bug");
@@ -263,6 +264,9 @@ const DisplayBugInfo = () => {
         }
       }
     }
+    // setTimeout(() => {
+    //   setInProgressBugDivsWithButtons();
+    // }, 300);
     setInProgressBugDivsWithButtons();
   }
 
@@ -342,8 +346,8 @@ const DisplayBugInfo = () => {
     }
 
     return () => {
-      dispatch(resetAllBugItems());
-      dispatch(resetAllGroupItems());
+      // dispatch(resetAllBugItems());
+      // dispatch(resetAllGroupItems());
     }
   }, [dispatch, wasUpdated, test])
 
@@ -354,6 +358,24 @@ const DisplayBugInfo = () => {
     setTimeout(() => {
       setGroupsWithButtons();
     }, 400);
+  })
+
+
+  useEffect(() => {
+    if (newUnassignedBugs) {
+      // console.log("########### 1: SET NEW BUGS WITH DIVS AND BUTTONS ###########");
+      setNewBugDivsWithButtons();
+    }
+
+    if (inProgressAssignedBugs) {
+      // console.log("########### 1: SET IN PROGRESS BUGS WITH DIVS AND BUTTONS ###########");
+      setInProgressBugDivsWithButtons();
+    }
+
+    if (completedResolvedBugs) {
+      // console.log("########### 1: SET IN PROGRESS BUGS WITH DIVS AND BUTTONS ###########");
+      setCompletedBugDivsWithButtons();
+    }
   })
 
 

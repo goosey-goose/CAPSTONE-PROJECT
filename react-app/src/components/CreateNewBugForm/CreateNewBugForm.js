@@ -12,6 +12,7 @@ const CreateNewBugForm = ({ showFunc, makeBug }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [assignee, setAssignee] = useState('');
+  const [dateAssigned, setDateAssigned] = useState();
   // const [isButtonReady, setIsButtonReady] = useState(true)
   const user = useSelector(state => state.session.user);
   const allGroups = useSelector(state => state.group.allGroups);
@@ -37,40 +38,18 @@ const CreateNewBugForm = ({ showFunc, makeBug }) => {
     e.preventDefault();
     let date = new Date();
     let formattedDate = (date.toJSON()).split('T')[0];
-    const data = await dispatch(createNewBug(userId, groupId, formattedDate, title, content, assignee));
+    const data = await dispatch(createNewBug(userId, groupId, formattedDate, title, content, assignee, dateAssigned));
     if (data) {
       setErrors(data);
     } else {
       // makeBug(title)
-      console.log("@@@@@@@@@@@@@@@@@@@@@@  WALTER WHITE  @@@@@@@@@@@@@@@@@@@@@");
+      // console.log("@@@@@@@@@@@@@@@@@@@@@@  WALTER WHITE  @@@@@@@@@@@@@@@@@@@@@");
       dispatch(retrieveAllBugs());
-      // let newBugs = document.querySelectorAll('.dbi_single_bug');
-      // let bugObjectKeys = Object.keys(allBugs);
-      // bugObjectKeys = bugObjectKeys.reverse();
-      // let pos = 0;
-      // newBugs.forEach((item) => {
-      //   item.setAttribute("id", `${bugObjectKeys[pos]}`)
-      //   pos = pos + 1;
-      //   item.addEventListener('click', (event) => {
-      //     let divId = (event.currentTarget).getAttribute('id');
-      //     dispatch(setTheSelectedBugId(divId));
-      //   })
-      // })
-      // makeBug(true)
       showFunc(false)
     }
   };
 
 
-
-  // UPDATE BUG (IN THE BACKEND) BUTTON
-  const onLogin = async (e) => {
-    e.preventDefault();
-    // const data = await dispatch(login(email, password));
-    // if (data) {
-    //   setErrors(data);
-    // }
-  };
 
 
 
@@ -78,11 +57,11 @@ const CreateNewBugForm = ({ showFunc, makeBug }) => {
     setGroupId(e.target.value)
   }
 
-  console.log(typeof(user.id));
-  console.log("User ID: ", userId);
-  console.log(groupId);
-  console.log(title);
-  console.log(content);
+  // console.log(typeof(user.id));
+  // console.log("User ID: ", userId);
+  // console.log(groupId);
+  // console.log(title);
+  // console.log(content);
   console.log(assignee);
 
   const updateTitle = (e) => {
@@ -100,6 +79,13 @@ const CreateNewBugForm = ({ showFunc, makeBug }) => {
 
 
   const updateAssignee = (e) => {
+    if (e.target.value !== '') {
+      let date = new Date();
+      setDateAssigned((date.toJSON()).split('T')[0]);
+    } else {
+      setDateAssigned('');
+    }
+
     setAssignee(e.target.value);
   };
 
@@ -121,8 +107,14 @@ const CreateNewBugForm = ({ showFunc, makeBug }) => {
     setUserId(user.id)
   }, [userId, user.id])
 
-  console.log("##########  ALL GROUPS: LINE 90 ############");
-  console.log(allGroups);
+  // console.log("##########  ALL GROUPS: LINE 90 ############");
+  // console.log(allGroups);
+
+
+
+
+
+
 
   return (
     <form onSubmit={onClickSubmit}>

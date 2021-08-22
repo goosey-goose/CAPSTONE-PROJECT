@@ -40,7 +40,7 @@ const resetAll = () => ({
 
 
 //  THUNKS
-export const createNewBug = (user_id, group_id, date_created, title, content, assignee) => async (dispatch) => {
+export const createNewBug = (user_id, group_id, date_created, title, content, assignee, date_assigned) => async (dispatch) => {
   if (group_id === 0) {
     // console.log("INSIDE THUNK IF STATEMENT ####################");
     group_id = 1;
@@ -56,7 +56,8 @@ export const createNewBug = (user_id, group_id, date_created, title, content, as
       date_created,
       title,
       content,
-      assignee
+      assignee,
+      date_assigned
     }),
   });
 
