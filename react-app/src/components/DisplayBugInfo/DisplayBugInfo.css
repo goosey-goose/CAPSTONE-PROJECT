@@ -34,6 +34,7 @@
 
 #dbi_actual_welcome_div {
   align-items: center;
+  font-size: 3rem;
 }
 
 #groups_section {
@@ -66,6 +67,7 @@
 
 .group_name_divs {
   margin-top: 5px;
+  padding-left: .4rem;
   cursor: pointer;
 }
 
