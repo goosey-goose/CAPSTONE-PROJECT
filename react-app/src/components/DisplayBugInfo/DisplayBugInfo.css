@@ -1,8 +1,9 @@
 #dbi_top_div {
   position: relative;
+  left: 12.9rem;
   display: inline-block;
   width: 92%;
-  height: 100%;
+  height: 90vh;
   /* background-color: brown; */
 }
 
@@ -10,10 +11,12 @@
   position: absolute;
   display: grid;
   width: 100%;
-  height: 100%;
+  /* width: 91.5vw; */
+  /* height: 100%; */
+  height: 90vh;
   margin-left: 9px;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 2fr 0fr 5fr;
+  grid-template-rows: 1fr 0fr 5fr;
   grid-gap: 10px;
   grid-template-areas:
     "welcome one two"
@@ -48,6 +51,7 @@
 #available_groups_label {
   display: flex;
   justify-content: center;
+  /* justify-content: space-between; */
   margin-top: 15px;
   margin-bottom: 10px;
   font-weight: bold;
@@ -55,6 +59,12 @@
 
 #reset_group_view {
   display: none;
+  /* margin-left: 1rem; */
+}
+
+#reset_group_view button {
+  border: none;
+  border-radius: 50px;
 }
 
 #groups_container {

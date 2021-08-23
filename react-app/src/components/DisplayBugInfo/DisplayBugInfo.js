@@ -141,6 +141,9 @@ const DisplayBugInfo = () => {
     })
     let resetGroupView = document.getElementById("reset_group_view");
     resetGroupView.style.display="none";
+
+    let availableGroupsLabel = document.getElementById("available_groups_label");
+    availableGroupsLabel.style.justifyContent="center";
   }
 
 
@@ -196,6 +199,9 @@ const DisplayBugInfo = () => {
         if (hiddenDivs.length >= 1) {
           let resetGroupView = document.getElementById("reset_group_view");
           resetGroupView.style.display="block";
+
+          let availableGroupsLabel = document.getElementById("available_groups_label");
+          availableGroupsLabel.style.justifyContent="space-between";
         }
 
         console.log(hiddenDivs);
