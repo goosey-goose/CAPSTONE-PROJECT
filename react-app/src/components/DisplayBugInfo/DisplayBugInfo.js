@@ -419,7 +419,7 @@ const DisplayBugInfo = () => {
 
         </div>
 
-        <div id="final_new_bugs_label">New Bugs</div>
+        <div id="final_new_bugs_label">New / Unassigned Bugs</div>
 
         <div className="main_divs" id="dbi_new_bugs">
         {/* <div className="main_divs_titles">New Bugs</div> */}
@@ -465,6 +465,7 @@ const DisplayBugInfo = () => {
                   <div className="dbi_status_indicator">
 
                   </div>
+                  <div className="corner_information">Assignee:&nbsp;&nbsp;&nbsp; <span>{bug.assignee}</span></div>
                 </div>
               </div>
 
@@ -495,6 +496,7 @@ const DisplayBugInfo = () => {
                   <div className="dbi_status_indicator">
 
                   </div>
+                  <div className="corner_information">Date Completed:&nbsp;&nbsp;&nbsp; <span>{bug.date_resolved.slice(0, -12)}</span></div>
                 </div>
               </div>
 

@@ -143,6 +143,7 @@
 .dbi_status_indicator_parent {
   height: 50%;
   display: flex;
+  justify-content: space-between;
   align-items: flex-end;
 }
 
@@ -156,6 +157,19 @@
 
 .dbi_completed_bug .dbi_status_indicator {
   background-color: greenyellow;
+}
+
+.corner_information {
+  height: 100%;
+  /* width: max-content; */
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  padding-right: .4rem;
+}
+
+.corner_information span {
+  font-weight: normal;
 }
 
 /* maybe delete the items below? */
