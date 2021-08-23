@@ -42,7 +42,7 @@ const DisplayBugInfo = () => {
 
   const setNewBugDivsWithButtons = () => {
     let newBugDivs = document.querySelectorAll('.dbi_single_bug');
-
+    // console.log(newBugDivs);
     let newBugObjectKeys;
 
     newBugObjectKeys = Object.keys(newUnassignedBugs);
@@ -56,6 +56,11 @@ const DisplayBugInfo = () => {
     newBugDivs.forEach((item) => {
       item.setAttribute("id", `${newBugObjectKeys[pos]}`)
       pos = pos + 1;
+      if (item.getAttribute('data-u-context') == user.id) {
+        item.style.borderRight="solid 5px green";
+      }
+      // console.log(typeof(item.getAttribute('data-u-context')));
+      // console.log(typeof(user.id));
       item.addEventListener('click', (event) => {
         let divId = (event.currentTarget).getAttribute('id');
         dispatch(setTheSelectedBugId(divId));
@@ -514,7 +519,7 @@ const DisplayBugInfo = () => {
           {newUnassignedBugs && <div id="dbi_new_bugs_list">
             {newBugsReversed.map((bug, index) => (
 
-              <div className="dbi_single_bug" data-group-id={bug.group_id} key={index}>
+              <div className="dbi_single_bug" data-u-context={bug.user_id} data-group-id={bug.group_id} key={index}>
                   {bug.title + ":"}
                 <br></br>
                 <div className="dbi_single_bug_content">{bug.content}</div>
@@ -543,7 +548,7 @@ const DisplayBugInfo = () => {
           {inProgressAssignedBugs && <div id="dbi_progress_bugs_list">
             {inProgressBugsReversed.map((bug, index) => (
 
-              <div className="dbi_progress_bug" data-group-id={bug.group_id} key={index}>
+              <div className="dbi_progress_bug" data-u-context={bug.user_id} data-group-id={bug.group_id} key={index}>
                   {bug.title + ":"}
                 <br></br>
                 <div className="dbi_progress_bug_content">{bug.content}</div>
@@ -574,7 +579,7 @@ const DisplayBugInfo = () => {
           {completedResolvedBugs && <div id="dbi_completed_bugs_list">
             {completedBugsReversed?.map((bug, index) => (
 
-              <div className="dbi_completed_bug" data-group-id={bug.group_id} key={index}>
+              <div className="dbi_completed_bug" data-u-context={bug.user_id} data-group-id={bug.group_id} key={index}>
                   {bug.title + ":"}
                 <br></br>
                 <div className="dbi_completed_bug_content">{bug.content}</div>
