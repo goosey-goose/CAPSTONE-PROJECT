@@ -21,6 +21,7 @@ const DisplayBugInfo = () => {
   let selectedBugId = useSelector(state => state.bug.selectedBugId);
   const [test, setTest] = useState(false);
   let testingYay = useRef([]);
+  let selectedGroupNameId = useRef();
   const dispatch = useDispatch();
 
   // testingYay.current = allGroups;
@@ -139,6 +140,10 @@ const DisplayBugInfo = () => {
     testingYay.current.forEach((bug) => {
       bug.style.display="block";
     })
+
+    let specificGroupFilter = document.getElementById("specific_group_filter");
+    specificGroupFilter.style.display="none";
+
     let resetGroupView = document.getElementById("reset_group_view");
     resetGroupView.style.display="none";
 
@@ -162,6 +167,11 @@ const DisplayBugInfo = () => {
         }
 
         let dataId = (event.currentTarget).getAttribute('data-id');
+        let dataIdGroupName = (event.currentTarget).innerText;
+        ////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////
+        selectedGroupNameId.current = dataId;
 
         let allSingleBugDivs = document.querySelectorAll(".dbi_single_bug");
         let allProgressBugDivs = document.querySelectorAll(".dbi_progress_bug");
@@ -197,6 +207,10 @@ const DisplayBugInfo = () => {
 
 
         if (hiddenDivs.length >= 1) {
+          let specificGroupFilter = document.getElementById("specific_group_filter");
+          specificGroupFilter.style.display="block";
+          specificGroupFilter.innerText = dataIdGroupName;
+
           let resetGroupView = document.getElementById("reset_group_view");
           resetGroupView.style.display="block";
 
@@ -387,9 +401,72 @@ const DisplayBugInfo = () => {
 
 
   /////////////////////////////////////////////////////////////////////////
-  // console.log((Object.keys(allGroups) >= 1));
-  // console.log(Object.keys(allGroups));
-  // let allGroupsValuesItems = Object.values(testingYay.current);
+  useEffect(() => {
+    if (selectedGroupNameId.current >= 1) {
+      if (hiddenDivs.length >= 1) {
+        hiddenDivs.forEach((div) => {
+          div.style.display="block";
+        })
+        hiddenDivs = [];
+      }
+
+      let dataId = selectedGroupNameId.current;
+      console.log(dataId);
+      let dataIdGroupName = allGroups[dataId].name;
+      console.log(dataIdGroupName);
+
+      let allSingleBugDivs = document.querySelectorAll(".dbi_single_bug");
+      let allProgressBugDivs = document.querySelectorAll(".dbi_progress_bug");
+      let allCompletedBugDivs = document.querySelectorAll(".dbi_completed_bug");
+
+      ///////
+      console.log(typeof(allSingleBugDivs));
+      console.log(allSingleBugDivs);
+
+      allSingleBugDivs.forEach((bug) => {
+        let tempId = bug.getAttribute("data-group-id");
+        if (tempId !== dataId) {
+          bug.style.display="none";
+          hiddenDivs.push(bug);
+        }
+      })
+
+      allProgressBugDivs.forEach((bug) => {
+        let tempId = bug.getAttribute("data-group-id");
+        if (tempId !== dataId) {
+          bug.style.display="none";
+          hiddenDivs.push(bug);
+        }
+      })
+
+      allCompletedBugDivs.forEach((bug) => {
+        let tempId = bug.getAttribute("data-group-id");
+        if (tempId !== dataId) {
+          bug.style.display="none";
+          hiddenDivs.push(bug);
+        }
+      })
+
+
+      if (hiddenDivs.length >= 1) {
+        let specificGroupFilter = document.getElementById("specific_group_filter");
+        specificGroupFilter.style.display="block";
+        specificGroupFilter.innerText = dataIdGroupName;
+
+        let resetGroupView = document.getElementById("reset_group_view");
+        resetGroupView.style.display="block";
+
+        let availableGroupsLabel = document.getElementById("available_groups_label");
+        availableGroupsLabel.style.justifyContent="space-between";
+      }
+
+      console.log(hiddenDivs);
+      // fridayNight.push("YOLO!!!!!!!!!")
+      // console.log(fridayNight);
+
+      testingYay.current = hiddenDivs;
+    }
+  })
   //////////////////////////////////////////////////////////////////////
 
 
@@ -408,6 +485,9 @@ const DisplayBugInfo = () => {
         <div id="groups_section">
           <div id="available_groups_label">
             Filter Bugs By Group
+            <div id="specific_group_filter">
+
+            </div>
             <div id="reset_group_view">
               <button onClick={showAllGroupBugs}>Show All Bugs</button>
             </div>
