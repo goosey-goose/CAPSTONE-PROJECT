@@ -91,6 +91,9 @@ const DisplayBugInfo = () => {
     inProgressBugDivs.forEach((item) => {
       item.setAttribute("id", `${inProgressBugObjectKeys[pos]}`)
       pos = pos + 1;
+      if (item.getAttribute('data-u-context') == user.id) {
+        item.style.borderRight="solid 5px green";
+      }
       item.addEventListener('click', (event) => {
         let divId = (event.currentTarget).getAttribute('id');
         dispatch(setTheSelectedBugId(divId));
@@ -123,6 +126,9 @@ const DisplayBugInfo = () => {
     completedBugDivs.forEach((item) => {
       item.setAttribute("id", `${completedBugObjectKeys[pos]}`)
       pos = pos + 1;
+      if (item.getAttribute('data-u-context') == user.id) {
+        item.style.borderRight="solid 5px green";
+      }
       item.addEventListener('click', (event) => {
         let divId = (event.currentTarget).getAttribute('id');
         dispatch(setTheSelectedBugId(divId));
