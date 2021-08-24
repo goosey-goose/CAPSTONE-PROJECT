@@ -24,18 +24,6 @@ const DisplayBugInfo = () => {
   let selectedGroupNameId = useRef();
   const dispatch = useDispatch();
 
-  // testingYay.current = allGroups;
-  // console.log(testingYay.current);
-
-  /////////////////////////////
-  // dispatch(retrieveAllGroups());
-
-  // console.log(allGroups);
-  console.log(newUnassignedBugs);
-  console.log(inProgressAssignedBugs);
-  console.log(completedResolvedBugs);
-  //////////////////////////
-
 
 
   let newBugsReversed;
@@ -59,8 +47,6 @@ const DisplayBugInfo = () => {
       if (item.getAttribute('data-u-context') == user.id) {
         item.style.borderRight="solid 5px green";
       }
-      // console.log(typeof(item.getAttribute('data-u-context')));
-      // console.log(typeof(user.id));
       item.addEventListener('click', (event) => {
         let divId = (event.currentTarget).getAttribute('id');
         dispatch(setTheSelectedBugId(divId));
@@ -142,12 +128,11 @@ const DisplayBugInfo = () => {
 
 
 
-  ///////////////////////////////////////
-  console.log("just before it's declaration");
   let hiddenDivs = [];
-  let fridayNight;
 
   const showAllGroupBugs = () => {
+    selectedGroupNameId.current = null;
+
     testingYay.current.forEach((bug) => {
       bug.style.display="block";
     })
@@ -166,10 +151,9 @@ const DisplayBugInfo = () => {
   const setGroupsWithButtons = () => {
     let displayedGroups = document.querySelectorAll(".group_name_divs");
 
-    // let hiddenDivs = [];
-
     displayedGroups.forEach((item) => {
       item.addEventListener('click', (event) => {
+
         if (hiddenDivs.length >= 1) {
           hiddenDivs.forEach((div) => {
             div.style.display="block";
@@ -179,18 +163,12 @@ const DisplayBugInfo = () => {
 
         let dataId = (event.currentTarget).getAttribute('data-id');
         let dataIdGroupName = (event.currentTarget).innerText;
-        ////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////
         selectedGroupNameId.current = dataId;
 
         let allSingleBugDivs = document.querySelectorAll(".dbi_single_bug");
         let allProgressBugDivs = document.querySelectorAll(".dbi_progress_bug");
         let allCompletedBugDivs = document.querySelectorAll(".dbi_completed_bug");
 
-        ///////
-        console.log(typeof(allSingleBugDivs));
-        console.log(allSingleBugDivs);
 
         allSingleBugDivs.forEach((bug) => {
           let tempId = bug.getAttribute("data-group-id");
@@ -229,10 +207,6 @@ const DisplayBugInfo = () => {
           availableGroupsLabel.style.justifyContent="space-between";
         }
 
-        console.log(hiddenDivs);
-        // fridayNight.push("YOLO!!!!!!!!!")
-        // console.log(fridayNight);
-
         testingYay.current = hiddenDivs;
 
       })
@@ -247,22 +221,12 @@ const DisplayBugInfo = () => {
 
 
   if (!allBugs) {
-    // console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-    // console.log("%%%%%%%%%%%%%%%%%%%%  MONDAY  %%%%%%%%%%%%%%%%%%%%%");
     dispatch(retrieveAllBugs());
   }
-
-  // if (!allGroups) {
-  //   // console.log("%%%%%%%%%%%%%%%%%%%%  TUESDAY  %%%%%%%%%%%%%%%%%%%%");
-  //   dispatch(retrieveAllGroups());
-  //   // let allGroupsKeysItems = Object.keys(allGroups);
-  //   // console.log("Fig Newtons");
-  // }
 
 
 
   if (newUnassignedBugs) {
-    // console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
     if (Object.keys(newUnassignedBugs).length === 1) {
       let mustang = document.querySelector(".dbi_single_bug");
       if (mustang === null) {
@@ -275,14 +239,11 @@ const DisplayBugInfo = () => {
         }
       }
     }
-    // console.log(Object.key(newUnassignedBugs));
-    // console.log("########### 2: SET NEW BUGS WITH DIVS AND BUTTONS ###########");
     setNewBugDivsWithButtons();
   }
 
   if (inProgressAssignedBugs) {
     console.log("FOX MEAT");
-    // console.log("########### 2: SET IN PROGRESS BUGS WITH DIVS AND BUTTONS ###########");
     if (Object.keys(inProgressAssignedBugs).length === 1) {
       let mustang = document.querySelector(".dbi_progress_bug");
       if (mustang === null) {
@@ -295,9 +256,6 @@ const DisplayBugInfo = () => {
         }
       }
     }
-    // setTimeout(() => {
-    //   setInProgressBugDivsWithButtons();
-    // }, 300);
     setInProgressBugDivsWithButtons();
   }
 
@@ -325,7 +283,6 @@ const DisplayBugInfo = () => {
 
 
 
-  // console.log(allGroups);
   let allGroupsValuesItems;
   if (allGroups) {
     console.log("its ready");
@@ -333,13 +290,6 @@ const DisplayBugInfo = () => {
   }
 
   useEffect(() => {
-
-    // let yolo = document.getElementById("dbi_welcome_label");
-    // yolo.addEventListener('mouseover', () => {
-    //   console.log("Dunder Mifflin");
-    // })
-
-    // console.log(!!allGroups);
     if (!allGroups) {
       dispatch(retrieveAllGroups());
     }
@@ -350,16 +300,6 @@ const DisplayBugInfo = () => {
       }, 400);
     }
 
-    // let allGroupsKeysItems = Object.keys(allGroups);
-    // setTimeout(() => {
-    //   // let allGroupsKeysItems = Object.keys(allGroups);
-    //   console.log(allGroups);
-    // }, 1500);
-    // let allGroupsValuesItems;
-    // if (allGroupsKeysItems.length >= 1) {
-    //   console.log("its ready");
-    //   allGroupsValuesItems = Object.values(allGroups);
-    // }
 
     if (newUnassignedBugs) {
       console.log("########### 1: SET NEW BUGS WITH DIVS AND BUTTONS ###########");
@@ -385,7 +325,7 @@ const DisplayBugInfo = () => {
 
 
   useEffect(() => {
-    showAllGroupBugs();
+    // showAllGroupBugs();
     setTimeout(() => {
       setGroupsWithButtons();
     }, 400);
@@ -394,17 +334,14 @@ const DisplayBugInfo = () => {
 
   useEffect(() => {
     if (newUnassignedBugs) {
-      // console.log("########### 1: SET NEW BUGS WITH DIVS AND BUTTONS ###########");
       setNewBugDivsWithButtons();
     }
 
     if (inProgressAssignedBugs) {
-      // console.log("########### 1: SET IN PROGRESS BUGS WITH DIVS AND BUTTONS ###########");
       setInProgressBugDivsWithButtons();
     }
 
     if (completedResolvedBugs) {
-      // console.log("########### 1: SET IN PROGRESS BUGS WITH DIVS AND BUTTONS ###########");
       setCompletedBugDivsWithButtons();
     }
   })
@@ -436,7 +373,7 @@ const DisplayBugInfo = () => {
 
       allSingleBugDivs.forEach((bug) => {
         let tempId = bug.getAttribute("data-group-id");
-        if (tempId !== dataId) {
+        if (tempId != dataId) {
           bug.style.display="none";
           hiddenDivs.push(bug);
         }
@@ -444,7 +381,7 @@ const DisplayBugInfo = () => {
 
       allProgressBugDivs.forEach((bug) => {
         let tempId = bug.getAttribute("data-group-id");
-        if (tempId !== dataId) {
+        if (tempId != dataId) {
           bug.style.display="none";
           hiddenDivs.push(bug);
         }
@@ -452,7 +389,7 @@ const DisplayBugInfo = () => {
 
       allCompletedBugDivs.forEach((bug) => {
         let tempId = bug.getAttribute("data-group-id");
-        if (tempId !== dataId) {
+        if (tempId != dataId) {
           bug.style.display="none";
           hiddenDivs.push(bug);
         }
@@ -471,12 +408,10 @@ const DisplayBugInfo = () => {
         availableGroupsLabel.style.justifyContent="space-between";
       }
 
-      console.log(hiddenDivs);
-      // fridayNight.push("YOLO!!!!!!!!!")
-      // console.log(fridayNight);
 
       testingYay.current = hiddenDivs;
     }
+
   })
   //////////////////////////////////////////////////////////////////////
 
@@ -519,8 +454,6 @@ const DisplayBugInfo = () => {
         <div id="final_new_bugs_label">New / Unassigned Bugs</div>
 
         <div className="main_divs" id="dbi_new_bugs">
-        {/* <div className="main_divs_titles">New Bugs</div> */}
-          {/* <br></br> */}
 
           {newUnassignedBugs && <div id="dbi_new_bugs_list">
             {newBugsReversed.map((bug, index) => (
@@ -548,8 +481,6 @@ const DisplayBugInfo = () => {
         <div id="final_in_progress_bugs_label">In Progress</div>
 
         <div className="main_divs" id="dbi_in_progress">
-          {/* <div className="main_divs_titles">In Progress</div> */}
-          {/* <br></br> */}
 
           {inProgressAssignedBugs && <div id="dbi_progress_bugs_list">
             {inProgressBugsReversed.map((bug, index) => (
@@ -579,8 +510,6 @@ const DisplayBugInfo = () => {
         <div id="final_completed_bugs_label">Completed</div>
 
         <div className="main_divs" id="dbi_completed_bugs">
-          {/* <div className="main_divs_titles">Completed</div> */}
-          {/* <br></br> */}
 
           {completedResolvedBugs && <div id="dbi_completed_bugs_list">
             {completedBugsReversed?.map((bug, index) => (

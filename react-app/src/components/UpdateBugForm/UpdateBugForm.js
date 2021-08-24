@@ -22,6 +22,8 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
   const [content, setContent] = useState(allBugs[selectedBugId] && allBugs[selectedBugId]["content"] ? allBugs[selectedBugId]["content"] : '');
   const [assignee, setAssignee] = useState(allBugs[selectedBugId] && allBugs[selectedBugId]["assignee"] ? allBugs[selectedBugId]["assignee"] : '');
   const userId = useSelector(state => state.session.user.id);
+  const bugUserId = allBugs[selectedBugId] && allBugs[selectedBugId]["user_id"] ? allBugs[selectedBugId]["user_id"] : '';
+  // const [bugUserId, setBugUserId] = useState(allBugs[selectedBugId]["user_id"]);
   // const dateCreated = useSelector(state => state.bug.allBugs[selectedBugId]["date_created"]);
 
   console.log("COMPLETED: ", completed);
@@ -233,7 +235,7 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
 
 
       <button type='submit'>Update Bug</button>
-      <button onClick={deleteTheBug}>DELETE BUG</button>
+      {userId === bugUserId && <button onClick={deleteTheBug}>DELETE BUG</button>}
     </form>
   );
 };
