@@ -30,7 +30,12 @@ const DisplayBugInfo = () => {
 
   const setNewBugDivsWithButtons = () => {
     let newBugDivs = document.querySelectorAll('.dbi_single_bug');
-    // console.log(newBugDivs);
+
+    /////////////////////////////
+    newBugDivs.forEach((div) => {
+      div.style.borderRight="";
+    })
+
     let newBugObjectKeys;
 
     newBugObjectKeys = Object.keys(newUnassignedBugs);
@@ -150,8 +155,6 @@ const DisplayBugInfo = () => {
 
   const setGroupsWithButtons = () => {
     let displayedGroups = document.querySelectorAll(".group_name_divs");
-    console.log("////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////");
-    console.log(displayedGroups);
 
     displayedGroups.forEach((item) => {
       item.addEventListener('click', (event) => {
@@ -226,57 +229,66 @@ const DisplayBugInfo = () => {
 
 
 
-  if (newUnassignedBugs) {
-    if (Object.keys(newUnassignedBugs).length === 1) {
-      let mustang = document.querySelector(".dbi_single_bug");
-      if (mustang === null) {
-        if ((Object.keys(allBugs)).length === 1) {
-          if (newlyAddedBug) {
-            dispatch(retrieveAllBugs());
-          } else {
+  // if (newUnassignedBugs) {
+  //   if (Object.keys(newUnassignedBugs).length === 1) {
+  //     let mustang = document.querySelector(".dbi_single_bug");
+  //     if (mustang === null) {
+  //       if ((Object.keys(allBugs)).length === 1) {
+  //         if (newlyAddedBug) {
+  //           dispatch(retrieveAllBugs());
+  //         } else {
 
-          }
-        }
-      }
-    }
-    setNewBugDivsWithButtons();
-  }
+  //         }
+  //       }
+  //     }
+  //   }
+  //   setNewBugDivsWithButtons();
+  // }
 
-  if (inProgressAssignedBugs) {
-    console.log("FOX MEAT");
-    if (Object.keys(inProgressAssignedBugs).length === 1) {
-      let mustang = document.querySelector(".dbi_progress_bug");
-      if (mustang === null) {
-        if ((Object.keys(allBugs)).length === 1) {
-          if (newlyAddedBug) {
-            dispatch(retrieveAllBugs());
-          } else {
+  // if (inProgressAssignedBugs) {
+  //   console.log("FOX MEAT");
+  //   if (Object.keys(inProgressAssignedBugs).length === 1) {
+  //     let mustang = document.querySelector(".dbi_progress_bug");
+  //     if (mustang === null) {
+  //       if ((Object.keys(allBugs)).length === 1) {
+  //         if (newlyAddedBug) {
+  //           dispatch(retrieveAllBugs());
+  //         } else {
 
-          }
-        }
-      }
-    }
-    setInProgressBugDivsWithButtons();
-  }
-
-
+  //         }
+  //       }
+  //     }
+  //   }
+  //   setInProgressBugDivsWithButtons();
+  // }
 
 
-  if (completedResolvedBugs) {
-    if (Object.keys(completedResolvedBugs).length === 1) {
-      let mustang = document.querySelector(".dbi_completed_bug");
-      if (mustang === null) {
-        if ((Object.keys(allBugs)).length === 1) {
-          if (newlyAddedBug) {
-            dispatch(retrieveAllBugs());
-          } else {
 
-          }
-        }
-      }
-    }
-    setCompletedBugDivsWithButtons();
-  }
+
+  // if (completedResolvedBugs) {
+  //   if (Object.keys(completedResolvedBugs).length === 1) {
+  //     let mustang = document.querySelector(".dbi_completed_bug");
+  //     if (mustang === null) {
+  //       if ((Object.keys(allBugs)).length === 1) {
+  //         if (newlyAddedBug) {
+  //           dispatch(retrieveAllBugs());
+  //         } else {
+
+  //         }
+  //       }
+  //     }
+  //   }
+  //   setCompletedBugDivsWithButtons();
+  // }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -285,20 +297,8 @@ const DisplayBugInfo = () => {
 
   let allGroupsValuesItems;
   if (allGroups) {
-    console.log("its ready");
     allGroupsValuesItems = Object.values(allGroups);
   }
-
-
-
-
-
-
-
-
-
-
-
 
   if (newUnassignedBugs) {
     setNewBugDivsWithButtons();
@@ -311,10 +311,6 @@ const DisplayBugInfo = () => {
   if (completedResolvedBugs) {
     setCompletedBugDivsWithButtons();
   }
-
-  // if (allGroups) {
-  //   setGroupsWithButtons();
-  // }
 
   /////////////////////  FIRST USE EFFECT()  /////////////////////
   useEffect(() => {
@@ -326,13 +322,27 @@ const DisplayBugInfo = () => {
       // dispatch(resetAllBugItems());
       // dispatch(resetAllGroupItems());
     }
-  }, [dispatch, wasUpdated, test])
+  }, [dispatch])    //  wasUpdated, test
 
   /////////////////////  SECOND USE EFFECT()  /////////////////////
   useEffect(() => {
     if (allGroups) {
       setGroupsWithButtons();
     }
+
+    if (newUnassignedBugs) {
+      setNewBugDivsWithButtons();
+    }
+
+    if (inProgressAssignedBugs) {
+      setInProgressBugDivsWithButtons();
+    }
+
+    if (completedResolvedBugs) {
+      setCompletedBugDivsWithButtons();
+    }
+
+    // console.log("2ND USE EFFECT()");
   })
 
 
@@ -345,70 +355,66 @@ const DisplayBugInfo = () => {
 
 
   /////////////////////////////////////////////////////////////////////////
-  useEffect(() => {
-    if (selectedGroupNameId.current >= 1) {
-      if (hiddenDivs.length >= 1) {
-        hiddenDivs.forEach((div) => {
-          div.style.display="block";
-        })
-        hiddenDivs = [];
-      }
+  // useEffect(() => {
+  //   if (selectedGroupNameId.current >= 1000) {  //  change 1000 back to 1
+  //     if (hiddenDivs.length >= 1) {
+  //       hiddenDivs.forEach((div) => {
+  //         div.style.display="block";
+  //       })
+  //       hiddenDivs = [];
+  //     }
 
-      let dataId = selectedGroupNameId.current;
-      console.log(dataId);
-      let dataIdGroupName = allGroups[dataId].name;
-      console.log(dataIdGroupName);
+  //     let dataId = selectedGroupNameId.current;
+  //     console.log(dataId);
+  //     let dataIdGroupName = allGroups[dataId].name;
+  //     console.log(dataIdGroupName);
 
-      let allSingleBugDivs = document.querySelectorAll(".dbi_single_bug");
-      let allProgressBugDivs = document.querySelectorAll(".dbi_progress_bug");
-      let allCompletedBugDivs = document.querySelectorAll(".dbi_completed_bug");
+  //     let allSingleBugDivs = document.querySelectorAll(".dbi_single_bug");
+  //     let allProgressBugDivs = document.querySelectorAll(".dbi_progress_bug");
+  //     let allCompletedBugDivs = document.querySelectorAll(".dbi_completed_bug");
 
-      ///////
-      console.log(typeof(allSingleBugDivs));
-      console.log(allSingleBugDivs);
+  //     allSingleBugDivs.forEach((bug) => {
+  //       let tempId = bug.getAttribute("data-group-id");
+  //       if (tempId != dataId) {
+  //         bug.style.display="none";
+  //         hiddenDivs.push(bug);
+  //       }
+  //     })
 
-      allSingleBugDivs.forEach((bug) => {
-        let tempId = bug.getAttribute("data-group-id");
-        if (tempId != dataId) {
-          bug.style.display="none";
-          hiddenDivs.push(bug);
-        }
-      })
+  //     allProgressBugDivs.forEach((bug) => {
+  //       let tempId = bug.getAttribute("data-group-id");
+  //       if (tempId != dataId) {
+  //         bug.style.display="none";
+  //         hiddenDivs.push(bug);
+  //       }
+  //     })
 
-      allProgressBugDivs.forEach((bug) => {
-        let tempId = bug.getAttribute("data-group-id");
-        if (tempId != dataId) {
-          bug.style.display="none";
-          hiddenDivs.push(bug);
-        }
-      })
-
-      allCompletedBugDivs.forEach((bug) => {
-        let tempId = bug.getAttribute("data-group-id");
-        if (tempId != dataId) {
-          bug.style.display="none";
-          hiddenDivs.push(bug);
-        }
-      })
+  //     allCompletedBugDivs.forEach((bug) => {
+  //       let tempId = bug.getAttribute("data-group-id");
+  //       if (tempId != dataId) {
+  //         bug.style.display="none";
+  //         hiddenDivs.push(bug);
+  //       }
+  //     })
 
 
-      if (hiddenDivs.length >= 1) {
-        let specificGroupFilter = document.getElementById("specific_group_filter");
-        specificGroupFilter.style.display="block";
-        specificGroupFilter.innerText = dataIdGroupName;
+  //     if (hiddenDivs.length >= 1) {
+  //       let specificGroupFilter = document.getElementById("specific_group_filter");
+  //       specificGroupFilter.style.display="block";
+  //       specificGroupFilter.innerText = dataIdGroupName;
 
-        let resetGroupView = document.getElementById("reset_group_view");
-        resetGroupView.style.display="block";
+  //       let resetGroupView = document.getElementById("reset_group_view");
+  //       resetGroupView.style.display="block";
 
-        let availableGroupsLabel = document.getElementById("available_groups_label");
-        availableGroupsLabel.style.justifyContent="space-between";
-      }
+  //       let availableGroupsLabel = document.getElementById("available_groups_label");
+  //       availableGroupsLabel.style.justifyContent="space-between";
+  //     }
 
 
-      testingYay.current = hiddenDivs;
-    }
+  //     testingYay.current = hiddenDivs;
+  //   }
 
-  })
+  // })
   //////////////////////////////////////////////////////////////////////
 
 
@@ -452,7 +458,7 @@ const DisplayBugInfo = () => {
         <div className="main_divs" id="dbi_new_bugs">
 
           {newUnassignedBugs && <div id="dbi_new_bugs_list">
-            {newBugsReversed.map((bug, index) => (
+            {newBugsReversed && newBugsReversed.map((bug, index) => (
 
               <div className="dbi_single_bug" data-u-context={bug.user_id} data-group-id={bug.group_id} key={index}>
                   {bug.title + ":"}
@@ -479,7 +485,7 @@ const DisplayBugInfo = () => {
         <div className="main_divs" id="dbi_in_progress">
 
           {inProgressAssignedBugs && <div id="dbi_progress_bugs_list">
-            {inProgressBugsReversed.map((bug, index) => (
+            {inProgressBugsReversed && inProgressBugsReversed.map((bug, index) => (
 
               <div className="dbi_progress_bug" data-u-context={bug.user_id} data-group-id={bug.group_id} key={index}>
                   {bug.title + ":"}
@@ -508,7 +514,7 @@ const DisplayBugInfo = () => {
         <div className="main_divs" id="dbi_completed_bugs">
 
           {completedResolvedBugs && <div id="dbi_completed_bugs_list">
-            {completedBugsReversed?.map((bug, index) => (
+            {completedBugsReversed && completedBugsReversed.map((bug, index) => (
 
               <div className="dbi_completed_bug" data-u-context={bug.user_id} data-group-id={bug.group_id} key={index}>
                   {bug.title + ":"}

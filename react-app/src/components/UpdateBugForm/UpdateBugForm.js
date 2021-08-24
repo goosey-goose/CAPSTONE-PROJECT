@@ -10,7 +10,7 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
   // const [userId, setUserId] = useState(0);
   const allBugs = useSelector(state => state.bug.allBugs);
   const selectedBugId = useSelector(state => state.bug.selectedBugId);
-  console.log(selectedBugId);
+  // console.log(selectedBugId);
   const allGroups = useSelector(state => state.group.allGroups);
 
 
@@ -26,13 +26,13 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
   // const [bugUserId, setBugUserId] = useState(allBugs[selectedBugId]["user_id"]);
   // const dateCreated = useSelector(state => state.bug.allBugs[selectedBugId]["date_created"]);
 
-  console.log("COMPLETED: ", completed);
-  console.log("ASSIGNEE: ", assignee);
-  console.log("DATE ASSIGNED: ", dateAssigned);
-  console.log(                 (((new Date(dateAssigned)).toISOString())).split('T')[0]             );
-  console.log("date assigned type: ", typeof(dateAssigned));
-  console.log("DATE RESOLVED: ", dateResolved);
-  console.log("date resolved type: ", typeof(dateResolved));
+  // console.log("COMPLETED: ", completed);
+  // console.log("ASSIGNEE: ", assignee);
+  // console.log("DATE ASSIGNED: ", dateAssigned);
+  // console.log(                 (((new Date(dateAssigned)).toISOString())).split('T')[0]             );
+  // console.log("date assigned type: ", typeof(dateAssigned));
+  // console.log("DATE RESOLVED: ", dateResolved);
+  // console.log("date resolved type: ", typeof(dateResolved));
   // console.log((allBugs[selectedBugId]["date_assigned"]));
 
   // (date.toJSON()).split('T')[0]
@@ -60,7 +60,7 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
   // UPDATE BUG IN BACKEND BUTTON
   const onClickUpdate = async (e) => {
     e.preventDefault();
-    console.log(completed);
+    // console.log(completed);
     // console.log("################  UPDATE BUG BUTTON  ##############");
     const data = await dispatch(setTheBugUpdate(userId, groupId, title, content, assignee, dateAssigned, dateResolved, selectedBugId));
     if (data) {
@@ -72,10 +72,16 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
 
 
 
+  // console.log("////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////");
+  // console.log(selectedBugId);
+  // let divToDelete = document.getElementById(selectedBugId);
+  // console.log(divToDelete);
+
+
   const deleteTheBug = async (e) => {
     e.preventDefault();
-    console.log("########  DELETE BUG BUTTON  ############");
-    console.log(selectedBugId);
+    // console.log("########  DELETE BUG BUTTON  ############");
+    // console.log(selectedBugId);
     // console.log(allBugs.length);
     const data = await dispatch(deleteBug(selectedBugId));
     if (data) {
@@ -83,7 +89,9 @@ const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
     } else {
       // console.log("###############  IN DELETE BUTTON: AFTER BUG WAS DELETED  #####");
       // console.log(allBugs.length);
-      triggerUpdate(selectedBugId)
+      // triggerUpdate(selectedBugId)
+      // let divToDelete = document.getElementById(selectedBugId);
+      // divToDelete.remove();
       showFunc(false)
     }
   }
