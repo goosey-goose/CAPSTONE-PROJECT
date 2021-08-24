@@ -150,6 +150,8 @@ const DisplayBugInfo = () => {
 
   const setGroupsWithButtons = () => {
     let displayedGroups = document.querySelectorAll(".group_name_divs");
+    console.log("////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////");
+    console.log(displayedGroups);
 
     displayedGroups.forEach((item) => {
       item.addEventListener('click', (event) => {
@@ -212,17 +214,15 @@ const DisplayBugInfo = () => {
       })
     })
   }
-  ///////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
+  // console.log("////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////");
 
 
-
-
-  if (!allBugs) {
-    dispatch(retrieveAllBugs());
-  }
 
 
 
@@ -289,32 +289,38 @@ const DisplayBugInfo = () => {
     allGroupsValuesItems = Object.values(allGroups);
   }
 
+
+
+
+
+
+
+
+
+
+
+
+  if (newUnassignedBugs) {
+    setNewBugDivsWithButtons();
+  }
+
+  if (inProgressAssignedBugs) {
+    setInProgressBugDivsWithButtons();
+  }
+
+  if (completedResolvedBugs) {
+    setCompletedBugDivsWithButtons();
+  }
+
+  // if (allGroups) {
+  //   setGroupsWithButtons();
+  // }
+
+  /////////////////////  FIRST USE EFFECT()  /////////////////////
   useEffect(() => {
-    if (!allGroups) {
-      dispatch(retrieveAllGroups());
-    }
+    dispatch(retrieveAllBugs());
 
-    if (!allGroups) {
-      setTimeout(() => {
-        setGroupsWithButtons();
-      }, 400);
-    }
-
-
-    if (newUnassignedBugs) {
-      console.log("########### 1: SET NEW BUGS WITH DIVS AND BUTTONS ###########");
-      setNewBugDivsWithButtons();
-    }
-
-    if (inProgressAssignedBugs) {
-      console.log("########### 1: SET IN PROGRESS BUGS WITH DIVS AND BUTTONS ###########");
-      setInProgressBugDivsWithButtons();
-    }
-
-    if (completedResolvedBugs) {
-      console.log("########### 1: SET IN PROGRESS BUGS WITH DIVS AND BUTTONS ###########");
-      setCompletedBugDivsWithButtons();
-    }
+    dispatch(retrieveAllGroups());
 
     return () => {
       // dispatch(resetAllBugItems());
@@ -322,29 +328,19 @@ const DisplayBugInfo = () => {
     }
   }, [dispatch, wasUpdated, test])
 
-
-
+  /////////////////////  SECOND USE EFFECT()  /////////////////////
   useEffect(() => {
-    // showAllGroupBugs();
-    setTimeout(() => {
+    if (allGroups) {
       setGroupsWithButtons();
-    }, 400);
-  })
-
-
-  useEffect(() => {
-    if (newUnassignedBugs) {
-      setNewBugDivsWithButtons();
-    }
-
-    if (inProgressAssignedBugs) {
-      setInProgressBugDivsWithButtons();
-    }
-
-    if (completedResolvedBugs) {
-      setCompletedBugDivsWithButtons();
     }
   })
+
+
+
+
+
+
+
 
 
 
