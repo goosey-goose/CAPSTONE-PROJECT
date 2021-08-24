@@ -69,6 +69,11 @@ const DisplayBugInfo = () => {
   const setInProgressBugDivsWithButtons = () => {
     let inProgressBugDivs = document.querySelectorAll('.dbi_progress_bug');
 
+    //////////////////
+    inProgressBugDivs.forEach((div) => {
+      div.style.borderRight="";
+    })
+
     let inProgressBugObjectKeys;
 
     inProgressBugObjectKeys = Object.keys(inProgressAssignedBugs);
@@ -103,6 +108,11 @@ const DisplayBugInfo = () => {
 
   const setCompletedBugDivsWithButtons = () => {
     let completedBugDivs = document.querySelectorAll('.dbi_completed_bug');
+
+    //////////////////////////
+    completedBugDivs.forEach((div) => {
+      div.style.borderRight="";
+    })
 
     let completedBugObjectKeys;
 
@@ -142,8 +152,11 @@ const DisplayBugInfo = () => {
       bug.style.display="block";
     })
 
+    // testingYay.current = [];
+
     let specificGroupFilter = document.getElementById("specific_group_filter");
     specificGroupFilter.style.display="none";
+    specificGroupFilter.innerText = "";
 
     let resetGroupView = document.getElementById("reset_group_view");
     resetGroupView.style.display="none";
@@ -151,6 +164,87 @@ const DisplayBugInfo = () => {
     let availableGroupsLabel = document.getElementById("available_groups_label");
     availableGroupsLabel.style.justifyContent="center";
   }
+
+
+  // THIS FUNCTION IS DERIVED FROM THE CORE OF setGroupsWithButtons()
+  const displayFilteredGroupBugs = () => {
+    console.log("1");
+    if (testingYay.current.length >= 1) {
+      console.log("2");
+      console.log(testingYay.current);
+      testingYay.current.forEach((div) => {
+        div.style.display="block";
+      })
+      testingYay.current = [];
+    }
+
+    //////////////////
+    let temporaryGroupId;
+    let groupNameFromDiv = document.getElementById("specific_group_filter");
+    if (groupNameFromDiv.innerText !== "") {
+      console.log("3");
+      console.log(groupNameFromDiv);
+      let tempGroupValues = Object.values(allGroups);
+      tempGroupValues.forEach((item) => {
+        if (item.name === groupNameFromDiv.innerText) {
+          console.log("4");
+          console.log(item);
+          temporaryGroupId = item.id;
+          console.log(temporaryGroupId);
+        }
+      })
+    }
+    /////////////////
+
+    let dataId = temporaryGroupId;
+    dataId = dataId.toString();
+    console.log(typeof(dataId));
+    let dataIdGroupName = allGroups[dataId].name;
+    selectedGroupNameId.current = dataId;
+
+    let allSingleBugDivs = document.querySelectorAll(".dbi_single_bug");
+    let allProgressBugDivs = document.querySelectorAll(".dbi_progress_bug");
+    let allCompletedBugDivs = document.querySelectorAll(".dbi_completed_bug");
+
+
+    allSingleBugDivs.forEach((bug) => {
+      let tempId = bug.getAttribute("data-group-id");
+      if (tempId !== dataId) {
+        bug.style.display="none";
+        hiddenDivs.push(bug);
+      }
+    })
+
+    allProgressBugDivs.forEach((bug) => {
+      let tempId = bug.getAttribute("data-group-id");
+      if (tempId !== dataId) {
+        bug.style.display="none";
+        hiddenDivs.push(bug);
+      }
+    })
+
+    allCompletedBugDivs.forEach((bug) => {
+      let tempId = bug.getAttribute("data-group-id");
+      if (tempId !== dataId) {
+        bug.style.display="none";
+        hiddenDivs.push(bug);
+      }
+    })
+
+
+    let specificGroupFilter = document.getElementById("specific_group_filter");
+    specificGroupFilter.style.display="block";
+    specificGroupFilter.innerText = dataIdGroupName;
+
+    let resetGroupView = document.getElementById("reset_group_view");
+    resetGroupView.style.display="block";
+
+    let availableGroupsLabel = document.getElementById("available_groups_label");
+    availableGroupsLabel.style.justifyContent="space-between";
+
+    testingYay.current = hiddenDivs;
+  }
+
 
 
   const setGroupsWithButtons = () => {
@@ -200,17 +294,15 @@ const DisplayBugInfo = () => {
         })
 
 
-        if (hiddenDivs.length >= 1) {
-          let specificGroupFilter = document.getElementById("specific_group_filter");
-          specificGroupFilter.style.display="block";
-          specificGroupFilter.innerText = dataIdGroupName;
+        let specificGroupFilter = document.getElementById("specific_group_filter");
+        specificGroupFilter.style.display="block";
+        specificGroupFilter.innerText = dataIdGroupName;
 
-          let resetGroupView = document.getElementById("reset_group_view");
-          resetGroupView.style.display="block";
+        let resetGroupView = document.getElementById("reset_group_view");
+        resetGroupView.style.display="block";
 
-          let availableGroupsLabel = document.getElementById("available_groups_label");
-          availableGroupsLabel.style.justifyContent="space-between";
-        }
+        let availableGroupsLabel = document.getElementById("available_groups_label");
+        availableGroupsLabel.style.justifyContent="space-between";
 
         testingYay.current = hiddenDivs;
 
@@ -341,6 +433,13 @@ const DisplayBugInfo = () => {
     if (completedResolvedBugs) {
       setCompletedBugDivsWithButtons();
     }
+
+    ////////////////////////////////////////////////////
+    let specificGroupFilter = document.getElementById("specific_group_filter");
+    if (testingYay.current.length >= 1 && specificGroupFilter.innerText !== "") {
+      displayFilteredGroupBugs();
+    }
+    ////////////////////////////////////////////////////
 
     // console.log("2ND USE EFFECT()");
   })
