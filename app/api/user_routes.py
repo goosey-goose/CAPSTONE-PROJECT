@@ -9,8 +9,8 @@ user_routes = Blueprint('users', __name__)
 
 
 
-@user_routes.route('/testing')
-def ebenTest():
+@user_routes.route('/testing/<int:id>')
+def ebenTest(id):
     # print("#######################################################################################################################")
 
 

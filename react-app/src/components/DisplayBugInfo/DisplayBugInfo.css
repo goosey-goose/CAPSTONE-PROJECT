@@ -1,20 +1,219 @@
 #dbi_top_div {
   position: relative;
+  left: 12.9rem;
   display: inline-block;
   width: 92%;
-  height: 100%;
-  background-color: brown;
+  height: 90vh;
+  /* background-color: brown; */
 }
 
 #dbi_grid_container {
   position: absolute;
   display: grid;
   width: 100%;
-  height: 100%;
+  /* width: 91.5vw; */
+  /* height: 100%; */
+  height: 90vh;
+  margin-left: 9px;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 5fr;
+  grid-template-rows: 1fr 0fr 5fr;
+  grid-gap: 10px;
+  grid-template-areas:
+    "welcome one two"
+    "a b c"
+    "new in_progress complete";
 }
 
-.dinosaur {
-  width: 10px;
+#dbi_welcome_label {
+  grid-area: welcome;
+  /* EBEN: POSSIBLY DELETE BELOW */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 14rem;
+  font-weight: bold;
+  padding-top: 0;
+}
+
+#dbi_actual_welcome_div {
+  align-items: center;
+  font-size: 3rem;
+}
+
+#groups_section {
+  grid-area: two;
+  width: 98.5%;
+  height: 100%;
+  background-color: #e0e0e0;
+  overflow-y: auto;
+}
+
+#available_groups_label {
+  display: flex;
+  justify-content: center;
+  /* justify-content: space-between; */
+  margin-top: 15px;
+  margin-bottom: 10px;
+  margin-left: .7rem;
+  margin-right: .7rem;
+  font-weight: bold;
+}
+
+#specific_group_filter {
+  display: none;
+}
+
+#reset_group_view {
+  display: none;
+  /* margin-left: 1rem; */
+}
+
+#reset_group_view button {
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+#reset_group_view button:hover {
+  background-color: darkgray;
+}
+
+#groups_container {
+  background-color: white;
+  margin-left: 5px;
+  margin-right: 5px;
+  max-height: 74%;
+  overflow-y: auto;
+}
+
+.group_name_divs {
+  margin-top: 5px;
+  padding-left: .4rem;
+  cursor: pointer;
+}
+
+.group_name_divs:hover {
+  background-color: darkgray;
+}
+
+#dbi_new_bugs {
+  grid-area: new;
+  /* overflow-y: auto; */
+}
+
+#dbi_in_progress {
+  grid-area: in_progress;
+}
+
+#dbi_completed_bugs {
+  grid-area: complete;
+  width: 98.5%;
+}
+
+.main_divs {
+  width: 100%;
+  /* height: 300px; */
+  height: auto;
+  padding-top: 10px;
+  /* padding-left: 5px; */
+  background-color: #e0e0e0;
+  border-top: solid 5px #e0e0e0;
+  overflow-y: auto;
+}
+
+.main_divs_titles {
+  /* position: fixed; */
+  background-color: #e0e0e0;
+  padding-left: 10px;
+}
+
+.dbi_single_bug, .dbi_progress_bug, .dbi_completed_bug {
+  width: 98%;
+  height: 5rem;
+  font-weight: bold;
+  background-color: white;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  padding-left: 5px;
+  padding-top: 5px;
+  /* overflow-y: hidden; */
+}
+
+.dbi_single_bug:hover, .dbi_progress_bug:hover, .dbi_completed_bug:hover {
+  background-color: darkgray;
+  cursor: pointer;
+}
+
+.dbi_single_bug_content, .dbi_progress_bug_content, .dbi_completed_bug_content {
+  max-height: 18px;
+  font-weight: normal;
+  padding-top: 3px;
+  overflow-wrap: break-word;
+  overflow-y: hidden;
+}
+
+.dbi_status_indicator {
+  width: 25px;
+  height: 25px;
+  /* margin-left: 5px; */
+  margin-bottom: 5px;
+  border-radius: 50%;
+  /* background-color: red; */
+}
+
+.dbi_status_indicator_parent {
+  height: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.dbi_single_bug .dbi_status_indicator {
+  background-color: red;
+}
+
+.dbi_progress_bug .dbi_status_indicator {
+  background-color: purple;
+}
+
+.dbi_completed_bug .dbi_status_indicator {
+  background-color: greenyellow;
+}
+
+.corner_information {
+  height: 100%;
+  /* width: max-content; */
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  padding-right: .4rem;
+}
+
+.corner_information span {
+  font-weight: normal;
+}
+
+/* maybe delete the items below? */
+#final_new_bugs_label {
+  grid-area: a;
+  /* display: inline-block; */
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+}
+
+#final_in_progress_bugs_label {
+  grid-area: b;
+  /* display: inline-block; */
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+}
+
+#final_completed_bugs_label {
+  grid-area: c;
+  /* display: inline-block; */
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
 }

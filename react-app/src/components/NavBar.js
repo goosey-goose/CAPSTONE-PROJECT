@@ -10,7 +10,7 @@ const NavBar = () => {
   const user = useSelector(state => state.session.user)
 
   return (
-    <nav>
+    <nav style={{position: "relative"}}>
       <div id="navbar_div">
         <div id="navbar_div_left">
           <NavLink className="main_nav_buttons_left" to='/' exact={true} activeClassName='active'>

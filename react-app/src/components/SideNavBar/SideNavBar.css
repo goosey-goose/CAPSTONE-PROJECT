@@ -1,10 +1,12 @@
 #sidebar_nav {
-  height: 100%;
+  /* height: 100vh; */
+  height: 90vh;
   /* width: 70%; */
   width: 8%;
   /* border-top: solid 8px white; */
   display: inline-block;
   /* border: solid black 1px; */
+  position: absolute;
 }
 
 #side_navbar_grid_container {
@@ -13,7 +15,8 @@
   grid-template-rows: repeat(6, 1fr);
   background-color: #2196f3;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+  height: 90vh;
 }
 
 /* #side_navbar_new_bug_modal {

@@ -1,30 +1,92 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import { createNewBug } from '../../store/bug';///////////////////////////////////////  EBEN: IMPORT THUNK FROM STORE IN ORDER TO UPDATE BUG
+import { deleteBug, setTheBugUpdate } from '../../store/bug';
 
 
-const UpdateBugForm = () => {
+const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
   const [errors, setErrors] = useState([]);
-  const [userId, setUserId] = useState(0);
-  const [groupId, setGroupId] = useState(0);
-  // const [dateResolved, setDateResolved] = useState('');
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [assignee, setAssignee] = useState('');
-  const user = useSelector(state => state.session.user);
+  // const [userId, setUserId] = useState(0);
+  const allBugs = useSelector(state => state.bug.allBugs);
+  const selectedBugId = useSelector(state => state.bug.selectedBugId);
+  console.log(selectedBugId);
+  const allGroups = useSelector(state => state.group.allGroups);
+
+
+  const [groupId, setGroupId] = useState(allBugs[selectedBugId] && allBugs[selectedBugId]["group_id"] ? allBugs[selectedBugId]["group_id"] : '');  ///////////////////////////////////////////
+  const [dateResolved, setDateResolved] = useState(allBugs[selectedBugId] && allBugs[selectedBugId]["date_resolved"] ? (((new Date(allBugs[selectedBugId]["date_resolved"])).toISOString())).split('T')[0] : '1970-01-01');
+  const [completed, setCompleted] = useState(allBugs[selectedBugId] && allBugs[selectedBugId]["date_resolved"] ? 1 : 0);
+  const [dateAssigned, setDateAssigned] = useState(allBugs[selectedBugId] && allBugs[selectedBugId]["date_assigned"] ? (((new Date(allBugs[selectedBugId]["date_assigned"])).toISOString())).split('T')[0] : '1970-01-01');  //
+  const [title, setTitle] = useState(allBugs[selectedBugId] && allBugs[selectedBugId]["title"] ? allBugs[selectedBugId]["title"] : '');
+  const [content, setContent] = useState(allBugs[selectedBugId] && allBugs[selectedBugId]["content"] ? allBugs[selectedBugId]["content"] : '');
+  const [assignee, setAssignee] = useState(allBugs[selectedBugId] && allBugs[selectedBugId]["assignee"] ? allBugs[selectedBugId]["assignee"] : '');
+  const userId = useSelector(state => state.session.user.id);
+  const bugUserId = allBugs[selectedBugId] && allBugs[selectedBugId]["user_id"] ? allBugs[selectedBugId]["user_id"] : '';
+  // const [bugUserId, setBugUserId] = useState(allBugs[selectedBugId]["user_id"]);
+  // const dateCreated = useSelector(state => state.bug.allBugs[selectedBugId]["date_created"]);
+
+  console.log("COMPLETED: ", completed);
+  console.log("ASSIGNEE: ", assignee);
+  console.log("DATE ASSIGNED: ", dateAssigned);
+  console.log(                 (((new Date(dateAssigned)).toISOString())).split('T')[0]             );
+  console.log("date assigned type: ", typeof(dateAssigned));
+  console.log("DATE RESOLVED: ", dateResolved);
+  console.log("date resolved type: ", typeof(dateResolved));
+  // console.log((allBugs[selectedBugId]["date_assigned"]));
+
+  // (date.toJSON()).split('T')[0]
+  // let date = new Date();
+  // let hello = (date.toJSON()).split('T')[0];
+  // console.log("TEST: ", hello);
+  // let eben = (Date.parse('01 Jan 1970 00:00:00 GMT'))
+  // let eben = new Date();
+  // console.log("TEST EBEN");
+  // console.log((eben.toJSON()).split('T')[0])
+
   const dispatch = useDispatch();
 
+  const employees = [
+    "Frank",
+    "Perl",
+    "Samantha",
+    "Jonathan",
+    "Tom",
+    "Melissa",
+    "Kathryn"
+  ]
 
 
   // UPDATE BUG IN BACKEND BUTTON
-  const onClickSubmit = async (e) => {
+  const onClickUpdate = async (e) => {
     e.preventDefault();
-    const data = await dispatch(createNewBug(userId, groupId, formattedDate, title, content, assignee)); /////////  updateBug thunk goes here....
+    console.log(completed);
+    // console.log("################  UPDATE BUG BUTTON  ##############");
+    const data = await dispatch(setTheBugUpdate(userId, groupId, title, content, assignee, dateAssigned, dateResolved, selectedBugId));
     if (data) {
       setErrors(data);
+    } else {
+      showFunc(false);
     }
   };
+
+
+
+  const deleteTheBug = async (e) => {
+    e.preventDefault();
+    console.log("########  DELETE BUG BUTTON  ############");
+    console.log(selectedBugId);
+    // console.log(allBugs.length);
+    const data = await dispatch(deleteBug(selectedBugId));
+    if (data) {
+      setErrors(data);
+    } else {
+      // console.log("###############  IN DELETE BUTTON: AFTER BUG WAS DELETED  #####");
+      // console.log(allBugs.length);
+      triggerUpdate(selectedBugId)
+      showFunc(false)
+    }
+  }
 
 
 
@@ -33,12 +95,10 @@ const UpdateBugForm = () => {
     setGroupId(e.target.value)
   }
 
-  console.log(typeof(user.id));
-  console.log("User ID: ", userId);
-  console.log(groupId);
-  console.log(title);
-  console.log(content);
-  console.log(assignee);
+  // console.log(groupId);
+  // console.log(title);
+  // console.log(content);
+  // console.log(assignee);
 
   const updateTitle = (e) => {
     setTitle(e.target.value);
@@ -55,29 +115,61 @@ const UpdateBugForm = () => {
 
 
   const updateAssignee = (e) => {
+    if (e.target.value === '') {
+      // setDateResolved('1970-01-01');  //////////////////////////////////////////////////////////////////////////////////
+      setDateAssigned('1970-01-01');
+      // setDateAssigned((Date.parse('01 Jan 1970 00:00:00 GMT')).toString())
+    } else {
+      // setDateResolved('1970-01-01');  ///////////////////////////////////////////////////////////////////////////////////
+      let date = new Date();
+      setDateAssigned((date.toJSON()).split('T')[0]);
+    }
+
     setAssignee(e.target.value);
   };
 
 
 
+  const updateDateResolved = (number) => {
+    // console.log("MARTY MCFLY");
+    // console.log("number: ", number);
+    // console.log(typeof(number));
+    if (number === "1") {
+      // console.log("INSIDE THE MOUNTAIN");
+      // setDateAssigned('1970-01-01');  ///////////////////////////////////////////////////////////////////////////////////
+      let date = new Date();
+      setDateResolved((date.toJSON()).split('T')[0]);
+    } else {
+      setDateResolved('1970-01-01');
+      // setDateResolved((Date.parse('01 Jan 1970 00:00:00 GMT')).toString());
+    }
 
-  if (user) {
-    // return <Redirect to='/' />;
+  };
+
+  const updateCompleted = (e) => {
+    setCompleted(e.target.value);
+
+    updateDateResolved(e.target.value);
+
+  };
+
+
+
+
+  let allGroupsKeys;
+  let allGroupsValues;
+  if (allGroups) {
+    allGroupsKeys = Object.keys(allGroups)
+    allGroupsValues = Object.values(allGroups)
   }
 
+  // useEffect(() => {
 
-
-  useEffect(() => {
-    // let myUserId = user.id;
-    // let n = myUserId.toString()
-    // console.log(n);
-    // console.log("type of n: ", typeof(n));
-    setUserId(user.id)
-  }, [userId, user.id])
+  // }, [])
 
 
   return (
-    <form onSubmit={onClickSubmit}>
+    <form onSubmit={onClickUpdate}>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
@@ -88,8 +180,10 @@ const UpdateBugForm = () => {
       <div>
         <label htmlFor='group'>Assign to a Group</label>
         <select value={groupId} name='group' onChange={updateGroupId}>
-          <option>Please Select a Group to Assign To</option>
-          <option value={1}>Group 1</option>
+          <option value={''}>Please Select a Group to Assign To</option>
+          {allGroups && allGroupsValues.map((group, index) => (
+            <option key={index} value={allGroupsKeys[index]}>{group.name}</option>
+          ))}
         </select>
       </div>
 
@@ -122,11 +216,26 @@ const UpdateBugForm = () => {
       <div>
         <label htmlFor='assignee'>Assignee</label>
         <select value={assignee} name='assignee' onChange={updateAssignee}>
-          <option>Please Select Assignee</option>
-          <option value='Tom Cruise'>Tom Cruise</option>
+          <option value={''}>Please Select Assignee</option>
+          {employees && employees.map((employee, index) => (
+            <option key={index} value={employee}>{employee}</option>
+          ))}
         </select>
       </div>
-      <button type='submit'>Create New Bug</button>
+
+
+      {/* INPUT FOR COMPLETED */}
+      <div>
+        <label htmlFor='completed'>COMPLETION STATUS</label>
+        <select value={completed} name='completed' onChange={updateCompleted}>
+          <option value={0}>Not Completed</option>
+          <option value={1}>{`Completed`}</option>
+        </select>
+      </div>
+
+
+      <button type='submit'>Update Bug</button>
+      {userId === bugUserId && <button onClick={deleteTheBug}>DELETE BUG</button>}
     </form>
   );
 };

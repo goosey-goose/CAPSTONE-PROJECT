@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { Redirect } from 'react-router-dom';
-// import { createNewBug } from '../../store/bug';  //  EBEN:  CHANGE THIS!!!!!
+import { createNewGroup } from '../../store/group';  //  EBEN:  CHANGE THIS!!!!!
 
 
 const CreateNewGroupForm = ({ showFunc }) => {
@@ -15,16 +15,16 @@ const CreateNewGroupForm = ({ showFunc }) => {
   // CREATE NEW GROUP BUTTON
   const onClickSubmit = async (e) => {
     e.preventDefault();
-    // const data = await dispatch(createNewBug(groupName)); //  EBEN:  CHANGE THIS!!!!!!!!!
-    // if (data) {
-    //   setErrors(data);
-    // } else {
-    //   showFunc(false)
-    // }
-    console.log("you created a new group");
+    const data = await dispatch(createNewGroup(groupName));
+    if (data) {
+      setErrors(data);
+    } else {
+      showFunc(false)
+    }
+    // console.log("you created a new group");
   };
 
-
+  // console.log(groupName);
 
   // UPDATE GROUP (IN THE BACKEND) BUTTON
   const onLogin = async (e) => {

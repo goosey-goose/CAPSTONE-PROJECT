@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { Redirect } from 'react-router-dom';
-import { createNewBug } from '../../store/bug';
+import { createNewBug, setTheSelectedBugId, retrieveAllBugs } from '../../store/bug';
 
 
-const CreateNewBugForm = ({ showFunc }) => {
+const CreateNewBugForm = ({ showFunc, makeBug }) => {
   const [errors, setErrors] = useState([]);
   const [userId, setUserId] = useState(0);
   const [groupId, setGroupId] = useState(0);
@@ -12,9 +12,24 @@ const CreateNewBugForm = ({ showFunc }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [assignee, setAssignee] = useState('');
+  const [dateAssigned, setDateAssigned] = useState();
   // const [isButtonReady, setIsButtonReady] = useState(true)
   const user = useSelector(state => state.session.user);
+  const allGroups = useSelector(state => state.group.allGroups);
+  const allBugs = useSelector(state => state.bug.allBugs);
   const dispatch = useDispatch();
+
+
+
+  const employees = [
+    "Frank",
+    "Perl",
+    "Samantha",
+    "Jonathan",
+    "Tom",
+    "Melissa",
+    "Kathryn"
+  ]
 
 
 
@@ -23,24 +38,18 @@ const CreateNewBugForm = ({ showFunc }) => {
     e.preventDefault();
     let date = new Date();
     let formattedDate = (date.toJSON()).split('T')[0];
-    const data = await dispatch(createNewBug(userId, groupId, formattedDate, title, content, assignee));
+    const data = await dispatch(createNewBug(userId, groupId, formattedDate, title, content, assignee, dateAssigned));
     if (data) {
       setErrors(data);
     } else {
+      // makeBug(title)
+      // console.log("@@@@@@@@@@@@@@@@@@@@@@  WALTER WHITE  @@@@@@@@@@@@@@@@@@@@@");
+      dispatch(retrieveAllBugs());
       showFunc(false)
     }
   };
 
 
-
-  // UPDATE BUG (IN THE BACKEND) BUTTON
-  const onLogin = async (e) => {
-    e.preventDefault();
-    // const data = await dispatch(login(email, password));
-    // if (data) {
-    //   setErrors(data);
-    // }
-  };
 
 
 
@@ -48,11 +57,11 @@ const CreateNewBugForm = ({ showFunc }) => {
     setGroupId(e.target.value)
   }
 
-  console.log(typeof(user.id));
-  console.log("User ID: ", userId);
-  console.log(groupId);
-  console.log(title);
-  console.log(content);
+  // console.log(typeof(user.id));
+  // console.log("User ID: ", userId);
+  // console.log(groupId);
+  // console.log(title);
+  // console.log(content);
   console.log(assignee);
 
   const updateTitle = (e) => {
@@ -70,6 +79,13 @@ const CreateNewBugForm = ({ showFunc }) => {
 
 
   const updateAssignee = (e) => {
+    if (e.target.value !== '') {
+      let date = new Date();
+      setDateAssigned((date.toJSON()).split('T')[0]);
+    } else {
+      setDateAssigned('');
+    }
+
     setAssignee(e.target.value);
   };
 
@@ -80,11 +96,22 @@ const CreateNewBugForm = ({ showFunc }) => {
     // return <Redirect to='/' />;
   }
 
-
+  let allGroupsKeys;
+  let allGroupsValues;
+  if (allGroups) {
+    allGroupsKeys = Object.keys(allGroups)
+    allGroupsValues = Object.values(allGroups)
+  }
 
   useEffect(() => {
     setUserId(user.id)
   }, [userId, user.id])
+
+  // console.log("##########  ALL GROUPS: LINE 90 ############");
+  // console.log(allGroups);
+
+
+
 
 
 
@@ -101,8 +128,10 @@ const CreateNewBugForm = ({ showFunc }) => {
       <div>
         <label htmlFor='group'>Assign to a Group</label>
         <select value={groupId} name='group' onChange={updateGroupId}>
-          <option>Please Select a Group to Assign To</option>
-          <option value={1}>Group 1</option>
+          <option value={''}>Please Select a Group to Assign To</option>
+          {allGroups && allGroupsValues.map((group, index) => (
+            <option key={index} value={allGroupsKeys[index]}>{group.name}</option>
+          ))}
         </select>
       </div>
 
@@ -135,8 +164,10 @@ const CreateNewBugForm = ({ showFunc }) => {
       <div>
         <label htmlFor='assignee'>Assignee</label>
         <select value={assignee} name='assignee' onChange={updateAssignee}>
-          <option>Please Select Assignee</option>
-          <option value='Tom Cruise'>Tom Cruise</option>
+          <option value={''}>Please Select Assignee</option>
+          {employees && employees.map((employee, index) => (
+            <option key={index} value={employee}>{employee}</option>
+          ))}
         </select>
       </div>
       <button type='submit' disabled={!(title && content)}>Create New Bug</button>
