@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// import { Redirect } from 'react-router-dom';
-import { createNewBug } from '../../store/bug';///////////////////////////////////////  EBEN: IMPORT THUNK FROM STORE IN ORDER TO UPDATE BUG
 import { deleteBug, setTheBugUpdate } from '../../store/bug';
 
 
-const UpdateBugForm = ({ showFunc, triggerUpdate }) => {
+const UpdateBugForm = ({ showFunc }) => {
   const [errors, setErrors] = useState([]);
   // const [userId, setUserId] = useState(0);
   const allBugs = useSelector(state => state.bug.allBugs);
