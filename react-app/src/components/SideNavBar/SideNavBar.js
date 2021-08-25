@@ -1,11 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import CreateNewBugFormModal from '../CreateNewBugModal'
 import CreateNewGroupFormModal from '../CreateNewGroupModal';
 import './SideNavBar.css'
 
-const SideNavBar = ({ bugAdded }) => {
+const SideNavBar = () => {
   return (
 
     <>
@@ -18,7 +16,7 @@ const SideNavBar = ({ bugAdded }) => {
               <div className="side_navbar_letter_text">
                 New Bug
               </div>
-              <CreateNewBugFormModal addBug={bugAdded} />
+              <CreateNewBugFormModal />
           </div>
 
 

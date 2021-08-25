@@ -4,22 +4,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Modal } from '../../context/Modal';
 // import CreateNewBugForm from '../CreateNewBugForm/CreateNewBugForm';
 import UpdateBugForm from '../UpdateBugForm/UpdateBugForm';
-import { retrieveAllBugs, setTheSelectedBugId, resetAllBugItems } from '../../store/bug'
-import { retrieveAllGroups, resetAllGroupItems } from '../../store/group';
+import { retrieveAllBugs, setTheSelectedBugId } from '../../store/bug'
+import { retrieveAllGroups } from '../../store/group';
 import './DisplayBugInfo.css'
 
 const DisplayBugInfo = () => {
   const [showModal, setShowModal] = useState(false);
-  const [wasUpdated, setWasUpdated] = useState(null);
   const user = useSelector(state => state.session.user);
-  let allBugs = useSelector(state => state.bug.allBugs);
   let newUnassignedBugs = useSelector(state => state.bug.newUnassignedBugs);
   let inProgressAssignedBugs = useSelector(state => state.bug.inProgressAssignedBugs);
   let completedResolvedBugs = useSelector(state => state.bug.completedResolvedBugs);
   let allGroups = useSelector(state => state.group.allGroups);
-  let newlyAddedBug = useSelector(state => state.bug.newlyAddedBug);
-  let selectedBugId = useSelector(state => state.bug.selectedBugId);
-  const [test, setTest] = useState(false);
   let testingYay = useRef([]);
   let selectedGroupNameId = useRef();
   const dispatch = useDispatch();
@@ -642,7 +637,7 @@ const DisplayBugInfo = () => {
       </div>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <UpdateBugForm showFunc={setShowModal} triggerUpdate={setWasUpdated} />
+          <UpdateBugForm showFunc={setShowModal} />
         </Modal>
       )}
     </div>
