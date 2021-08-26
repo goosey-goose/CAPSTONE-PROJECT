@@ -75,6 +75,8 @@ hr {
 }
 
 #login_form_question {
+  display: flex;
+  justify-content: space-between;
   font-size: 13px;
   padding-left: 2em;
   margin-top: 2em;
@@ -83,4 +85,17 @@ hr {
 #login_form_link_to_signup {
   text-decoration: none;
   color: #9e9e9e;
+}
+
+#demo_user_button_div {
+  display: inline;
+}
+
+#demo_user_button_div button {
+  border: none;
+  background-color: white;
+  color: #9e9e9e;
+  font-size: 13px;
+  padding-right: 26px;
+  cursor: pointer;
 }

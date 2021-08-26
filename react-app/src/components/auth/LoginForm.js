@@ -9,6 +9,10 @@ const LoginForm = () => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  //////////////////////////////////////////////////////
+  const demoUserEmail = "demo@aa.io";
+  const demoUserPassword = "password";
+  //////////////////////////////////////////////////////
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
@@ -19,6 +23,16 @@ const LoginForm = () => {
       setErrors(data);
     }
   };
+
+  ///////////////////////////////////////////////////////
+  const onDemoLogin = async () => {
+    // e.preventDefault();
+    const data = await dispatch(login(demoUserEmail, demoUserPassword));
+    if (data) {
+      setErrors(data);
+    }
+  };
+  ///////////////////////////////////////////////////////
 
   const updateEmail = (e) => {
     setEmail(e.target.value);
@@ -77,6 +91,9 @@ const LoginForm = () => {
           <Link id="login_form_link_to_signup" to='/sign-up' exact="true">
             Don't have an account?
           </Link>
+        <div id="demo_user_button_div">
+          <button type="button" onClick={onDemoLogin}>Demo User</button>
+        </div>
         </div>
       </form>
       <div id="login_form_errors">
