@@ -121,7 +121,7 @@ def update_bug(id):
         # print(queried_bug.id)
 
         return {"dbpk_id": queried_bug.id, "updated_bug": queried_bug.to_dict()}
-    return {'errors': 'something went wrong when updating this bug bug'}
+    return {'errors': 'something went wrong when updating this bug'}
     # queried_bug = Bug.query.get(2)
     # queried_bug.content = 'I hate saying that.'
     # db.session.commit()
@@ -141,4 +141,4 @@ def delete_bug(id):
     queried_bug = Bug.query.get(id)
     db.session.delete(queried_bug)
     db.session.commit()
-    return { "id": id }
+    return { "id_of_bug_deleted": id }
