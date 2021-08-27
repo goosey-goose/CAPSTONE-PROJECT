@@ -1,6 +1,8 @@
 import React from 'react';
 import CreateNewBugFormModal from '../CreateNewBugModal'
 import CreateNewGroupFormModal from '../CreateNewGroupModal';
+// import UpdateGroupForm from '../UpdateGroupForm/UpdateGroupForm';
+import UpdateGroupFormModal from '../UpdateGroupModal';
 import './SideNavBar.css'
 
 const SideNavBar = () => {
@@ -25,6 +27,13 @@ const SideNavBar = () => {
                 New Group
               </div>
               <CreateNewGroupFormModal />
+          </div>
+
+          <div id="sidebar_nav_hover_button_div_update_group">
+              <div className="side_navbar_letter_text">
+                Edit Group
+              </div>
+              <UpdateGroupFormModal />
           </div>
         </div>
 

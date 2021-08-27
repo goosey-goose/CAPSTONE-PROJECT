@@ -50,6 +50,23 @@ def create_new_group():
 
 
 
+
+
+##################################################################################
+##################################################################################
+##################################################################################
+##################################################################################
+##################################################################################
+##################################################################################
+##################################################################################
+##################################################################################
+##################################################################################
+
+
+
+
+
+
 # UPDATE A GROUP
 @group_routes.route('/update/<int:id>', methods=["PATCH"])
 # @login_required
@@ -58,8 +75,15 @@ def update_group(id):
     form = GroupForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
-        print("##########  INSIDE VALID UPDATE  #########")
-        print(form.data)
+        print("##########  INSIDE VALIDATED GROUP UPDATE  #########")
+        # print(form.data)
+        if form.data["name"] != queried_group.name:
+            queried_group.name = form.data["name"]
+
+        db.session.commit()
+
+        return {"dbpk_id": queried_group.id, "updated_group": queried_group.to_dict()}
+    return {'errors': 'something went wrong when updating this group'}
 
 
 

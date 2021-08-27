@@ -1,0 +1,37 @@
+#update_group_form_div_container {
+    width: 100%;
+}
+
+#update_group_form_div_container form {
+    width: 100%;
+}
+
+#update_group_list_container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.update_group_list_item_divs {
+    /* display: inline; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 1.5rem;
+    cursor: pointer;
+}
+
+.update_group_list_item_divs:hover {
+    background-color: darkgray;
+}
+
+.update_group_list_item_divs input {
+    padding: 0;
+    display: none;
+}
+
+/* .update_group_name_inputs {
+    display: none;
+    display: inline;
+} */

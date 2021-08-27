@@ -4,12 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Modal } from '../../context/Modal';
 // import CreateNewBugForm from '../CreateNewBugForm/CreateNewBugForm';
 import UpdateBugForm from '../UpdateBugForm/UpdateBugForm';
+import UpdateGroupForm from '../UpdateGroupForm/UpdateGroupForm';
 import { retrieveAllBugs, setTheSelectedBugId } from '../../store/bug'
 import { retrieveAllGroups } from '../../store/group';
 import './DisplayBugInfo.css'
 
 const DisplayBugInfo = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showEditGroupModal, setShowEditGroupModal] = useState(false);
   const user = useSelector(state => state.session.user);
   let newUnassignedBugs = useSelector(state => state.bug.newUnassignedBugs);
   let inProgressAssignedBugs = useSelector(state => state.bug.inProgressAssignedBugs);
@@ -640,6 +642,12 @@ const DisplayBugInfo = () => {
           <UpdateBugForm showFunc={setShowModal} />
         </Modal>
       )}
+
+      {/* {showEditGroupModal && (
+        <Modal onClose={() => setShowEditGroupModal(false)}>
+          <UpdateGroupForm showFunc={setShowEditGroupModal} />
+        </Modal>
+      )} */}
     </div>
   );
 }

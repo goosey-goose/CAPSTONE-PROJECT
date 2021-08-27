@@ -289,10 +289,10 @@ export default function reducer(state = initialState, action) {
       console.log(action.payload)
       newState = {...state, selectedBugId: null, allBugs: { ...state.allBugs }, newUnassignedBugs: {...state.newUnassignedBugs}, inProgressAssignedBugs: {...state.inProgressAssignedBugs}, completedResolvedBugs: {...state.completedResolvedBugs}}
 
-      if (newState.newUnassignedBugs[action.payload["id"]]) delete newState.newUnassignedBugs[action.payload["id"]]
-      if (newState.inProgressAssignedBugs[action.payload["id"]]) delete newState.inProgressAssignedBugs[action.payload["id"]]
-      if (newState.completedResolvedBugs[action.payload["id"]]) delete newState.completedResolvedBugs[action.payload["id"]]
-      delete newState.allBugs[action.payload["id"]]
+      if (newState.newUnassignedBugs[action.payload["id_of_bug_deleted"]]) delete newState.newUnassignedBugs[action.payload["id_of_bug_deleted"]]
+      if (newState.inProgressAssignedBugs[action.payload["id_of_bug_deleted"]]) delete newState.inProgressAssignedBugs[action.payload["id_of_bug_deleted"]]
+      if (newState.completedResolvedBugs[action.payload["id_of_bug_deleted"]]) delete newState.completedResolvedBugs[action.payload["id_of_bug_deleted"]]
+      delete newState.allBugs[action.payload["id_of_bug_deleted"]]
       return newState
 
 
