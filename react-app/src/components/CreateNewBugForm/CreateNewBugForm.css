@@ -1,0 +1,24 @@
+#cnbf_form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 4%;
+}
+
+#cnbf_form div {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#cnbf_form button {
+    margin-top: 5%;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+#cnbf_form button:hover {
+    background-color: darkgray;
+}

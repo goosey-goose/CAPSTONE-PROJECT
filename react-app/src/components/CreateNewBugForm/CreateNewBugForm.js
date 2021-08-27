@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { Redirect } from 'react-router-dom';
 import { createNewBug, retrieveAllBugs } from '../../store/bug';
+import './CreateNewBugForm.css';
 
 
 const CreateNewBugForm = ({ showFunc }) => {
@@ -67,8 +68,8 @@ const CreateNewBugForm = ({ showFunc }) => {
   // console.log("User ID: ", userId);
   // console.log(groupId);
   // console.log(title);
-  // console.log(content);
-  console.log(assignee);
+  console.log(content);
+  // console.log(assignee);
 
   const updateTitle = (e) => {
     setTitle(e.target.value);
@@ -126,7 +127,7 @@ const CreateNewBugForm = ({ showFunc }) => {
 
 
   return (
-    <form onSubmit={onClickSubmit}>
+    <form id="cnbf_form" onSubmit={onClickSubmit}>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
