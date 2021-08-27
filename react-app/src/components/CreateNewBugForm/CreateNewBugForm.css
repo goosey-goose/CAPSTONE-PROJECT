@@ -22,3 +22,13 @@
 #cnbf_form button:hover {
     background-color: darkgray;
 }
+
+#cnbf_textarea_content {
+    font-family: sans-serif;
+    width: 164px;
+    height: 260px;
+}
+
+#cnbf_select_assignee {
+    width: 170px;
+}

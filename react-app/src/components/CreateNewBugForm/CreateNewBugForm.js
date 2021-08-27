@@ -161,7 +161,8 @@ const CreateNewBugForm = ({ showFunc }) => {
       {/* INPUT FOR CONTENT */}
       <div>
         <label htmlFor='content'>Content</label>
-        <input
+        <textarea
+          id="cnbf_textarea_content"
           name='content'
           type='text'
           placeholder='content'
@@ -173,7 +174,7 @@ const CreateNewBugForm = ({ showFunc }) => {
       {/* INPUT FOR ASSIGNEE */}
       <div>
         <label htmlFor='assignee'>Assignee</label>
-        <select value={assignee} name='assignee' onChange={updateAssignee}>
+        <select id="cnbf_select_assignee" value={assignee} name='assignee' onChange={updateAssignee}>
           <option value={''}>Please Select Assignee</option>
           {employees && employees.map((employee, index) => (
             <option key={index} value={employee}>{employee}</option>
