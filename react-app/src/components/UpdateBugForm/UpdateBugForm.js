@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteBug, setTheBugUpdate } from '../../store/bug';
+import './UpdateBugForm.css';
 
 
 const UpdateBugForm = ({ showFunc }) => {
@@ -180,7 +181,7 @@ const UpdateBugForm = ({ showFunc }) => {
 
 
   return (
-    <form onSubmit={onClickUpdate}>
+    <form id="ubf_form" onSubmit={onClickUpdate}>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
@@ -190,7 +191,7 @@ const UpdateBugForm = ({ showFunc }) => {
       {/* INPUT FOR GROUP_ID */}
       <div>
         <label htmlFor='group'>Assign to a Group</label>
-        <select value={groupId} name='group' onChange={updateGroupId}>
+        <select id="ubf_select_group_id" value={groupId} name='group' onChange={updateGroupId}>
           {/* <option value={''}>Please Select a Group to Assign To</option> */}
           {allGroups && allGroupsValues.map((group, index) => (
             <option key={index} value={allGroupsKeys[index]}>{group.name}</option>
@@ -208,25 +209,15 @@ const UpdateBugForm = ({ showFunc }) => {
           placeholder='title'
           value={title}
           onChange={updateTitle}
+          maxLength="50"
         />
       </div>
 
-      {/* INPUT FOR CONTENT */}
-      <div>
-        <label htmlFor='content'>Content</label>
-        <input
-          name='content'
-          type='text'
-          placeholder='content'
-          value={content}
-          onChange={updateContent}
-        />
-      </div>
 
       {/* INPUT FOR ASSIGNEE */}
       <div>
         <label htmlFor='assignee'>Assignee</label>
-        <select value={assignee} name='assignee' onChange={updateAssignee}>
+        <select id="ubf_select_assignee" value={assignee} name='assignee' onChange={updateAssignee}>
           <option value={''}>Please Select Assignee</option>
           {employees && employees.map((employee, index) => (
             <option key={index} value={employee}>{employee}</option>
@@ -235,19 +226,44 @@ const UpdateBugForm = ({ showFunc }) => {
       </div>
 
 
+
       {/* INPUT FOR COMPLETED */}
       <div>
-        <label htmlFor='completed'>COMPLETION STATUS</label>
-        <select value={completed} name='completed' onChange={updateCompleted}>
+        <label htmlFor='completed'>Completion Status</label>
+        <select id="ubf_select_completion_status" value={completed} name='completed' onChange={updateCompleted}>
           <option value={0}>Not Completed</option>
           <option value={1}>{`Completed`}</option>
         </select>
       </div>
 
 
-      <button type='submit'>Update Bug</button>
 
-      {showTheDeleteButton && <button onClick={deleteTheBug}>DELETE BUG</button>}
+      {/* INPUT FOR CONTENT */}
+      <div>
+        <label htmlFor='content'>Content</label>
+        <textarea
+          id="ubf_textarea_content"
+          name='content'
+          type='text'
+          placeholder='content'
+          value={content}
+          onChange={updateContent}
+          maxLength="500"
+        />
+      </div>
+
+
+
+
+
+
+
+      <div id="ubf_buttons_container_div" className="ubf_test">
+        <button type='submit'>UPDATE BUG</button>
+
+        {showTheDeleteButton && <button onClick={deleteTheBug}>DELETE BUG</button>}
+      </div>
+
     </form>
   );
 };

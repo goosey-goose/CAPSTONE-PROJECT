@@ -137,7 +137,7 @@ const CreateNewBugForm = ({ showFunc }) => {
       {/* INPUT FOR GROUP_ID */}
       <div>
         <label htmlFor='group'>Assign to a Group</label>
-        <select value={groupId} name='group' onChange={updateGroupId}>
+        <select id="cnbf_select_group_id" value={groupId} name='group' onChange={updateGroupId}>
           {/* <option value={''}>Please Select a Group to Assign To</option> */}
           {allGroups && allGroupsValues.map((group, index) => (
             <option key={index} value={allGroupsKeys[index]}>{group.name}</option>
@@ -155,21 +155,11 @@ const CreateNewBugForm = ({ showFunc }) => {
           placeholder='title'
           value={title}
           onChange={updateTitle}
+          maxLength="50"
         />
       </div>
 
-      {/* INPUT FOR CONTENT */}
-      <div>
-        <label htmlFor='content'>Content</label>
-        <textarea
-          id="cnbf_textarea_content"
-          name='content'
-          type='text'
-          placeholder='content'
-          value={content}
-          onChange={updateContent}
-        />
-      </div>
+
 
       {/* INPUT FOR ASSIGNEE */}
       <div>
@@ -181,6 +171,24 @@ const CreateNewBugForm = ({ showFunc }) => {
           ))}
         </select>
       </div>
+
+
+
+      {/* INPUT FOR CONTENT */}
+      <div>
+        <label htmlFor='content'>Content</label>
+        <textarea
+          id="cnbf_textarea_content"
+          name='content'
+          type='text'
+          placeholder='content'
+          value={content}
+          onChange={updateContent}
+          maxLength="500"
+        />
+      </div>
+
+
       <button type='submit' disabled={!(title && content) || !groupId}>Create New Bug</button>
       {!groupId && <div>Please Create a Group First</div>}
     </form>
