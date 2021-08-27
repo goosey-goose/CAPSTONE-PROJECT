@@ -1,6 +1,7 @@
 const SET_GROUP = 'groups/SET_GROUP';
 const SET_ALL_GROUPS = 'groups/SET_ALL_GROUPS';
-// const DELETE_GROUP = 'groups/DELETE_GROUP';
+const UPDATE_GROUP = 'groups/UPDATE_GROUP';
+const DELETE_GROUP = 'groups/DELETE_GROUP';
 // const SELECTED_GROUP = 'groups/SELECTED_GROUP';
 const RESET_ALL = 'groups/RESET_ALL';
 
@@ -16,10 +17,15 @@ const setAllGroups = (allGroups) => ({
   payload: allGroups
 });
 
-// const removeGroup = (groupId) => ({
-//   type: DELETE_GROUP,
-//   payload: groupId
-// });
+const setGroupUpdate = (group) => ({
+  type: UPDATE_GROUP,
+  payload: group
+});
+
+const removeGroup = (groupId) => ({
+  type: DELETE_GROUP,
+  payload: groupId
+});
 
 // const setSelectedGroupId = (groupDivId) => ({
 //   type: SELECTED_GROUP,
@@ -84,6 +90,61 @@ export const retrieveAllGroups = () => async (dispatch) => {
 
 
 
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+export const setTheGroupUpdate = (name, group_id) => async (dispatch) => {
+
+  // console.log("##############  OUTER UPDATE BUG THUNK  #########################");
+
+  const response = await fetch(`/api/groups/update/${group_id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name
+    }),
+  });
+
+  if (response.ok) {
+    console.log("#############  INNER UPDATE BUG THUNK  #################");
+    const data = await response.json();
+    console.log(data);
+    dispatch(setGroupUpdate(data))
+    return null
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors
+    }
+  } else {
+    return ['An error occurred. Please try again.']
+  }
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+export const removeTheGroup = (dbpk_id) => async (dispatch) => {
+  const response = await fetch(`/api/groups/delete/${dbpk_id}`, {
+    method: 'DELETE'
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(removeGroup(data))
+    return null
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors
+    }
+  } else {
+    return ['An error occurred. Please try again.']
+  }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // export const deleteBug = (dbpk_id) => async (dispatch) => {
 //   const response = await fetch(`/api/bugs/delete/${dbpk_id}`);
 
@@ -124,18 +185,37 @@ export const resetAllGroupItems = () => async (dispatch) => {
 const initialState = { selectedGroupId: null, newlyAddedGroup: null, allGroups: null }
 
 export default function reducer(state = initialState, action) {
+  let newState;
   switch (action.type) {
     case SET_GROUP:
       state.allGroups[action.payload["dbpk_id"]] = action.payload["new_group"];
       return { newlyAddedGroup: action.payload, allGroups: { ...state.allGroups } }
     case SET_ALL_GROUPS:
       return { ...state, allGroups: action.payload }
-    // case DELETE_BUG:
-    //   let newState = {...state}
-    //   delete newState[action.payload]
-    //   return newState
-    // case SELECTED_BUG:
-    //   return { ...state, selectedBugId: action.payload }
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    case UPDATE_GROUP:
+      newState = { ...state, newlyAddedGroup: { ...state.newlyAddedGroup }, allGroups: { ...state.allGroups } }
+      newState.allGroups[action.payload["dbpk_id"]] = action.payload["updated_group"];
+      return newState;
+
+
+
+    case DELETE_GROUP:
+      newState = { ...state, newlyAddedGroup: { ...state.newlyAddedGroup }, allGroups: { ...state.allGroups } };
+      delete newState.allGroups[action.payload["id_of_group_deleted"]];
+      return newState;
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
     case RESET_ALL:
       return { ...state, selectedGroupId: null, newlyAddedGroup: null, allGroups: null }
     default:
