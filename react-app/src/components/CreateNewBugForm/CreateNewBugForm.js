@@ -7,7 +7,7 @@ import { createNewBug, retrieveAllBugs } from '../../store/bug';
 const CreateNewBugForm = ({ showFunc }) => {
   const [errors, setErrors] = useState([]);
   const [userId, setUserId] = useState(0);
-  const [groupId, setGroupId] = useState(0);
+  // const [groupId, setGroupId] = useState(0);
   // const [dateCreated, setDateCreated] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -16,6 +16,13 @@ const CreateNewBugForm = ({ showFunc }) => {
   // const [isButtonReady, setIsButtonReady] = useState(true)
   const user = useSelector(state => state.session.user);
   const allGroups = useSelector(state => state.group.allGroups);
+  /////////////////////////////////////////////////////////////
+  let tempGroupVals;
+  if (allGroups) {
+    tempGroupVals = Object.values(allGroups)
+  }
+  const [groupId, setGroupId] = useState(tempGroupVals.length ? tempGroupVals[0]["id"] : 0);
+  /////////////////////////////////////////////////////////////
   const dispatch = useDispatch();
 
 
@@ -110,8 +117,11 @@ const CreateNewBugForm = ({ showFunc }) => {
   // console.log(allGroups);
 
 
-
-
+  useEffect(() => {
+    // let ebens = [];
+    // console.log(!!ebens.length);
+    // console.log(!!0);
+  })
 
 
 
@@ -127,7 +137,7 @@ const CreateNewBugForm = ({ showFunc }) => {
       <div>
         <label htmlFor='group'>Assign to a Group</label>
         <select value={groupId} name='group' onChange={updateGroupId}>
-          <option value={''}>Please Select a Group to Assign To</option>
+          {/* <option value={''}>Please Select a Group to Assign To</option> */}
           {allGroups && allGroupsValues.map((group, index) => (
             <option key={index} value={allGroupsKeys[index]}>{group.name}</option>
           ))}
@@ -169,7 +179,8 @@ const CreateNewBugForm = ({ showFunc }) => {
           ))}
         </select>
       </div>
-      <button type='submit' disabled={!(title && content)}>Create New Bug</button>
+      <button type='submit' disabled={!(title && content) || !groupId}>Create New Bug</button>
+      {!groupId && <div>Please Create a Group First</div>}
     </form>
   );
 };
