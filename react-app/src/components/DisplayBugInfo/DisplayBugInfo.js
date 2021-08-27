@@ -576,7 +576,7 @@ const DisplayBugInfo = () => {
 
 
 
-        <div id="final_in_progress_bugs_label">In Progress</div>
+        <div id="final_in_progress_bugs_label">Assigned / In Progress Bugs</div>
 
         <div className="main_divs" id="dbi_in_progress">
 
@@ -605,7 +605,7 @@ const DisplayBugInfo = () => {
 
 
 
-        <div id="final_completed_bugs_label">Completed</div>
+        <div id="final_completed_bugs_label">Completed Bugs</div>
 
         <div className="main_divs" id="dbi_completed_bugs">
 

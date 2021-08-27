@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { Redirect } from 'react-router-dom';
 import { createNewBug, retrieveAllBugs } from '../../store/bug';
+import './CreateNewBugForm.css';
 
 
 const CreateNewBugForm = ({ showFunc }) => {
   const [errors, setErrors] = useState([]);
   const [userId, setUserId] = useState(0);
-  const [groupId, setGroupId] = useState(0);
+  // const [groupId, setGroupId] = useState(0);
   // const [dateCreated, setDateCreated] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -16,6 +17,13 @@ const CreateNewBugForm = ({ showFunc }) => {
   // const [isButtonReady, setIsButtonReady] = useState(true)
   const user = useSelector(state => state.session.user);
   const allGroups = useSelector(state => state.group.allGroups);
+  /////////////////////////////////////////////////////////////
+  let tempGroupVals;
+  if (allGroups) {
+    tempGroupVals = Object.values(allGroups)
+  }
+  const [groupId, setGroupId] = useState(tempGroupVals.length ? tempGroupVals[0]["id"] : 0);
+  /////////////////////////////////////////////////////////////
   const dispatch = useDispatch();
 
 
@@ -60,8 +68,8 @@ const CreateNewBugForm = ({ showFunc }) => {
   // console.log("User ID: ", userId);
   // console.log(groupId);
   // console.log(title);
-  // console.log(content);
-  console.log(assignee);
+  console.log(content);
+  // console.log(assignee);
 
   const updateTitle = (e) => {
     setTitle(e.target.value);
@@ -110,13 +118,16 @@ const CreateNewBugForm = ({ showFunc }) => {
   // console.log(allGroups);
 
 
-
-
+  useEffect(() => {
+    // let ebens = [];
+    // console.log(!!ebens.length);
+    // console.log(!!0);
+  })
 
 
 
   return (
-    <form onSubmit={onClickSubmit}>
+    <form id="cnbf_form" onSubmit={onClickSubmit}>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
@@ -126,8 +137,8 @@ const CreateNewBugForm = ({ showFunc }) => {
       {/* INPUT FOR GROUP_ID */}
       <div>
         <label htmlFor='group'>Assign to a Group</label>
-        <select value={groupId} name='group' onChange={updateGroupId}>
-          <option value={''}>Please Select a Group to Assign To</option>
+        <select id="cnbf_select_group_id" value={groupId} name='group' onChange={updateGroupId}>
+          {/* <option value={''}>Please Select a Group to Assign To</option> */}
           {allGroups && allGroupsValues.map((group, index) => (
             <option key={index} value={allGroupsKeys[index]}>{group.name}</option>
           ))}
@@ -144,32 +155,42 @@ const CreateNewBugForm = ({ showFunc }) => {
           placeholder='title'
           value={title}
           onChange={updateTitle}
+          maxLength="50"
         />
       </div>
 
-      {/* INPUT FOR CONTENT */}
-      <div>
-        <label htmlFor='content'>Content</label>
-        <input
-          name='content'
-          type='text'
-          placeholder='content'
-          value={content}
-          onChange={updateContent}
-        />
-      </div>
+
 
       {/* INPUT FOR ASSIGNEE */}
       <div>
         <label htmlFor='assignee'>Assignee</label>
-        <select value={assignee} name='assignee' onChange={updateAssignee}>
+        <select id="cnbf_select_assignee" value={assignee} name='assignee' onChange={updateAssignee}>
           <option value={''}>Please Select Assignee</option>
           {employees && employees.map((employee, index) => (
             <option key={index} value={employee}>{employee}</option>
           ))}
         </select>
       </div>
-      <button type='submit' disabled={!(title && content)}>Create New Bug</button>
+
+
+
+      {/* INPUT FOR CONTENT */}
+      <div>
+        <label htmlFor='content'>Content</label>
+        <textarea
+          id="cnbf_textarea_content"
+          name='content'
+          type='text'
+          placeholder='content'
+          value={content}
+          onChange={updateContent}
+          maxLength="500"
+        />
+      </div>
+
+
+      <button type='submit' disabled={!(title && content) || !groupId}>Create New Bug</button>
+      {!groupId && <div>Please Create a Group First</div>}
     </form>
   );
 };
