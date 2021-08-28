@@ -135,8 +135,8 @@ const CreateNewBugForm = ({ showFunc }) => {
       </div>
 
       {/* INPUT FOR GROUP_ID */}
-      <div>
-        <label htmlFor='group'>Assign to a Group</label>
+      <div className="cnbf_line_items">
+        <label htmlFor='group'>*Assign Bug to a Group</label>
         <select id="cnbf_select_group_id" value={groupId} name='group' onChange={updateGroupId}>
           {/* <option value={''}>Please Select a Group to Assign To</option> */}
           {allGroups && allGroupsValues.map((group, index) => (
@@ -147,14 +147,15 @@ const CreateNewBugForm = ({ showFunc }) => {
 
 
       {/* INPUT FOR TITLE */}
-      <div>
-        <label htmlFor='title'>Title</label>
+      <div className="cnbf_line_items">
+        <label htmlFor='title'>*Title</label>
         <input
           name='title'
           type='text'
           placeholder='title'
           value={title}
           onChange={updateTitle}
+          minLength="1"
           maxLength="50"
         />
       </div>
@@ -162,10 +163,10 @@ const CreateNewBugForm = ({ showFunc }) => {
 
 
       {/* INPUT FOR ASSIGNEE */}
-      <div>
+      <div className="cnbf_line_items">
         <label htmlFor='assignee'>Assignee</label>
         <select id="cnbf_select_assignee" value={assignee} name='assignee' onChange={updateAssignee}>
-          <option value={''}>Please Select Assignee</option>
+          <option value={''}>Select Assignee</option>
           {employees && employees.map((employee, index) => (
             <option key={index} value={employee}>{employee}</option>
           ))}
@@ -175,8 +176,8 @@ const CreateNewBugForm = ({ showFunc }) => {
 
 
       {/* INPUT FOR CONTENT */}
-      <div>
-        <label htmlFor='content'>Content</label>
+      <div className="cnbf_line_items">
+        <label htmlFor='content'>*Content</label>
         <textarea
           id="cnbf_textarea_content"
           name='content'
@@ -184,9 +185,14 @@ const CreateNewBugForm = ({ showFunc }) => {
           placeholder='content'
           value={content}
           onChange={updateContent}
+          minLength="1"
           maxLength="500"
         />
       </div>
+
+
+      {/* LABEL FOR REQUIRED INFO */}
+      <div id="denotes_required">* denotes required</div>
 
 
       <button type='submit' disabled={!(title && content) || !groupId}>Create New Bug</button>

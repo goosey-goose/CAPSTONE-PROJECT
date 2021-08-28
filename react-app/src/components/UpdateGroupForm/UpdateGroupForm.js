@@ -94,10 +94,17 @@ const UpdateGroupForm = ({ showFunc }) => {
         </div>
 
 
+
+        <div>
+          Click On A Group To Edit Its Name Or Delete It
+        </div>
+
+
+
         <div id="update_group_list_container">
             {allGroupsValues && allGroupsValues.map((group, index) => (
 
-                <div className="update_group_list_item_divs" data-id={group.id} key={index}>{group.name}
+                <div className="update_group_list_item_divs" data-id={group.id} key={index}><span>{group.name}</span>
                     <input type='text' placeholder='New Group Name' value={groupName} onChange={updateGroupName}></input></div>
 
 
@@ -105,8 +112,11 @@ const UpdateGroupForm = ({ showFunc }) => {
         </div>
 
 
-        <button type='submit' disabled={!groupName}>Update Group Name</button>
-        <button type='button' disabled={!groupId} onClick={deleteGroup}>Delete Group</button>
+        <div id="ugf_buttons_container_div">
+          <button type='submit' disabled={!groupName}>Update Group Name</button>
+          <button type='button' disabled={!groupId} onClick={deleteGroup}>DELETE GROUP</button>
+        </div>
+
         </form>
         {deleteGroupError && <div>*There are bugs currently associated with this group. Please delete them and try again.</div>}
     </div>

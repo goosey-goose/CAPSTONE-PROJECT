@@ -23,7 +23,8 @@
 #modal-content {
   position: absolute;
   background-color:white;
-  height: 50%;
+  height: 38%;
   /* width: 50%; */
   width: 20%;
+  border-radius: 10px;
 }

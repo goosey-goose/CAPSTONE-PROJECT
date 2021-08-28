@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 4%;
+    padding-top: 3%;
 }
 
 #ubf_form div {
@@ -17,6 +17,8 @@
 }
 
 #ubf_form button {
+    height: 32px;
+    width: 125px;
     margin-top: 5%;
     border: none;
     border-radius: 50px;
@@ -31,6 +33,7 @@
     font-family: sans-serif;
     width: 164px;
     height: 260px;
+    resize: none;
 }
 
 #ubf_select_assignee {
@@ -39,4 +42,12 @@
 
 #ubf_buttons_container_div.ubf_test {
     width: 92%;
+}
+
+.ubf_line_items {
+    margin-top: 2%;
+}
+
+#ubf_denotes_required {
+    color: red;
 }
