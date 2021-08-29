@@ -182,6 +182,7 @@ const DisplayBugInfo = () => {
       console.log("3");
       console.log(groupNameFromDiv);
       let tempGroupValues = Object.values(allGroups);
+      console.log(groupNameFromDiv.innerText);
       tempGroupValues.forEach((item) => {
         if (item.name === groupNameFromDiv.innerText) {
           console.log("4");
@@ -434,6 +435,7 @@ const DisplayBugInfo = () => {
     ////////////////////////////////////////////////////
     let specificGroupFilter = document.getElementById("specific_group_filter");
     if (testingYay.current.length >= 1 && specificGroupFilter.innerText !== "") {
+      console.log("JUNGLE CRUISE");
       displayFilteredGroupBugs();
     }
     ////////////////////////////////////////////////////

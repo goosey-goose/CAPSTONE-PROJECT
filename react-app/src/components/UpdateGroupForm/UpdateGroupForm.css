@@ -1,5 +1,6 @@
 #update_group_form_div_container {
     width: 100%;
+    /* border: solid 1px black; */
 }
 
 #update_group_form_div_container form {
@@ -14,7 +15,10 @@
     display: flex;
     flex-direction: column;
     width: 90%;
-    max-height: 25rem;
+    max-height: 21rem;
+    border: solid 1px black;
+    /* border-radius: 5px; */
+    padding-left: 5px;
     overflow-y: auto;
 }
 
@@ -29,12 +33,23 @@
     cursor: pointer;
 }
 
-.update_group_list_item_divs span:hover {
-    background-color: darkgray;
-    border-radius: 5px;
-    width: 70px;
-    padding-left: 10px;
+.update_group_list_item_divs span {
+    width: 100%;
 }
+
+.update_group_list_item_divs span:hover {
+    /* background-color: darkgray;
+    border-radius: 5px;
+    width: 70px; */
+    /* padding-left: 10px; */
+    font-weight: bolder;
+    /* font-size: 20px; */
+    /* color: #2196f3; */
+}
+
+/* .update_group_list_item_divs span:focus {
+    font-weight: bolder;
+} */
 
 .update_group_list_item_divs input {
     padding: 0;
@@ -61,6 +76,16 @@
     cursor: pointer;
 }
 
+#ugf_directive_div {
+    margin-bottom: 10px;
+}
+
 #ugf_buttons_container_div button:hover {
     background-color: darkgray;
+}
+
+#ugf_associated_bugs_error {
+    color: red;
+    margin-top: 11px;
+    margin-left: 17px;
 }

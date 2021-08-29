@@ -24,6 +24,10 @@ const UpdateGroupForm = ({ showFunc }) => {
     if (data) {
       setErrors(data);
     } else {
+      //////////////////////////////////////////
+      let specificGroupFilter = document.getElementById("specific_group_filter");
+      specificGroupFilter.innerText = groupName;
+      //////////////////////////////////////////
       showFunc(false)
     }
   };
@@ -57,6 +61,11 @@ const UpdateGroupForm = ({ showFunc }) => {
 
   const updateGroupName = (e) => {
     setGroupName(e.target.value);
+    allGroupsValues.forEach((group) => {
+      if (e.target.value === group.name) {
+        console.log("NAME ALREADY EXISTS");
+      }
+    })
   }
 
   let displayedInputs = [];
@@ -65,6 +74,7 @@ const UpdateGroupForm = ({ showFunc }) => {
     let updateGroupListItemDivs = document.querySelectorAll(".update_group_list_item_divs");
     updateGroupListItemDivs.forEach((div) => {
         div.addEventListener('click', () => {
+            setDeleteGroupError(false);
             displayedInputs.forEach((inputItem) => {
                 inputItem.style.display="none";
             })
@@ -95,7 +105,7 @@ const UpdateGroupForm = ({ showFunc }) => {
 
 
 
-        <div>
+        <div id="ugf_directive_div">
           Click On A Group To Edit Its Name Or Delete It
         </div>
 
@@ -105,7 +115,7 @@ const UpdateGroupForm = ({ showFunc }) => {
             {allGroupsValues && allGroupsValues.map((group, index) => (
 
                 <div className="update_group_list_item_divs" data-id={group.id} key={index}><span>{group.name}</span>
-                    <input type='text' placeholder='New Group Name' value={groupName} onChange={updateGroupName}></input></div>
+                    <input type='text' minLength="1" maxLength="20" placeholder='New Group Name' value={groupName} onChange={updateGroupName}></input></div>
 
 
             ))}
@@ -118,7 +128,7 @@ const UpdateGroupForm = ({ showFunc }) => {
         </div>
 
         </form>
-        {deleteGroupError && <div>*There are bugs currently associated with this group. Please delete them and try again.</div>}
+        {deleteGroupError && <div id="ugf_associated_bugs_error">*There are bugs currently associated with this group. Please delete them and try again.</div>}
     </div>
   );
 };
