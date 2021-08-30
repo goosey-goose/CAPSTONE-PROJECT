@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import { Redirect } from 'react-router-dom';
 import { createNewGroup } from '../../store/group';  //  EBEN:  CHANGE THIS!!!!!
 import './CreateNewGroupForm.css';
@@ -8,6 +8,8 @@ import './CreateNewGroupForm.css';
 const CreateNewGroupForm = ({ showFunc }) => {
   const [errors, setErrors] = useState([]);
   const [groupName, setGroupName] = useState('');
+  const [groupExistsError2, setGroupExistsError2] = useState(false);
+  let allGroups = useSelector(state => state.group.allGroups);
   const dispatch = useDispatch();
 
 
@@ -24,12 +26,23 @@ const CreateNewGroupForm = ({ showFunc }) => {
   };
 
 
+  let allGroupsValues = Object.values(allGroups);
+
 
   const updateGroupName = (e) => {
+    setGroupExistsError2(false);
     setGroupName(e.target.value);
+
+    allGroupsValues.forEach((group) => {
+      if (e.target.value === group.name) {
+        console.log("NAME ALREADY EXISTS");
+        setGroupExistsError2(true);
+      }
+    })
   }
 
   return (
+    <>
     <form id="cngf_actual_form" onSubmit={onClickSubmit}>
       <div>
         {errors.map((error, ind) => (
@@ -47,11 +60,19 @@ const CreateNewGroupForm = ({ showFunc }) => {
           placeholder='Group Name'
           value={groupName}
           onChange={updateGroupName}
+          minLength="1"
+          maxLength="20"
         />
       </div>
 
-      <button type='submit' disabled={!groupName}>Create New Group</button>
+      <button type='submit' disabled={!groupName || groupExistsError2}>Create New Group</button>
     </form>
+
+
+    {groupExistsError2 && <div id="cngf_group_exists_error">*Group name already exists.</div>}
+
+    </>
+
   );
 };
 

@@ -28,3 +28,9 @@
 #cngf_actual_form button:hover {
     background-color: darkgray;
 }
+
+#cngf_group_exists_error {
+    color: red;
+    margin-left: 17px;
+    margin-top: 11px;
+}
