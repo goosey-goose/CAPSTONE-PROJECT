@@ -96,6 +96,8 @@ const SignUpForm = () => {
             onChange={updateUsername}
             value={username}
             required={true}
+            minLength="1"
+            maxLength="40"
           ></input>
         </div>
         <hr></hr>
@@ -108,6 +110,8 @@ const SignUpForm = () => {
             onChange={updateEmail}
             value={email}
             required={true}
+            minLength="1"
+            maxLength="255"
           ></input>
         </div>
         <hr></hr>
@@ -120,6 +124,8 @@ const SignUpForm = () => {
             onChange={updatePassword}
             value={password}
             required={true}
+            minLength="1"
+            maxLength="20"
           ></input>
         </div>
         <hr></hr>
@@ -132,6 +138,8 @@ const SignUpForm = () => {
             onChange={updateRepeatPassword}
             value={repeatPassword}
             required={true}
+            minLength="1"
+            maxLength="20"
           ></input>
         </div>
         <hr></hr>
@@ -142,7 +150,7 @@ const SignUpForm = () => {
           *Invalid email
         </div>}
         <div className="signup_form_button_div">
-          <button type='submit'>Sign Up</button>
+          <button type='submit' disabled={!username || !email || !password || !repeatPassword}>Sign Up</button>
         </div>
         <div id="signup_form_question" className="signup_form_label">
           <Link id="signup_form_link_to_login" to='/login' exact="true">
