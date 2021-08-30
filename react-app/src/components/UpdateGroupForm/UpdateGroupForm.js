@@ -10,6 +10,7 @@ const UpdateGroupForm = ({ showFunc }) => {
   const [groupName, setGroupName] = useState('');
   const [groupId, setGroupId] = useState();
   const [deleteGroupError, setDeleteGroupError] = useState(false);
+  const [groupExistsError, setGroupExistsError] = useState(false);
   let allGroups = useSelector(state => state.group.allGroups);
   let allBugs = useSelector(state => state.bug.allBugs);
   const dispatch = useDispatch();
@@ -58,10 +59,28 @@ const UpdateGroupForm = ({ showFunc }) => {
 
 
   const updateGroupName = (e) => {
+    if (deleteGroupError) {
+      // setDeleteGroupError(false);
+    }
     setGroupName(e.target.value);
+    console.log(e.target.value);
+    setGroupExistsError(false);
     allGroupsValues.forEach((group) => {
       if (e.target.value === group.name) {
         console.log("NAME ALREADY EXISTS");
+        setGroupExistsError(true);
+        // let groupExistsErrorDiv = document.getElementById("ugf_group_exists_error");
+        // console.log(groupExistsErrorDiv);
+        // groupExistsErrorDiv.innerText = "*Group name already exists.";
+        // groupExistsErrorDiv.style.display="block";
+        // console.log(groupExistsErrorDiv.innerText);
+      } else if (e.target.value !== group.name) {
+        // console.log("THE OFFICE");
+        // console.log(e.target.value);
+        // setGroupExistsError(false);
+        // let groupExistsErrorDiv = document.getElementById("ugf_group_exists_error");
+        // groupExistsErrorDiv.style.display="none";
+        // groupExistsErrorDiv.innerText = "";
       }
     })
   }
@@ -121,12 +140,15 @@ const UpdateGroupForm = ({ showFunc }) => {
 
 
         <div id="ugf_buttons_container_div">
-          <button type='submit' disabled={!groupName}>Update Group Name</button>
+          <button type='submit' disabled={!groupName || groupExistsError}>Update Group Name</button>
           <button type='button' disabled={!groupId} onClick={deleteGroup}>DELETE GROUP</button>
         </div>
 
         </form>
+        {/* <div id="ugf_group_exists_error"></div> */}
         {deleteGroupError && <div id="ugf_associated_bugs_error">*There are bugs currently associated with this group. Please delete them and try again.</div>}
+        {groupExistsError && <div id="ugf_group_exists_error">*Group name already exists.</div>}
+        {/* <div id="ugf_group_exists_error">{" "}</div> */}
     </div>
   );
 };

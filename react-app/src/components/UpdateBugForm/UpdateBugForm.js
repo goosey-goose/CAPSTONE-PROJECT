@@ -256,17 +256,18 @@ const UpdateBugForm = ({ showFunc }) => {
 
 
 
-      {/* LABEL FOR REQUIRED INFO */}
-      {(!groupId || !title || !content) && <div id="ubf_denotes_required">* denotes required</div>}
-
-
-
 
       <div id="ubf_buttons_container_div" className="ubf_test">
         <button type='submit' disabled={!groupId || !title || !content}>UPDATE BUG</button>
 
         {showTheDeleteButton && <button onClick={deleteTheBug}>DELETE BUG</button>}
       </div>
+
+
+      {/* LABEL FOR REQUIRED INFO */}
+      {(!groupId || !title || !content) && <div id="ubf_denotes_required">* denotes required</div>}
+
+
 
     </form>
   );
