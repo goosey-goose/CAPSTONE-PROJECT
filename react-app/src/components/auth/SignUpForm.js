@@ -10,6 +10,7 @@ const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const [doPasswordsMatch, setDoPasswordsMatch] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isEmailVisible, setIsEmailVisible] = useState(false);
   const user = useSelector(state => state.session.user);
@@ -49,6 +50,7 @@ const SignUpForm = () => {
     if (!password && !repeatPassword) {
       setIsVisible(true)
     }
+    // checkIfPasswordsMatch();
   };
 
   const updateRepeatPassword = (e) => {
@@ -56,7 +58,29 @@ const SignUpForm = () => {
     if (!password && !repeatPassword) {
       setIsVisible(true)
     }
+    // checkIfPasswordsMatch();
   };
+
+
+
+  // const checkIfPasswordsMatch = () => {
+  //   if (password === repeatPassword) {
+  //     setDoPasswordsMatch(true);
+  //   } else {
+  //     setDoPasswordsMatch(false);
+  //   }
+  // }
+
+
+  // console.log(doPasswordsMatch);
+
+  // if (password === repeatPassword) {
+  //   setDoPasswordsMatch(true);
+  // } else {
+  //   setDoPasswordsMatch(false);
+  // }
+
+
 
   useEffect(() => {
     checkIfValidEmail();
@@ -70,9 +94,11 @@ const SignUpForm = () => {
       if (password === repeatPassword) {
         matchPasswordDiv.style.color = 'green';
         matchPasswordDiv.innerText = 'Passwords match!'
+        setDoPasswordsMatch(true);
       } else if (password !== repeatPassword) {
         matchPasswordDiv.style.color = 'red';
         matchPasswordDiv.innerText = '*Passwords must match';
+        setDoPasswordsMatch(false);
       }
     }
   })
@@ -146,11 +172,11 @@ const SignUpForm = () => {
         {isVisible && <div id="signup_form_match_passwords">
           *Passwords must match
         </div>}
-        {isEmailVisible && <div id="signup_form_email_error">
+        {/* {isEmailVisible && <div id="signup_form_email_error">
           *Invalid email
-        </div>}
+        </div>} */}
         <div className="signup_form_button_div">
-          <button type='submit' disabled={!username || !email || !password || !repeatPassword}>Sign Up</button>
+          <button type='submit' disabled={!username || !email || !password || !repeatPassword || !doPasswordsMatch}>Sign Up</button>
         </div>
         <div id="signup_form_question" className="signup_form_label">
           <Link id="signup_form_link_to_login" to='/login' exact="true">
