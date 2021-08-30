@@ -25,8 +25,6 @@ const UpdateGroupForm = ({ showFunc }) => {
       setErrors(data);
     } else {
       //////////////////////////////////////////
-      let specificGroupFilter = document.getElementById("specific_group_filter");
-      specificGroupFilter.innerText = groupName;
       //////////////////////////////////////////
       showFunc(false)
     }
