@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 // import { Redirect } from 'react-router-dom';
 import { createNewGroup } from '../../store/group';  //  EBEN:  CHANGE THIS!!!!!
+import './CreateNewGroupForm.css';
 
 
 const CreateNewGroupForm = ({ showFunc }) => {
@@ -29,7 +30,7 @@ const CreateNewGroupForm = ({ showFunc }) => {
   }
 
   return (
-    <form onSubmit={onClickSubmit}>
+    <form id="cngf_actual_form" onSubmit={onClickSubmit}>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
@@ -38,7 +39,7 @@ const CreateNewGroupForm = ({ showFunc }) => {
 
 
       {/* INPUT FOR GROUP NAME */}
-      <div>
+      <div className="cngf_line_items">
         <label htmlFor='groupName'>Group Name</label>
         <input
           name='groupName'
