@@ -11,6 +11,7 @@ import User from './components/User';
 import { authenticate } from './store/session';
 import CreateNewBugForm from './components/CreateNewBugForm/CreateNewBugForm';
 import AboutMeFooter from './components/AboutMeFooter/AboutMeFooter';
+import PageNotFound from './components/PageNotFound/PageNotFound';
 import TestComponent from './components/TestComponent/TestComponent'
 
 function App() {
@@ -56,7 +57,7 @@ function App() {
           <Redirect to="www.google.com"></Redirect>
         </Route> */}
         <Route>
-          Eben, PAGE NOT FOUND!!!!!
+          <PageNotFound />
         </Route>
       </Switch>
     </BrowserRouter>

@@ -1,0 +1,13 @@
+#oops_404 {
+    font-weight: bolder;
+    font-size: 210px;
+}
+
+#oops_404_subtext {
+    font-size: 50px;
+}
+
+#oops_404_home_link {
+    font-size: 25px;
+    margin-top: 90px;
+}
