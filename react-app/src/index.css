@@ -16,3 +16,9 @@ body {
   overflow-y: hidden;
   overflow-x: hidden;
 }
+
+@media all and (max-height: 980px) {
+  body {
+    overflow-y: auto;
+  }
+}

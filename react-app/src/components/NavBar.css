@@ -35,3 +35,19 @@
 #navbar_right_buttons_wrapper {
   margin-right: 2rem;
 }
+
+
+
+
+
+
+
+
+
+@media all and (max-width: 600px) {
+
+  #navbar_div {
+    font-size: 25px;
+  }
+
+}

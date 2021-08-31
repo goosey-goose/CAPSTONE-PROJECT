@@ -27,3 +27,25 @@
     color: white;
     text-decoration: none;
 }
+
+
+
+
+
+@media all and (max-height: 1180px) {
+
+    #about_me_footer {
+        height: 6rem;
+    }
+
+  }
+
+
+
+@media all and (max-height: 660px) {
+
+    #about_me_footer {
+        display: none;
+    }
+
+}

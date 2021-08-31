@@ -6,6 +6,11 @@
     padding-top: 3%;
 }
 
+#cnbf_form label {
+    color: #2196f3;
+    font-weight: bolder;
+}
+
 #cnbf_form div {
     width: 90%;
     display: flex;

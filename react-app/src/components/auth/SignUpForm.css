@@ -1,5 +1,7 @@
 #signup_form_wrapper {
-  height: 51em;
+  /* height: 51em; */
+  height: 61%;
+  min-height: 434px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,8 +11,11 @@
 form#signup_form_actual {
   position: relative;
   border: 1px solid #9e9e9e;
-  height: 70%;
-  width: 25%;
+  /* height: 70%; */
+  height: 560px;
+  min-height: 433px;
+  /* width: 25%; */
+  width: 415px;
 }
 
 #signup_form_errors {
@@ -23,8 +28,9 @@ form#signup_form_actual {
   color: #2196f3;
   font-weight: bold;
   font-size: 5em;
-  margin-top: 36px;
-  margin-bottom: 1em;
+  /* margin-top: 36px; */
+  margin-top: 5%;
+  /* margin-bottom: 1em; */
 }
 
 #signup_form_username_wrapper_div {
@@ -58,19 +64,20 @@ form#signup_form_actual {
 }
 
 .signup_form_label {
-  padding-left: 3em;
+  padding-left: 2em;
   color: #9e9e9e;
   font-size: 25px;
 }
 
 hr {
-  width: 68%;
+  width: 78%;
 }
 
 #signup_form_match_passwords {
   /* visibility: hidden; */
   position: absolute;
-  padding-left: 75px;
+  /* padding-left: 75px; */
+  padding-left: 2em;
   color: red;
 }
 
@@ -108,4 +115,30 @@ hr {
 #signup_form_link_to_login {
   text-decoration: none;
   color: #9e9e9e;
+}
+
+
+
+@media all and (max-height: 1180px) {
+  /* .login_form_button_div {
+    padding-top: 5%;
+  } */
+
+  form#signup_form_actual {
+    height: 433px;
+  }
+
+  #signup_form_username_wrapper_div {
+    margin-top: 3%;
+  }
+
+  .signup_form_button_div button {
+    height: 45px;
+  }
+
+  #signup_form_question {
+    margin-top: 1em;
+  }
+
+
 }
