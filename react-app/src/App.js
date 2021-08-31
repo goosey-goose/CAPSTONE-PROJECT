@@ -40,20 +40,23 @@ function App() {
           <SignUpForm />
           <AboutMeFooter />
         </Route>
-        <ProtectedRoute path='/users' exact={true} >
+        {/* <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
-        </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
+        </ProtectedRoute> */}
+        {/* <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
-        </ProtectedRoute>
+        </ProtectedRoute> */}
         <ProtectedRoute path='/' exact={true} >
           <MainUserPage />
         </ProtectedRoute>
-        <ProtectedRoute path='/bugs/new' exact={true}>
+        {/* <ProtectedRoute path='/bugs/new' exact={true}>
           <CreateNewBugForm />
-        </ProtectedRoute>
-        <Route path='/test-component' exact={true}>
+        </ProtectedRoute> */}
+        {/* <Route path='/test-component' exact={true}>
           <Redirect to="www.google.com"></Redirect>
+        </Route> */}
+        <Route>
+          Eben, PAGE NOT FOUND!!!!!
         </Route>
       </Switch>
     </BrowserRouter>

@@ -14,7 +14,7 @@ bug_routes = Blueprint('bugs', __name__)
 
 # GET ALL BUGGS
 @bug_routes.route('/all')
-# @login_required
+@login_required
 def get_all_bugs():
     bugs = Bug.query.all()
     # bugs = Bug.query.order_by(desc(Bug.id)).all()
@@ -29,7 +29,7 @@ def get_all_bugs():
 
 # GET A SINGLE BUGG
 @bug_routes.route('/bug/<int:id>')
-# @login_required
+@login_required
 def get_single_bug(id):
     queried_bug = Bug.query.get(id)
     # print(dir(queried_bug))
@@ -45,7 +45,7 @@ def get_single_bug(id):
 
 # CREATE A NEW BUGG
 @bug_routes.route('/create', methods=["POST"])
-# @login_required
+@login_required
 def create_new_bug():
 
     form = BugForm()
@@ -77,7 +77,7 @@ def create_new_bug():
 
 ################################ TO UPDATE A BUGG
 @bug_routes.route('/update/<int:id>', methods=["PATCH"])
-# @login_required
+@login_required
 def update_bug(id):
     print("############ API FOR UPDATE BUG ################")
     queried_bug = Bug.query.get(id)
@@ -136,7 +136,7 @@ def update_bug(id):
 
 ################################ TO DELETE A BUGG
 @bug_routes.route('/delete/<int:id>', methods=["DELETE"])
-# @login_required
+@login_required
 def delete_bug(id):
     queried_bug = Bug.query.get(id)
     db.session.delete(queried_bug)
