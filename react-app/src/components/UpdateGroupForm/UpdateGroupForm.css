@@ -78,6 +78,8 @@
 
 #ugf_directive_div {
     margin-bottom: 10px;
+    color: #2196f3;
+    font-weight: bolder;
 }
 
 #ugf_buttons_container_div button:hover {

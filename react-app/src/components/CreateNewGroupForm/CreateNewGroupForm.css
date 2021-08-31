@@ -6,6 +6,11 @@
     padding-top: 3%;
 }
 
+#cngf_actual_form label {
+    color: #2196f3;
+    font-weight: bolder;
+}
+
 .cngf_line_items {
     margin-top: 2%;
 }

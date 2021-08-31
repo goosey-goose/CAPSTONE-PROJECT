@@ -1,6 +1,7 @@
 #dbi_top_div {
   position: relative;
-  left: 12.9rem;
+  /* left: 12.9rem; */
+  margin-left: 8.1%;
   display: inline-block;
   width: 92%;
   height: 90vh;
@@ -128,7 +129,7 @@
 }
 
 .dbi_single_bug, .dbi_progress_bug, .dbi_completed_bug {
-  width: 98%;
+  /* width: 98%; */
   height: 5rem;
   font-weight: bold;
   background-color: white;
