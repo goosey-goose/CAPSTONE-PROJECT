@@ -189,8 +189,8 @@ const UpdateBugForm = ({ showFunc }) => {
       </div>
 
       {/* INPUT FOR GROUP_ID */}
-      <div>
-        <label htmlFor='group'>Assign to a Group</label>
+      <div className="ubf_line_items">
+        <label htmlFor='group'>*Assign Bug to a Group</label>
         <select id="ubf_select_group_id" value={groupId} name='group' onChange={updateGroupId}>
           {/* <option value={''}>Please Select a Group to Assign To</option> */}
           {allGroups && allGroupsValues.map((group, index) => (
@@ -201,24 +201,25 @@ const UpdateBugForm = ({ showFunc }) => {
 
 
       {/* INPUT FOR TITLE */}
-      <div>
-        <label htmlFor='title'>Title</label>
+      <div className="ubf_line_items">
+        <label htmlFor='title'>*Title</label>
         <input
           name='title'
           type='text'
           placeholder='title'
           value={title}
           onChange={updateTitle}
+          minLength="1"
           maxLength="50"
         />
       </div>
 
 
       {/* INPUT FOR ASSIGNEE */}
-      <div>
+      <div className="ubf_line_items">
         <label htmlFor='assignee'>Assignee</label>
         <select id="ubf_select_assignee" value={assignee} name='assignee' onChange={updateAssignee}>
-          <option value={''}>Please Select Assignee</option>
+          <option value={''}>Select Assignee</option>
           {employees && employees.map((employee, index) => (
             <option key={index} value={employee}>{employee}</option>
           ))}
@@ -228,7 +229,7 @@ const UpdateBugForm = ({ showFunc }) => {
 
 
       {/* INPUT FOR COMPLETED */}
-      <div>
+      <div className="ubf_line_items">
         <label htmlFor='completed'>Completion Status</label>
         <select id="ubf_select_completion_status" value={completed} name='completed' onChange={updateCompleted}>
           <option value={0}>Not Completed</option>
@@ -239,8 +240,8 @@ const UpdateBugForm = ({ showFunc }) => {
 
 
       {/* INPUT FOR CONTENT */}
-      <div>
-        <label htmlFor='content'>Content</label>
+      <div className="ubf_line_items">
+        <label htmlFor='content'>*Content</label>
         <textarea
           id="ubf_textarea_content"
           name='content'
@@ -248,6 +249,7 @@ const UpdateBugForm = ({ showFunc }) => {
           placeholder='content'
           value={content}
           onChange={updateContent}
+          minLength="1"
           maxLength="500"
         />
       </div>
@@ -255,14 +257,17 @@ const UpdateBugForm = ({ showFunc }) => {
 
 
 
-
-
-
       <div id="ubf_buttons_container_div" className="ubf_test">
-        <button type='submit'>UPDATE BUG</button>
+        <button type='submit' disabled={!groupId || !title || !content}>UPDATE BUG</button>
 
         {showTheDeleteButton && <button onClick={deleteTheBug}>DELETE BUG</button>}
       </div>
+
+
+      {/* LABEL FOR REQUIRED INFO */}
+      {(!groupId || !title || !content) && <div id="ubf_denotes_required">* denotes required</div>}
+
+
 
     </form>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
@@ -10,6 +10,8 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import CreateNewBugForm from './components/CreateNewBugForm/CreateNewBugForm';
+import AboutMeFooter from './components/AboutMeFooter/AboutMeFooter';
+import PageNotFound from './components/PageNotFound/PageNotFound';
 import TestComponent from './components/TestComponent/TestComponent'
 
 function App() {
@@ -33,25 +35,30 @@ function App() {
       <Switch>
         <Route path='/login' exact={true}>
           <LoginForm />
+          <AboutMeFooter />
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
+          <AboutMeFooter />
         </Route>
-        <ProtectedRoute path='/users' exact={true} >
+        {/* <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
-        </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
+        </ProtectedRoute> */}
+        {/* <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
-        </ProtectedRoute>
+        </ProtectedRoute> */}
         <ProtectedRoute path='/' exact={true} >
           <MainUserPage />
         </ProtectedRoute>
-        <ProtectedRoute path='/bugs/new' exact={true}>
+        {/* <ProtectedRoute path='/bugs/new' exact={true}>
           <CreateNewBugForm />
-        </ProtectedRoute>
-        <ProtectedRoute path='/test-component' exact={true}>
-          <TestComponent></TestComponent>
-        </ProtectedRoute>
+        </ProtectedRoute> */}
+        {/* <Route path='/test-component' exact={true}>
+          <Redirect to="www.google.com"></Redirect>
+        </Route> */}
+        <Route>
+          <PageNotFound />
+        </Route>
       </Switch>
     </BrowserRouter>
   );

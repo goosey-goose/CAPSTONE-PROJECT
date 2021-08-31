@@ -4,28 +4,62 @@ from wtforms.validators import DataRequired, Email, ValidationError
 from app.models import User
 
 
-def user_exists(form, field):
+# def user_exists(form, field):
+#     # Checking if user exists
+#     email = field.data
+#     if '@' not in email:
+#         raise ValidationError('Please provide a valid email address.')
+#     user = User.query.filter(User.email == email).first()
+#     if not user:
+#         raise ValidationError('Email provided not found.')
+
+
+# def password_matches(form, field):
+#     # Checking if password matches
+#     password = field.data
+#     email = form.data['email']
+#     user = User.query.filter(User.email == email).first()
+#     if not user:
+#         raise ValidationError('No such user exists.')
+#     if not user.check_password(password):
+#         raise ValidationError('Password was incorrect.')
+
+
+# class LoginForm(FlaskForm):
+#     email = StringField('email', validators=[DataRequired(), user_exists])
+#     password = StringField('password', validators=[
+#                            DataRequired(), password_matches])
+
+
+
+
+
+
+
+def user_and_password_exist(form, field):
     # Checking if user exists
     email = field.data
+    password = form.data['password']
+    user = User.query.filter(User.email == email).first()
     if '@' not in email:
         raise ValidationError('Please provide a valid email address.')
-    user = User.query.filter(User.email == email).first()
-    if not user:
-        raise ValidationError('Email provided not found.')
+    if not user or not user.check_password(password):
+        raise ValidationError('Email and/or password are incorrect.')
 
 
-def password_matches(form, field):
+# def password_matches(form, field):
     # Checking if password matches
-    password = field.data
-    email = form.data['email']
-    user = User.query.filter(User.email == email).first()
-    if not user:
-        raise ValidationError('No such user exists.')
-    if not user.check_password(password):
-        raise ValidationError('Password was incorrect.')
+    # password = field.data
+    # email = form.data['email']
+    # user = User.query.filter(User.email == email).first()
+    # if not user:
+    #     raise ValidationError('No such user exists.')
+    # if not user.check_password(password):
+    #     raise ValidationError('Password was incorrect.')
+
 
 
 class LoginForm(FlaskForm):
-    email = StringField('email', validators=[DataRequired(), user_exists])
+    email = StringField('email', validators=[DataRequired(), user_and_password_exist])
     password = StringField('password', validators=[
-                           DataRequired(), password_matches])
+                           DataRequired()])

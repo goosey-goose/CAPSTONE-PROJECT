@@ -68,6 +68,8 @@ const LoginForm = () => {
           value={email}
           required={true}
           onChange={updateEmail}
+          minLength="1"
+          maxLength="255"
         />
       </div>
       <hr></hr>
@@ -81,11 +83,13 @@ const LoginForm = () => {
           value={password}
           required={true}
           onChange={updatePassword}
+          minLength="1"
+          maxLength="20"
         />
       </div>
       <hr></hr>
         <div className="login_form_button_div">
-          <button type='submit'>Login</button>
+          <button type='submit' disabled={!email || !password}>Login</button>
         </div>
         <div id="login_form_question" className="login_form_label">
           <Link id="login_form_link_to_signup" to='/sign-up' exact="true">

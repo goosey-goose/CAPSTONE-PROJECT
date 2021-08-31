@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 4%;
+    padding-top: 3%;
 }
 
 #cnbf_form div {
@@ -13,6 +13,8 @@
 }
 
 #cnbf_form button {
+    height: 32px;
+    width: 125px;
     margin-top: 5%;
     border: none;
     border-radius: 50px;
@@ -27,8 +29,17 @@
     font-family: sans-serif;
     width: 164px;
     height: 260px;
+    resize: none;
 }
 
 #cnbf_select_assignee, #cnbf_select_group_id {
     width: 170px;
+}
+
+.cnbf_line_items {
+    margin-top: 2%;
+}
+
+#denotes_required {
+    color: red;
 }

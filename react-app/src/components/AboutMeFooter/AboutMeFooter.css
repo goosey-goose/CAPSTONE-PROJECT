@@ -1,0 +1,29 @@
+#about_me_footer {
+    position: absolute;
+    bottom: 9px;
+    width: 99.35%;
+    height: 8rem;
+    margin-right: 8px;
+    background-color: #2196f3;
+    display: flex;
+    justify-content: center;
+}
+
+#amf_links_container {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+}
+
+#amf_links_container button {
+    border: none;
+    background: none;
+    font-size: 85px;
+    color: white;
+    cursor: pointer;
+}
+
+#amf_links_container button a {
+    color: white;
+    text-decoration: none;
+}

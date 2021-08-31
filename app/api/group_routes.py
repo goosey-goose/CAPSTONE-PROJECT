@@ -11,7 +11,7 @@ group_routes = Blueprint('groups', __name__)
 
 # GET ALL GROUPS
 @group_routes.route('/all')
-# @login_required
+@login_required
 def get_all_groups():
     groups = Group.query.all()
     return { group.id: group.to_dict() for group in groups }
@@ -24,7 +24,7 @@ def get_all_groups():
 
 # CREATE A NEW GROUP
 @group_routes.route('/create', methods=["POST"])
-# @login_required
+@login_required
 def create_new_group():
     # print("###########  JUST OUTSIDE GROUP ROUTES FORM VALIDATION  ########")
     form = GroupForm()
@@ -69,7 +69,7 @@ def create_new_group():
 
 # UPDATE A GROUP
 @group_routes.route('/update/<int:id>', methods=["PATCH"])
-# @login_required
+@login_required
 def update_group(id):
     queried_group = Group.query.get(id)
     form = GroupForm()
@@ -96,7 +96,7 @@ def update_group(id):
 
 # DELETE A GROUP
 @group_routes.route('/delete/<int:id>', methods=["DELETE"])
-# @login_required
+@login_required
 def delete_group(id):
     queried_group = Group.query.get(id)
     db.session.delete(queried_group)

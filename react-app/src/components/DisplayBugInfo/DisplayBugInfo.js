@@ -154,6 +154,7 @@ const DisplayBugInfo = () => {
     let specificGroupFilter = document.getElementById("specific_group_filter");
     specificGroupFilter.style.display="none";
     specificGroupFilter.innerText = "";
+    // specificGroupFilter.setAttribute("data-g-id", )
 
     let resetGroupView = document.getElementById("reset_group_view");
     resetGroupView.style.display="none";
@@ -165,10 +166,10 @@ const DisplayBugInfo = () => {
 
   // THIS FUNCTION IS DERIVED FROM THE CORE OF setGroupsWithButtons()
   const displayFilteredGroupBugs = () => {
-    console.log("1");
+    // console.log("1");
     if (testingYay.current.length >= 1) {
-      console.log("2");
-      console.log(testingYay.current);
+      // console.log("2");
+      // console.log(testingYay.current);
       testingYay.current.forEach((div) => {
         div.style.display="block";
       })
@@ -179,15 +180,19 @@ const DisplayBugInfo = () => {
     let temporaryGroupId;
     let groupNameFromDiv = document.getElementById("specific_group_filter");
     if (groupNameFromDiv.innerText !== "") {
-      console.log("3");
-      console.log(groupNameFromDiv);
+      // console.log("3");
+      // console.log(groupNameFromDiv);
       let tempGroupValues = Object.values(allGroups);
+      // console.log(groupNameFromDiv.innerText);
+      let groupIdFromDiv = groupNameFromDiv.getAttribute("data-g-id");
+      groupIdFromDiv = parseInt(groupIdFromDiv);
       tempGroupValues.forEach((item) => {
-        if (item.name === groupNameFromDiv.innerText) {
-          console.log("4");
-          console.log(item);
+        // if (item.name === groupNameFromDiv.innerText) {
+        if (item.id === groupIdFromDiv) {
+          // console.log("4");
+          // console.log(item);
           temporaryGroupId = item.id;
-          console.log(temporaryGroupId);
+          // console.log(temporaryGroupId);
         }
       })
     }
@@ -195,7 +200,7 @@ const DisplayBugInfo = () => {
 
     let dataId = temporaryGroupId;
     dataId = dataId.toString();
-    console.log(typeof(dataId));
+    // console.log(typeof(dataId));
     let dataIdGroupName = allGroups[dataId].name;
     selectedGroupNameId.current = dataId;
 
@@ -294,6 +299,7 @@ const DisplayBugInfo = () => {
         let specificGroupFilter = document.getElementById("specific_group_filter");
         specificGroupFilter.style.display="block";
         specificGroupFilter.innerText = dataIdGroupName;
+        specificGroupFilter.setAttribute("data-g-id", dataId);
 
         let resetGroupView = document.getElementById("reset_group_view");
         resetGroupView.style.display="block";
@@ -434,6 +440,8 @@ const DisplayBugInfo = () => {
     ////////////////////////////////////////////////////
     let specificGroupFilter = document.getElementById("specific_group_filter");
     if (testingYay.current.length >= 1 && specificGroupFilter.innerText !== "") {
+      console.log("JUNGLE CRUISE");
+      console.log(specificGroupFilter.innerText);
       displayFilteredGroupBugs();
     }
     ////////////////////////////////////////////////////
