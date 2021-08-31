@@ -628,7 +628,7 @@ const DisplayBugInfo = () => {
                   <div className="dbi_status_indicator">
 
                   </div>
-                  <div className="corner_information">Date Completed:&nbsp;&nbsp;&nbsp; <span>{bug.date_resolved.slice(0, -12)}</span></div>
+                  {/* <div className="corner_information">Date Completed:&nbsp;&nbsp;&nbsp; <span>{bug.date_resolved.slice(0, -12)}</span></div> */}
                 </div>
               </div>
 
