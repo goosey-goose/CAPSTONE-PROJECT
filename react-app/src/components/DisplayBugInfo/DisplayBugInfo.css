@@ -218,3 +218,14 @@
   justify-content: center;
   font-weight: bold;
 }
+
+
+
+
+
+
+@media all and (max-width: 110rem) {
+  #dbi_actual_welcome_div {
+    font-size: 2em;
+  }
+}
