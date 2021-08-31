@@ -27,5 +27,6 @@
   height: 471px;
   /* width: 50%; */
   width: 20%;
+  min-width: 32em;
   border-radius: 10px;
 }
