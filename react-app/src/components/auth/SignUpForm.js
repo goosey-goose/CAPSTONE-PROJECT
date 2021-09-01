@@ -31,7 +31,10 @@ const SignUpForm = () => {
   };
 
   const checkIfValidEmail = () => {
-    const re = /[A-Za-z0-9_]+@[A-Za-z0-9_]+.com$/;
+    // const re = /[A-Za-z0-9_]+@[A-Za-z0-9_]+.com$/;
+    // const re = /[A-Za-z0-9_]+@[A-Za-z0-9_]+.[A-Za-z0-9_]+/;
+    // const re = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-zA-Z0-9.-]+$/;
+    const re = /^([a-zA-Z0-9_\.-]+)@([a-zA-Z0-9_-]+)\.([a-zA-Z0-9]{2,8})(\.[a-zA-Z0-9]{2,8})?$/;
 
     if (!email) {
       setIsEmailVisible(false)
@@ -172,11 +175,11 @@ const SignUpForm = () => {
         {isVisible && <div id="signup_form_match_passwords">
           *Passwords must match
         </div>}
-        {/* {isEmailVisible && <div id="signup_form_email_error">
+        {isEmailVisible && <div id="signup_form_email_error">
           *Invalid email
-        </div>} */}
+        </div>}
         <div className="signup_form_button_div">
-          <button type='submit' disabled={!username || !email || !password || !repeatPassword || !doPasswordsMatch}>Sign Up</button>
+          <button type='submit' disabled={!username || !email || !password || !repeatPassword || !doPasswordsMatch || isEmailVisible}>Sign Up</button>
         </div>
         <div id="signup_form_question" className="signup_form_label">
           <Link id="signup_form_link_to_login" to='/login' exact="true">
