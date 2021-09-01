@@ -150,6 +150,7 @@ const CreateNewBugForm = ({ showFunc }) => {
       <div className="cnbf_line_items">
         <label htmlFor='title'>*Title</label>
         <input
+          id="cnbf_input_element_for_title"
           name='title'
           type='text'
           placeholder='title'
