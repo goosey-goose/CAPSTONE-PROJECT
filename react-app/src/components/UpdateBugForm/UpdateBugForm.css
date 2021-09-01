@@ -56,3 +56,8 @@
 #ubf_input_element_for_title {
     width: 162px;
 }
+
+#ubf_form label {
+    color: #2196f3;
+    font-weight: bolder;
+}
