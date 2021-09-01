@@ -204,6 +204,7 @@ const UpdateBugForm = ({ showFunc }) => {
       <div className="ubf_line_items">
         <label htmlFor='title'>*Title</label>
         <input
+          id="ubf_input_element_for_title"
           name='title'
           type='text'
           placeholder='title'

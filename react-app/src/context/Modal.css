@@ -25,6 +25,7 @@
   background-color:white;
   /* height: 38%; */
   height: 471px;
+  min-height: 32em;
   /* width: 50%; */
   width: 20%;
   min-width: 32em;
