@@ -3,9 +3,15 @@
   height: 61%;
   min-height: 434px;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
   justify-content: center;
+}
+
+#signup_form_wrapper_large_graphic {
+  font-size: 23rem;
+  color: #2196f3;
+  margin-right: 5rem;
 }
 
 form#signup_form_actual {
@@ -16,6 +22,7 @@ form#signup_form_actual {
   min-height: 433px;
   /* width: 25%; */
   width: 415px;
+  min-width: 415px;
 }
 
 #signup_form_errors {
@@ -142,4 +149,12 @@ hr {
   }
 
 
+}
+
+
+
+@media all and (max-width: 700px) {
+  #signup_form_wrapper_large_graphic {
+    font-size: 11rem;
+  }
 }

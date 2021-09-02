@@ -3,9 +3,15 @@
   height: 61%;
   min-height: 416px;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
   justify-content: center;
+}
+
+#login_form_wrapper_large_graphic {
+  font-size: 23rem;
+  color: #2196f3;
+  margin-right: 5rem;
 }
 
 form#login_form_actual {
@@ -16,6 +22,7 @@ form#login_form_actual {
   min-height: 415px;
   /* width: 25%; */
   width: 415px;
+  min-width: 415px;
 }
 
 #login_form_errors {
@@ -128,5 +135,13 @@ hr {
 @media all and (max-width: 2000px) {
   form#login_form_actual {
     /* width: 415px; */
+  }
+}
+
+
+
+@media all and (max-width: 700px) {
+  #login_form_wrapper_large_graphic {
+    font-size: 11rem;
   }
 }
