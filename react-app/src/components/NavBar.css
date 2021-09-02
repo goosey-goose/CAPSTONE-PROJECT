@@ -1,6 +1,6 @@
 #navbar_div {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   /* background-color: #1CC5DC; */
   background-color: #2196f3;
   font-size: 2rem;
@@ -24,6 +24,14 @@
   color: white;
 }
 
+#navbar_div_middle_description {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
 #navbar_div_left {
   display: flex;
   align-items: center;
@@ -44,7 +52,7 @@
 
 
 
-@media all and (max-width: 600px) {
+@media all and (max-width: 900px) {
 
   #navbar_div {
     font-size: 25px;

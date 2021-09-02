@@ -17,6 +17,9 @@ const NavBar = () => {
             WatchIt
           </NavLink>
         </div>
+        <div id="navbar_div_middle_description">
+          A Bug Tracker App
+        </div>
         {!user && <div id="navbar_div_right">
           <div id="navbar_right_buttons_wrapper">
             <NavLink className="main_nav_buttons_right" to='/login' exact={true} activeClassName='active'>
