@@ -197,7 +197,7 @@ const CreateNewBugForm = ({ showFunc }) => {
 
 
       <button type='submit' disabled={!(title && content) || !groupId}>Create New Bug</button>
-      {!groupId && <div>Please Create a Group First</div>}
+      {!groupId && <div id="cnbf_please_create_a_group_first">*Please Create a Group First</div>}
     </form>
   );
 };
