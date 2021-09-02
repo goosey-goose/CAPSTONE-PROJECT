@@ -166,6 +166,22 @@ const DisplayBugInfo = () => {
 
   // THIS FUNCTION IS DERIVED FROM THE CORE OF setGroupsWithButtons()
   const displayFilteredGroupBugs = () => {
+    let groupNameFromDiv = document.getElementById("specific_group_filter");
+    /////////////////////////////////////////////////
+    let veryTempGroupName = groupNameFromDiv.innerText;
+    let veryTempAllGroupsValues = Object.values(allGroups);
+    // let veryTempBoolean = false;
+    let veryTempCount = 0;
+    veryTempAllGroupsValues.forEach((group) => {
+      if (group.name === veryTempGroupName) {
+        ++veryTempCount;
+      }
+    })
+    if (veryTempCount === 0) {
+      showAllGroupBugs();
+      return;
+    }
+    /////////////////////////////////////////////////
     // console.log("1");
     if (testingYay.current.length >= 1) {
       // console.log("2");
@@ -178,7 +194,7 @@ const DisplayBugInfo = () => {
 
     //////////////////
     let temporaryGroupId;
-    let groupNameFromDiv = document.getElementById("specific_group_filter");
+    // let groupNameFromDiv = document.getElementById("specific_group_filter");
     if (groupNameFromDiv.innerText !== "") {
       // console.log("3");
       // console.log(groupNameFromDiv);
