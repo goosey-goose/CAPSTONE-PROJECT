@@ -60,6 +60,7 @@ const UpdateGroupForm = ({ showFunc }) => {
             showFunc(false);
             let veryTempGroups = Object.values(allGroups);
             if (veryTempGroups.length === 1) {
+            // if (true) {
               // console.log("SEPTEMBER");
               let specificGFilter = document.getElementById("specific_group_filter");
               specificGFilter.innerText = "";
@@ -77,6 +78,7 @@ const UpdateGroupForm = ({ showFunc }) => {
                 sGFilter.innerText = "";
               }
             }
+
             // return <Redirect to='/' />;
         }
     }

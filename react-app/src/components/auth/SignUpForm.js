@@ -112,7 +112,14 @@ const SignUpForm = () => {
 
   return (
     <div id="signup_form_wrapper">
-      <i id="signup_form_wrapper_large_graphic" className="fas fa-bug"></i>
+      <div id="logo_and_ul_wrapper">
+        <i id="signup_form_wrapper_large_graphic" className="fas fa-bug"></i>
+        <ul>
+          <li>Track Software Bugs</li>
+          <li>Assign Them to Groups</li>
+          <li>Keep Your Software Healthy</li>
+        </ul>
+      </div>
       <form id="signup_form_actual" onSubmit={onSignUp}>
         <div id="signup_form_logo">
           Sign Up
