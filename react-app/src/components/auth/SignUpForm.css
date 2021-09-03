@@ -8,10 +8,25 @@
   justify-content: center;
 }
 
+#logo_and_ul_wrapper {
+  display: flex;
+  flex-direction: column;
+  min-width: 448px;
+}
+
+#logo_and_ul_wrapper ul {
+  font-size: 2rem;
+  padding-left: 17px;
+  margin-bottom: 0;
+  list-style-type: none;
+  color: #2196f3;
+}
+
 #signup_form_wrapper_large_graphic {
   font-size: 23rem;
   color: #2196f3;
-  margin-right: 5rem;
+  /* margin-right: 5rem; */
+  padding-left: 2rem;
 }
 
 form#signup_form_actual {
@@ -146,6 +161,11 @@ hr {
 
   #signup_form_question {
     margin-top: 1em;
+  }
+
+  #signup_form_wrapper_large_graphic {
+    font-size: 13rem;
+    padding-left: 7rem;
   }
 
 

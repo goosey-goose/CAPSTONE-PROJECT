@@ -52,3 +52,9 @@
 #cnbf_input_element_for_title {
     width: 162px;
 }
+
+
+#cnbf_please_create_a_group_first {
+    color: red;
+    margin-top: 2%;
+}

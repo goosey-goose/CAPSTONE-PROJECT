@@ -49,7 +49,14 @@ const LoginForm = () => {
 
   return (
     <div id="login_form_wrapper">
-      <i id="login_form_wrapper_large_graphic" className="fas fa-bug"></i>
+      <div id="login_form_logo_and_ul_wrapper">
+        <i id="login_form_wrapper_large_graphic" className="fas fa-bug"></i>
+        <ul>
+          <li>Track Software Bugs</li>
+          <li>Assign Them to Groups</li>
+          <li>Keep Your Software Healthy</li>
+        </ul>
+      </div>
       <form id="login_form_actual" onSubmit={onLogin}>
       {/* <div id="login_form_errors">
         {errors.map((error, ind) => (

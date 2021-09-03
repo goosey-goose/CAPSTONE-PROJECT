@@ -8,10 +8,25 @@
   justify-content: center;
 }
 
+#login_form_logo_and_ul_wrapper {
+  display: flex;
+  flex-direction: column;
+  min-width: 448px;
+}
+
+#login_form_logo_and_ul_wrapper ul {
+  font-size: 2rem;
+  padding-left: 17px;
+  margin-bottom: 0;
+  list-style-type: none;
+  color: #2196f3;
+}
+
 #login_form_wrapper_large_graphic {
   font-size: 23rem;
   color: #2196f3;
-  margin-right: 5rem;
+  /* margin-right: 5rem; */
+  padding-left: 2rem;
 }
 
 form#login_form_actual {
@@ -129,6 +144,11 @@ hr {
 
   form#login_form_actual {
     height: 415px;
+  }
+
+  #login_form_wrapper_large_graphic {
+    font-size: 13rem;
+    padding-left: 7rem;
   }
 }
 
