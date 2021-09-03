@@ -49,8 +49,27 @@ const UpdateGroupForm = ({ showFunc }) => {
         if (data) {
             setErrors(data);
         } else {
+            // let veryTempGroups = Object.values(allGroups);
+            // console.log(veryTempGroups);
+            // if (veryTempGroups.length === 1) {
+            //   console.log("SEPTEMBER");
+            //   let specificGFilter = document.getElementById("specific_group_filter");
+            //   specificGFilter.innerText = "";
+            // }
             setDeleteGroupError(false);
-            showFunc(false)
+            showFunc(false);
+            let veryTempGroups = Object.values(allGroups);
+            if (veryTempGroups.length === 1) {
+              // console.log("SEPTEMBER");
+              let specificGFilter = document.getElementById("specific_group_filter");
+              specificGFilter.innerText = "";
+
+              let resetGroupView = document.getElementById("reset_group_view");
+              resetGroupView.style.display="none";
+
+              let availableGroupsLabel = document.getElementById("available_groups_label");
+              availableGroupsLabel.style.justifyContent="center";
+            }
             // return <Redirect to='/' />;
         }
     }
