@@ -70,6 +70,13 @@ const UpdateGroupForm = ({ showFunc }) => {
               let availableGroupsLabel = document.getElementById("available_groups_label");
               availableGroupsLabel.style.justifyContent="center";
             }
+
+            if (allBugsValues.length === 0) {
+              let sGFilter = document.getElementById("specific_group_filter");
+              if (sGFilter.innerText !== "") {
+                sGFilter.innerText = "";
+              }
+            }
             // return <Redirect to='/' />;
         }
     }
